@@ -1,0 +1,19 @@
+.container{
+    position: relative;
+    max-width: 400px;
+    min-height: 100%;
+    flex-basis: 100px;
+    flex-grow: 1;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-family: "Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    color: #333;
+}
+.wrapper{
+    background: #eee;
+    display: flex;
+}
+.header{
+
+}
