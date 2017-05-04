@@ -8,9 +8,7 @@ const createEnvVarArray = () => {
     const o = {}
     ;['NODE_ENV', 'SOURCE_URL', 'BASE_PATH']
         .filter(name => name in process.env)
-        .forEach(
-            name => (o[`process.env.${name}`] = `${String(process.env[name])}`)
-        )
+        .forEach(name => (o[`process.env.${name}`] = `"${process.env[name]}"`))
 
     return o
 }
