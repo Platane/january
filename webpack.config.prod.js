@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const createEnvVarArray = () => {
     const o = {}
-    ;['NODE_ENV', 'SOURCE_URL', 'BASE_PATH']
+    ;['NODE_ENV', 'BASE_PATH']
         .filter(name => name in process.env)
         .forEach(name => (o[`process.env.${name}`] = `"${process.env[name]}"`))
 
@@ -20,6 +20,18 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: '[hash:8].js',
     },
+
+    // resolve: {
+    //     alias: {
+    //         react: path.join(
+    //             __dirname,
+    //             'node_modules',
+    //             'react',
+    //             'dist',
+    //             'react.min.js'
+    //         ),
+    //     },
+    // },
 
     module: {
         rules: [
@@ -92,6 +104,13 @@ module.exports = {
     },
 
     plugins: [
+        new ExtractTextPlugin({
+            filename: '[contenthash:8].css',
+            allChunks: true,
+        }),
+
+        new webpack.DefinePlugin(createEnvVarArray()),
+
         new UglifyJSPlugin(),
 
         // write stats
@@ -104,11 +123,17 @@ module.exports = {
             )
         },
 
-        new ExtractTextPlugin({
-            filename: '[contenthash:8].css',
-            allChunks: true,
-        }),
-
-        new webpack.DefinePlugin(createEnvVarArray()),
+        // force fail on error
+        function() {
+            this.plugin('done', stats => {
+                if (
+                    stats.compilation.errors &&
+                    stats.compilation.errors.length
+                ) {
+                    console.log(stats.compilation.errors)
+                    process.exit(1)
+                }
+            })
+        },
     ],
 }

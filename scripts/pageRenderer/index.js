@@ -43,16 +43,19 @@ export const writePages = (
     }
 
     // write the about page
-    fs.writeFileSync(
-        path.join('dist', 'about.html'),
-        render(links, [action.hydratePost(posts), action.goToAbout()])
-    )
+    const about_page = render(links, [
+        action.hydratePost(posts),
+        action.goToAbout(),
+    ])
+    fs.writeFileSync(path.join('dist', 'about.html'), about_page)
+    fs.writeFileSync(path.join('dist', 'about'), about_page)
 
     // write the home page
-    fs.writeFileSync(
-        path.join('dist', 'index.html'),
-        render(links, [action.hydratePost(posts), action.goToHome()])
-    )
+    const home_page = render(links, [
+        action.hydratePost(posts),
+        action.goToHome(),
+    ])
+    fs.writeFileSync(path.join('dist', 'index.html'), home_page)
 
     // for each post, write the page and json data
     posts.forEach(post => {
@@ -63,14 +66,14 @@ export const writePages = (
         )
 
         // html render
-        {
-            fs.writeFileSync(
-                path.join('dist', 'post', post.id + '.html'),
-                render(links, [
-                    action.hydratePost(posts),
-                    action.goToPost(post.id),
-                ])
-            )
-        }
+        const post_page = render(links, [
+            action.hydratePost(posts),
+            action.goToPost(post.id),
+        ])
+        fs.writeFileSync(
+            path.join('dist', 'post', post.id + '.html'),
+            post_page
+        )
+        fs.writeFileSync(path.join('dist', 'post', post.id), post_page)
     })
 }
