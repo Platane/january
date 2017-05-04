@@ -37,7 +37,7 @@ let store
             : []),
         applyMiddleware(...middlewares),
     ]
-    store = createStore(reduce, compose(...enhancers), window._initState)
+    store = createStore(reduce, window._initState, compose(...enhancers))
 }
 
 ;[initUI, initRouter].forEach(init => init(store))
