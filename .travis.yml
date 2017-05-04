@@ -8,16 +8,22 @@ node_js:
 cache:
     yarn: true
 
+
 install:
     - yarn --pure-lockfile --ignore-scripts
 
 script:
     - yarn run build
+    - ls -l dist
 
 deploy:
     provider: pages
-    local_dir: dist
-    skip_cleanup: false
+    local_dir: ./dist
+    skip_cleanup: true
     github_token: $GITHUB_TOKEN
     on:
         branch: master
+
+
+notifications:
+    email: false

@@ -1,0 +1,1 @@
+[![Travis](https://img.shields.io/travis/Platane/january.svg?style=flat-square)](https://travis-ci.org/Platane/january)
