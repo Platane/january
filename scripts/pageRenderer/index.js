@@ -24,21 +24,22 @@ export const writePages = (
     safeMkdir(path.join(options.targetDir, 'post'))
 
     // get the base path as env var
-    const BASE_PATH = (process.env.BASE_PATH || '/')
-        .split('/')
-        .filter(Boolean)
-        .join('/')
+    const BASE_PATH = (process.env.BASE_PATH || '/').split('/').filter(Boolean)
 
     // read the link in the webpackStat file
     const webpackStat = JSON.parse(
         fs.readFileSync(options.webpackStatPath).toString()
     )
 
+    const buildPath = file => '/' + [...BASE_PATH, file].join('/')
+
     const links = {
-        appScript: `/${BASE_PATH}/` +
-            webpackStat.chunks[0].files.find(x => x.match(/\.js$/)),
-        appStyle: `/${BASE_PATH}/` +
-            webpackStat.chunks[0].files.find(x => x.match(/\.css$/)),
+        appScript: buildPath(
+            webpackStat.chunks[0].files.find(x => x.match(/\.js$/))
+        ),
+        appStyle: buildPath(
+            webpackStat.chunks[0].files.find(x => x.match(/\.css$/))
+        ),
     }
 
     // write the about page
