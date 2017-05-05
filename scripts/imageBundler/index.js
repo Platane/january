@@ -72,14 +72,14 @@ export const bundle = async (
 
             return {
                 dimension,
-                url: path.join('/', name),
+                url: path.join('/', process.env.BASE_PATH || '', name),
             }
         })
     )
 
     return {
         source: {
-            url: path.join('/', source_name),
+            url: path.join('/', process.env.BASE_PATH || '', source_name),
             dimension,
         },
         resized,
