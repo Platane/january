@@ -1,3 +1,5 @@
+import type { ImageBundle } from '../scripts/imageBundler'
+
 export type PostType = 'update' | 'essential'
 
 export type User = {
@@ -15,7 +17,8 @@ export type Location = {
 export type MediaImage = {
     type: 'image',
     name: string,
-    url: string,
+    image: ?ImageBundle,
+    localPath: string,
 }
 
 export type Media = MediaImage

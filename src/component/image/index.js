@@ -1,10 +1,15 @@
 import React from 'react'
 import style from './style.css'
 
+import type { ImageBundle } from '../../../scripts/imageBundler/index'
+
 export type Props = {
-    src: string,
+    image: ?ImageBundle,
 }
 
-export const Image = ({ src }: Props) => (
-    <div className={style.image} style={{ backgroundImage: `url(${src})` }} />
+export const Image = ({ image }: Props) => (
+    <div
+        className={style.image}
+        style={{ backgroundImage: `url(${(image && image.base64) || ''})` }}
+    />
 )

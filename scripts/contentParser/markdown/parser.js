@@ -1,6 +1,8 @@
 const MarkdownIt = require('markdown-it')
 const markdownIt = new MarkdownIt()
 
+import { extractText } from './treeUtil'
+
 import { buildTreeFactory } from './treeBuilder'
 
 const isOpening = ({ nesting }) => nesting === 1
@@ -9,7 +11,7 @@ const isClosing = ({ nesting }) => nesting === -1
 
 const getType = ({ type }) => type.split('_')[0]
 
-type Tree = {
+export type Tree = {
     type:
         | 'text'
         | 'image'
@@ -25,6 +27,8 @@ type Tree = {
     children: Array<Tree>,
 }
 
+const genUID = (): string => Math.random().toString(16).slice(2, 10)
+
 const getContent = x => {
     switch (x.type) {
         case 'inline':
@@ -38,15 +42,17 @@ const getContent = x => {
             return { text: x.content }
 
         case 'image':
+            extractText(buildTree(x.children))
+
             return {
                 src: x.attrs.find(a => a[0] == 'src')[1],
-                alt: x.attrs.find(a => a[0] == 'alt')[1],
+                alt: extractText(buildTree(x.children)),
             }
 
         case 'link':
             return {
                 src: x.attrs.find(a => a[0] == 'src')[1],
-                alt: x.attrs.find(a => a[0] == 'alt')[1],
+                alt: extractText(buildTree(x.children)),
             }
 
         default:
@@ -61,14 +67,14 @@ const buildTree = buildTreeFactory({
     getContent,
 })
 
-const pruneTree = (tree: Tree): Tree =>
+const pruneInline = (tree: Tree): Tree =>
     Object.assign(tree, {
         children: [].concat(
             ...tree.children.map(
                 c =>
                     'inline' === c.type
-                        ? c.children.map(pruneTree)
-                        : [pruneTree(c)]
+                        ? c.children.map(pruneInline)
+                        : [pruneInline(c)]
             )
         ),
     })
@@ -76,5 +82,5 @@ const pruneTree = (tree: Tree): Tree =>
 export const parse = (text: string): Tree => {
     const tokens = markdownIt.parse(text, {})
 
-    return pruneTree(buildTree(tokens))
+    return pruneInline(buildTree(tokens))
 }

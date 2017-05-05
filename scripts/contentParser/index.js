@@ -2,58 +2,55 @@ const fs = require('fs')
 const path = require('path')
 import { parse as parseMarkDown } from './markdown/parser'
 
+import type { Tree } from './markdown/parser'
 import type { Post } from '../../type'
 
-const printTree = (tree, prefix = '') => {
-    return [
-        prefix + tree.type + ' ' + (tree.text || ''),
-        ...(tree.children && tree.children.length
-            ? [
-                  prefix + '[',
-                  ...[].concat(
-                      ...tree.children.map(c => printTree(c, prefix + '  '))
-                  ),
-                  prefix + ']',
-              ]
-            : []),
-    ].join('\n')
-}
+import { find, findAll, extractText, prune } from './markdown/treeUtil'
 
-// /!\ side effect on the tree
 const readTitle = tree => {
-    const i = tree.children.findIndex(x => 'heading' === x.type)
+    const heading = find(x => 'heading' === x.type, tree)
 
-    if (i < -1) throw new Error('no title found')
+    if (!heading) throw new Error('no title found')
 
-    const heading = tree.children.splice(i, 1)[0]
-
-    return heading.children[0].text
+    return {
+        prunedTree: prune(tree, heading),
+        title: extractText(heading),
+    }
 }
 const readDate = tree => {
     const parseDate = text => new Date(text)
 
-    const i = tree.children.findIndex(
-        x =>
-            'blockquote' === x.type &&
-            x.children[0] &&
-            x.children[0].children[0] &&
-            parseDate(x.children[0].children[0].text)
+    const dateQuote = find(
+        x => 'blockquote' === x.type && !!parseDate(extractText(x)),
+        tree
     )
 
-    if (i < -1) throw new Error('no date found')
+    if (!dateQuote) throw new Error('no date found')
 
-    const dateQuote = tree.children.splice(i, 1)[0]
-
-    return parseDate(dateQuote.children[0].children[0].text).getTime()
+    return {
+        prunedTree: prune(tree, dateQuote),
+        date: parseDate(extractText(dateQuote)).getTime(),
+    }
 }
-
-const readMedias = tree => []
+const readMedias = tree =>
+    findAll(x => 'image' === x.type, tree).map(x => ({
+        type: 'image',
+        name: x.alt || '',
+        localPath: x.src || '',
+        image: null,
+    }))
 
 export const parsePost = (text: string): Post => {
-    const mdTree = parseMarkDown(text)
+    let mdTree = parseMarkDown(text)
 
-    const title = readTitle(mdTree)
-    const date = readDate(mdTree)
+    const r_title = readTitle(mdTree)
+    mdTree = r_title.prunedTree
+    const title = r_title.title
+
+    const r_date = readDate(mdTree)
+    mdTree = r_date.prunedTree
+    const date = r_date.date
+
     const medias = readMedias(mdTree)
 
     return {
@@ -62,6 +59,7 @@ export const parsePost = (text: string): Post => {
         title,
         date,
         medias,
+        locations: [],
         content: mdTree,
     }
 }
@@ -89,4 +87,7 @@ export const readPost = (
 // read all the posts in the directory
 export const readPosts = (options: { postDir: string }) =>
     // iterate throught all the directory in options.postDir
-    fs.readdirSync(options.postDir).map(dir => readPost(dir, options))
+    fs
+        .readdirSync(options.postDir)
+        .map(dir => readPost(dir, options))
+        .sort((a, b) => (a.date < b.date ? 1 : -1))

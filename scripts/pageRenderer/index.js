@@ -12,6 +12,7 @@ const safeMkdir = dirName => {
         if ('EEXIST' != err.code) throw err
     }
 }
+
 export const writePages = (
     posts: Array<Post>,
     options: {

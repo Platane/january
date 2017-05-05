@@ -11,7 +11,7 @@ type Options = {
     quality?: number,
 }
 
-type ImageBundle = {
+export type ImageBundle = {
     source: {
         url: string,
         dimension: [number, number],
@@ -32,8 +32,8 @@ export const bundle = async (
 
     const common_options = {
         commandName: process.env.GM_PATH || 'gm',
-        format: options.format || 'jpg',
-        quality: options.quality || 90,
+        format: options.format,
+        quality: options.quality,
         noProfile: true,
     }
 
@@ -72,14 +72,14 @@ export const bundle = async (
 
             return {
                 dimension,
-                url: name,
+                url: path.join('/', name),
             }
         })
     )
 
     return {
         source: {
-            url: source_name,
+            url: path.join('/', source_name),
             dimension,
         },
         resized,

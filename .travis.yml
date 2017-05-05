@@ -15,7 +15,6 @@ install:
 
 script:
     - yarn run build
-    - ls -l dist
 
 deploy:
     provider: pages
