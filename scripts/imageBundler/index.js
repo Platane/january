@@ -23,6 +23,9 @@ export type ImageBundle = {
     base64: string,
 }
 
+const buildPath = (name: string): string =>
+    path.join('/', process.env.BASE_PATH || '', name).replace(/\\/g, '/')
+
 export const bundle = async (
     imagePath: string,
     options: Options
@@ -72,14 +75,14 @@ export const bundle = async (
 
             return {
                 dimension,
-                url: path.join('/', process.env.BASE_PATH || '', name),
+                url: buildPath(name),
             }
         })
     )
 
     return {
         source: {
-            url: path.join('/', process.env.BASE_PATH || '', source_name),
+            url: buildPath(source_name),
             dimension,
         },
         resized,

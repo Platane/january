@@ -1,19 +1,7 @@
 import { Head as Component } from './component'
 import { connect } from 'react-redux'
+import { selectBestImage } from '../image/util'
 import type { State } from '../../reducer'
-
-const selectBestImage = (images, width, height) => {
-    const error = (w, h) =>
-        Math.abs(w - width) / width + Math.abs(h - height) / height
-
-    return images.reduce(
-        (best, x) =>
-            !best || error(...best.dimension) > error(...x.dimension)
-                ? x
-                : best,
-        null
-    )
-}
 
 const mapStateToProps = (state: State, { postId }) => {
     let props = {}
