@@ -32,6 +32,14 @@ export const Head = ({
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
 
+        <meta
+            name="twitter:card"
+            content={image_url ? 'summary_large_image' : 'summary'}
+        />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        {image_url && <meta name="twitter:image" content={image_url} />}
+
         {image_url && <meta property="og:image" content={image_url} />}
         {image_url &&
             image_width &&
