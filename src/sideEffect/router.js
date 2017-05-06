@@ -8,16 +8,25 @@ const BASE_PATH = (process.env.BASE_PATH || '/').split('/').filter(Boolean)
 
 const stripPrefix = (prefix, path) => path.slice(prefix.length)
 
+const stripHtmlExt = path =>
+    path.slice(-5) === '.html' ? path.slice(0, -5) : path
+
+const buildPath = path =>
+    '/' +
+    (path.length === 0
+        ? BASE_PATH.join('/')
+        : [...BASE_PATH, ...path].join('/') + '.html')
+
 const read = (): Array<string> => {
     if (!window || !window.location) return []
     return stripPrefix(
         BASE_PATH,
-        window.location.pathname.split('/').filter(Boolean)
+        stripHtmlExt(window.location.pathname).split('/').filter(Boolean)
     )
 }
 
 const write = (path: Array<string>) =>
-    history.pushState({}, '', '/' + [...BASE_PATH, ...path].join('/'))
+    history.pushState({}, '', buildPath(path))
 
 const equal = (a: Array<string>, b: Array<string>): boolean =>
     a.length == b.length && a.every((_, i) => a[i] === b[i])
