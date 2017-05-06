@@ -39,7 +39,7 @@
     "webpack-dev-server": " 2.4.5"
   },
   "scripts": {
-    "start": "webpack-dev-server --inline -d",
+    "start": "webpack-dev-server --inline --devtool source-map -d",
     "serve:dist": "node scripts/server.js",
     "build:asset": "env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build:contentData": "node scripts/mkdir.js dist && node scripts/contentParser/cmd.js src/content/post > dist/posts.json",

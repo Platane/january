@@ -104,8 +104,10 @@ module.exports = {
 
     devServer: {
         port: 8082,
-        // contentBase: [distFolder, playerFolder],
-        historyApiFallback: true,
+        contentBase: ['dist'],
+        historyApiFallback: {
+            rewrites: [{ from: /\.html$/, to: '/index.html' }],
+        },
         watchOptions: {
             ignored: /node_modules/,
         },
