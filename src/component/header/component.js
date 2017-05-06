@@ -13,7 +13,7 @@ export const Header = ({ goToAbout, goToHome }: Props) => (
 
             <div className={style.title} onClick={goToHome}>Edouard</div>
 
-            <a href="#" className={style.about} onClick={goToAbout}>About</a>
+            <div className={style.about} onClick={goToAbout}>About</div>
 
         </div>
         <div className={style.subtitle}>The best ideas are not popular yet</div>

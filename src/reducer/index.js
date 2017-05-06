@@ -1,6 +1,9 @@
 import type { Action } from '../action'
 import type { Post } from '../../type'
 
+const unique = arr =>
+    arr.filter((a, i, arr) => i === arr.findIndex(b => a.id === b.id))
+
 export type State = {
     posts: Array<Post>,
     tags: Array<{ name: string, occurence: number }>,
@@ -8,6 +11,7 @@ export type State = {
     selectedPost: ?Post,
     selectedPostId: ?string,
     path: Array<string>,
+    toFetch: Array<string>,
 }
 
 // first layer of reduce, init the state if its null
@@ -18,6 +22,7 @@ const reduceInit = (state: ?State): State =>
         selectedPost: null,
         selectedPostId: null,
         path: [],
+        toFetch: ['posts.json'],
     }
 
 const computeTags = () => []
@@ -25,13 +30,15 @@ const computeTags = () => []
 // second layer of reducer, manipulate the posts and tags fields
 const reducePosts = (state: State, action: Action): State => {
     switch (action.type) {
+        case 'postsFetched':
         case 'hydratePost':
+            const posts = unique([...state.posts, ...action.posts]).sort(
+                (a, b) => (a.date < b.date ? 1 : -1)
+            )
             return {
                 ...state,
-                posts: action.posts
-                    .slice()
-                    .sort((a, b) => (a.date < b.date ? 1 : -1)),
-                tags: computeTags(action.posts),
+                posts,
+                tags: computeTags(posts),
             }
 
         default:

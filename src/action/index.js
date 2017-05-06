@@ -37,9 +37,27 @@ export const navigatorRead = (path: Array<string>) => ({
     path,
 })
 
+//
+type ActionFetchError = { type: 'fetchError', error: Error }
+
+export const fetchError = (error: Error) => ({
+    type: 'fetchError',
+    error,
+})
+
+//
+type ActionPostsFetched = { type: 'postsFetched', posts: Array<Post> }
+
+export const postsFetched = (posts: Array<Post>) => ({
+    type: 'postsFetched',
+    posts,
+})
+
 export type Action =
     | ActionNavigatorRead
     | ActionGoToPost
     | ActionHydratePost
     | ActionGoToAbout
     | ActionGoToHome
+    | ActionFetchError
+    | ActionPostsFetched
