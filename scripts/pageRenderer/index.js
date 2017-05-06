@@ -49,7 +49,6 @@ export const writePages = (
         action.goToAbout(),
     ])
     fs.writeFileSync(path.join('dist', 'about.html'), about_page)
-    fs.writeFileSync(path.join('dist', 'about'), about_page)
 
     // write the home page
     const home_page = render(links, [
@@ -75,6 +74,5 @@ export const writePages = (
             path.join('dist', 'post', post.id + '.html'),
             post_page
         )
-        fs.writeFileSync(path.join('dist', 'post', post.id), post_page)
     })
 }
