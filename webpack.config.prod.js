@@ -3,6 +3,7 @@ const path = require('path')
 const webpack = require('webpack')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const createEnvVarArray = () => {
     const o = {}
@@ -20,18 +21,6 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: '[hash:8].js',
     },
-
-    // resolve: {
-    //     alias: {
-    //         react: path.join(
-    //             __dirname,
-    //             'node_modules',
-    //             'react',
-    //             'dist',
-    //             'react.min.js'
-    //         ),
-    //     },
-    // },
 
     module: {
         rules: [
@@ -108,6 +97,8 @@ module.exports = {
             filename: '[contenthash:8].css',
             allChunks: true,
         }),
+
+        new OptimizeCssAssetsPlugin(),
 
         new webpack.DefinePlugin(createEnvVarArray()),
 
