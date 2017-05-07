@@ -56,6 +56,7 @@ export const Head = ({
         <link rel="stylesheet" type="text/css" href={links.appStyle} />
 
         <script
+            async
             dangerouslySetInnerHTML={{
                 __html: `window._initState=${initState}`,
             }}

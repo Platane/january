@@ -102,7 +102,7 @@ module.exports = {
 
         new webpack.DefinePlugin(createEnvVarArray()),
 
-        new UglifyJSPlugin(),
+        new UglifyJSPlugin({ comments: false }),
 
         // write stats
         function() {
