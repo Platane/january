@@ -12,6 +12,7 @@ export type Props = {
     links: {
         appScript: string,
         appStyle: string,
+        icons: Array<{ size: number, url: string }>,
     },
 }
 
@@ -31,6 +32,30 @@ export const Head = ({
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
+
+        {links.manifest && <link rel="manifest" href={links.manifest} />}
+
+        {links.icons.some(x => 180 === x.size) &&
+            <link
+                rel="apple-touch-icon"
+                type="image/png"
+                sizes="180x180"
+                href={links.icons.find(x => 180 === x.size).url}
+            />}
+        {links.icons.some(x => 32 === x.size) &&
+            <link
+                rel="icon"
+                type="image/png"
+                sizes="32x32"
+                href={links.icons.find(x => 32 === x.size).url}
+            />}
+        {links.icons.some(x => 16 === x.size) &&
+            <link
+                rel="icon"
+                type="image/png"
+                sizes="16x16"
+                href={links.icons.find(x => 16 === x.size).url}
+            />}
 
         <meta
             name="twitter:card"

@@ -32,9 +32,16 @@ export const writePages = (
         fs.readFileSync(options.webpackStatPath).toString()
     )
 
+    // read icons
+    const icons = JSON.parse(
+        fs.readFileSync(path.join(options.targetDir, 'icons.json')).toString()
+    )
+
     const buildPath = file => '/' + [...BASE_PATH, file].join('/')
 
     const links = {
+        icons,
+        manifest: buildPath('manifest.json'),
         appScript: buildPath(
             webpackStat.chunks[0].files.find(x => x.match(/\.js$/))
         ),

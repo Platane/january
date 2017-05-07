@@ -12,6 +12,7 @@ export const render = (
     links: {
         appScript: string,
         appStyle: string,
+        icons: Array<{ size: number, url: string }>,
     },
     actions: Array<Action>
 ) => {
