@@ -44,10 +44,7 @@ export const writePages = (
     }
 
     // write the about page
-    const about_page = render(links, [
-        action.hydratePost(posts),
-        action.goToAbout(),
-    ])
+    const about_page = render(links, [action.goToAbout()])
     fs.writeFileSync(path.join('dist', 'about.html'), about_page)
 
     // write the home page
@@ -67,7 +64,7 @@ export const writePages = (
 
         // html render
         const post_page = render(links, [
-            action.hydratePost(posts),
+            action.hydratePost([post]),
             action.goToPost(post.id),
         ])
         fs.writeFileSync(
