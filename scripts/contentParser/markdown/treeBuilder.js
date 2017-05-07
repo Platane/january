@@ -28,7 +28,9 @@ export const buildTreeFactory = ({
             opened.unshift(type)
             ancestors.unshift(x)
 
-            ancestors[0].children.push((x = { type, children: [] }))
+            ancestors[0].children.push(
+                (x = { type, children: [], ...getContent(tokens[i]) })
+            )
         } else if (isClosing(tokens[i])) {
             // closing tag
             // close the current node, backtrack to its ancestor
@@ -42,9 +44,7 @@ export const buildTreeFactory = ({
             // simple node
             // push it as child of the current node
 
-            x.children.push(
-                Object.assign({ type, children: [] }, getContent(tokens[i]))
-            )
+            x.children.push({ type, children: [], ...getContent(tokens[i]) })
         }
     }
 

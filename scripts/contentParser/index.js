@@ -33,12 +33,14 @@ const readDate = tree => {
     }
 }
 const readMedias = tree =>
-    findAll(x => 'image' === x.type, tree).map(x => ({
-        type: 'image',
-        name: x.alt || '',
-        localPath: x.src || '',
-        image: null,
-    }))
+    findAll(x => 'image' === x.type, tree)
+        .filter((x, i, arr) => i === arr.findIndex(u => u.src === x.src))
+        .map(x => ({
+            type: 'image',
+            name: x.alt || '',
+            localPath: x.src || '',
+            image: null,
+        }))
 
 export const parsePost = (text: string): Post => {
     let mdTree = parseMarkDown(text)
