@@ -5,6 +5,7 @@ import type { Store } from '../index'
 import * as action from '../action'
 
 const BASE_PATH = (process.env.BASE_PATH || '/').split('/').filter(Boolean)
+const APPEND_EXT = false
 
 const stripPrefix = (prefix, path) => path.slice(prefix.length)
 
@@ -15,7 +16,7 @@ const buildPath = path =>
     '/' +
     (path.length === 0
         ? BASE_PATH.join('/')
-        : [...BASE_PATH, ...path].join('/') + '.html')
+        : [...BASE_PATH, ...path].join('/') + (APPEND_EXT ? '.html' : ''))
 
 const read = (): Array<string> => {
     if (!window || !window.location) return []

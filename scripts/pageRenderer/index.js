@@ -74,5 +74,11 @@ export const writePages = (
             path.join('dist', 'post', post.id + '.html'),
             post_page
         )
+
+        safeMkdir(path.join(options.targetDir, 'post', post.id))
+        fs.writeFileSync(
+            path.join('dist', 'post', post.id, 'index.html'),
+            post_page
+        )
     })
 }
