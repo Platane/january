@@ -14,7 +14,7 @@ const posts = JSON.parse(
 const options = {
     targetDir,
     format: 'jpg',
-    quality: 90,
+    quality: 85,
     dimensions: [[300, 200], [800, 600]],
 }
 
