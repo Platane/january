@@ -60,6 +60,6 @@ export const Head = ({
                 __html: `window._initState=${initState}`,
             }}
         />
-        <script src={links.appScript} />
+        <script async src={links.appScript} />
     </head>
 )
