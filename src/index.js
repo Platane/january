@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { reduce } from './reducer'
-import * as action from './action'
 
 import { init as initUI } from './sideEffect/ui'
 import { init as initRouter } from './sideEffect/router'
 import { init as initFetcher } from './sideEffect/fetcher'
+import { init as initServiceWorker } from './sideEffect/serviceWorker'
 
 export type { State } from './reducer'
 import type { State } from './reducer'
@@ -20,7 +20,8 @@ let store
         try {
             return next(action)
         } catch (err) {
-            console.error('Caught an exception!', err)
+            // eslint-disable-next-line no-console
+            console.warn('Caught an exception!', err)
             throw err
         }
     }
@@ -41,4 +42,6 @@ let store
     store = createStore(reduce, window._initState, compose(...enhancers))
 }
 
-;[initUI, initRouter, initFetcher].forEach(init => init(store))
+;[initUI, initRouter, initFetcher, initServiceWorker].forEach(init =>
+    init(store)
+)
