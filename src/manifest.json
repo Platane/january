@@ -3,6 +3,7 @@
     "short_name": "Edouard",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#fff",
+    "background_color": "#ffffff",
+    "theme_color ": "#333333",
     "description": "The best ideas are not popular yet."
 }

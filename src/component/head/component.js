@@ -34,6 +34,7 @@ export const Head = ({
         />
 
         {links.manifest && <link rel="manifest" href={links.manifest} />}
+        <meta name="theme-color" content="#333" />
 
         {links.icons.some(x => 180 === x.size) &&
             <link
