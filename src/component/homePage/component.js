@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './style.css'
 
-import { Post } from '../post'
+import { Post } from './post'
 
 import type { Post as Post_type } from '../../../type'
 

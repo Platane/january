@@ -15,7 +15,7 @@ const options = {
     targetDir,
     format: 'jpg',
     quality: 90,
-    dimensions: [[100, 100], [800, 600]],
+    dimensions: [[300, 200], [800, 600]],
 }
 
 Promise.all(

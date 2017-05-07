@@ -1,9 +1,9 @@
 import React from 'react'
 import style from './style.css'
 
-import { Image } from '../image'
+import { Image } from '../../image'
 
-import type { Post as Post_type } from '../../../type'
+import type { Post as Post_type } from '../../../../type'
 
 export type Props = Post_type
 
