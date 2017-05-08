@@ -1,12 +1,14 @@
 import type { Action } from '../action'
 import type { Post } from '../../type'
 
-const unique = arr =>
+const uniqueId = arr =>
     arr.filter((a, i, arr) => i === arr.findIndex(b => a.id === b.id))
+
+const unique = arr => arr.filter((a, i, arr) => i === arr.indexOf(a))
 
 export type State = {
     posts: Array<Post>,
-    tags: Array<{ name: string, occurence: number }>,
+    tags: Array<string>,
 
     selectedPost: ?Post,
     selectedPostId: ?string,
@@ -25,14 +27,21 @@ const reduceInit = (state: ?State): State =>
         toFetch: ['posts.json'],
     }
 
-const computeTags = () => []
+const computeTags = posts => {
+    const tags = [].concat(...posts.map(({ tags }) => tags))
+
+    const count = {}
+    tags.forEach(t => (count[t] = (0 | count[t]) + 1))
+
+    return unique(tags).sort((a, b) => (count[a] < count[b] ? 1 : -1))
+}
 
 // second layer of reducer, manipulate the posts and tags fields
 const reducePosts = (state: State, action: Action): State => {
     switch (action.type) {
         case 'postsFetched':
         case 'hydratePost':
-            const posts = unique([...state.posts, ...action.posts]).sort(
+            const posts = uniqueId([...state.posts, ...action.posts]).sort(
                 (a, b) => (a.date < b.date ? 1 : -1)
             )
             return {

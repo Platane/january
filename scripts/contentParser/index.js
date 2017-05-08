@@ -32,6 +32,26 @@ const readDate = tree => {
         date: parseDate(extractText(dateQuote)).getTime(),
     }
 }
+const readTags = tree => {
+    const parseTags = text =>
+        (text.match(/\s*tags\s*:(.*)$/) || ['', ''])[1]
+            .split(',')
+            .map(x => x.trim().toLowerCase())
+
+    const tagsQuote = find(
+        x =>
+            'blockquote' === x.type &&
+            !!extractText(x).match(/\s*tags\s*:(.*)$/),
+        tree
+    )
+
+    if (!tagsQuote) throw new Error('no tags found')
+
+    return {
+        prunedTree: prune(tree, tagsQuote),
+        tags: parseTags(extractText(tagsQuote)),
+    }
+}
 const readMedias = tree =>
     findAll(x => 'image' === x.type, tree)
         .filter((x, i, arr) => i === arr.findIndex(u => u.src === x.src))
@@ -53,11 +73,18 @@ export const parsePost = (text: string): Post => {
     mdTree = r_date.prunedTree
     const date = r_date.date
 
+    let tags = []
+    try {
+        const r_tags = readTags(mdTree)
+        mdTree = r_tags.prunedTree
+        tags = r_tags.tags
+    } catch (err) {}
+
     const medias = readMedias(mdTree)
 
     return {
         id: Math.random().toString(16).slice(2),
-        tags: [],
+        tags,
         title,
         date,
         medias,

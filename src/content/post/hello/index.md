@@ -3,6 +3,9 @@ hello good sir
 
 > 2017-05-02
 
+> tags: first post, essentials, green
+
+
 hello
 
 ![boring ballons](./bagan.jpg) ![boring ballons](./bagan.jpg)
