@@ -14,7 +14,9 @@ const BASE_PATH = (process.env.BASE_PATH || '/').split('/').filter(Boolean)
 const buildPath = file => '/' + [...BASE_PATH, file].join('/')
 
 const links = {
+    BASE_PATH: process.env.BASE_PATH || '/',
     'root.html': '/' + BASE_PATH.join('/'),
+    'root2.html': '/' + BASE_PATH.map(x => x + '/').join('/'),
     'index.html': buildPath('index.html'),
     'app.js': buildPath(
         webpackStat.chunks[0].files.find(x => x.match(/\.js$/))
