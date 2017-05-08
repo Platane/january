@@ -2,6 +2,7 @@
   "name": "january",
   "version": "1.0.0",
   "dependencies": {
+    "babel-polyfill": " 6.23.0",
     "react": " 15.5.4",
     "react-dom": " 15.5.4",
     "react-redux": " 5.0.4",
@@ -12,7 +13,6 @@
     "babel-cli": " 6.24.1",
     "babel-core": " 6.24.1",
     "babel-loader": " 7.0.0",
-    "babel-register": " 6.24.1",
     "babel-plugin-css-modules-transform": " 1.2.7",
     "babel-plugin-transform-class-properties": " 6.24.1",
     "babel-plugin-transform-string-literal-replace": " 1.0.2",
@@ -21,6 +21,7 @@
     "babel-preset-flow": " 6.23.0",
     "babel-preset-react": " 6.24.1",
     "babel-preset-stage-1": " 6.24.1",
+    "babel-register": " 6.24.1",
     "css-loader": " 0.28.1",
     "extract-text-webpack-plugin": " 2.1.0",
     "file-loader": " 0.11.1",

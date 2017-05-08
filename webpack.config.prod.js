@@ -15,7 +15,7 @@ const createEnvVarArray = () => {
 }
 
 module.exports = {
-    entry: ['./src/index.js', './src/index.html'],
+    entry: ['./src/index.js', './src/index.html', 'babel-polyfill'],
 
     output: {
         path: path.join(__dirname, 'dist'),
