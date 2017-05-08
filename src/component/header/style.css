@@ -1,5 +1,5 @@
 .container{
-
+    margin: 16px;
 }
 .row{
     display: flex;

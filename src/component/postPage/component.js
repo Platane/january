@@ -1,18 +1,26 @@
 import React from 'react'
 import style from './style.css'
 
-import { PostContent } from '../postContent'
-import { Image } from '../image'
+import { Post } from '../post'
+import { SwipeablePostlist } from '../swipeablePostlist'
 
 import type { Post as Post_type } from '../../../type'
 
-export type Props = Post_type | {}
+export type Props = {
+    posts: Array<Post_type>,
+    postId: number,
+    goToPost: () => void,
+    device: 'palm' | 'desktop',
+}
 
-export const PostPage = (props: Props) => (
-    <div>
-        <div className={style.image}>
-            <Image image={props.medias[0] && props.medias[0].image} />
-        </div>
-        <PostContent {...props} />
-    </div>
-)
+export const PostPage = ({ device, postId, posts, goToPost }: Props) =>
+    posts.some(({ id }) => id === postId)
+        ? ('palm' === device &&
+              <SwipeablePostlist
+                  postId={postId}
+                  posts={posts}
+                  goToPost={goToPost}
+              />) ||
+              ('desktop' === device &&
+                  <Post post={posts.find(({ id }) => id === postId)} />)
+        : null

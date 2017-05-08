@@ -62,7 +62,7 @@ export class Provider extends React.Component {
 }
 
 export const injectDevice = (C: Component) => {
-    class C_ extends React.Component {
+    class DeviceInjector extends React.Component {
         static contextTypes = {
             subsribe: PropTypes.func,
             getDevice: PropTypes.func,
@@ -90,5 +90,5 @@ export const injectDevice = (C: Component) => {
             return <C {...this.props} device={this.state.device} />
         }
     }
-    return C_
+    return DeviceInjector
 }

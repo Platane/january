@@ -8,9 +8,10 @@ import type { Post as Post_type } from '../../../type'
 export type Props = {
     posts: Array<Post_type>,
     goToPost: () => any,
+    device: 'palm' | 'desktop',
 }
 
-export const HomePage = ({ posts, goToPost }: Props) => (
+export const HomePage = ({ posts, goToPost, device }: Props) => (
     <div className={style.container}>
         {posts.map(post => (
             <div
