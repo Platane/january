@@ -16,9 +16,5 @@ export const Post = ({ id, title, medias, body }: Props) => (
 
         <div className={style.title}>{title}</div>
 
-        <div className={style.content}>
-            {(body || '').slice(0, 100) + '...'}
-        </div>
-
     </div>
 )

@@ -2,17 +2,19 @@
     background-color: #fff;
     position: relative;
     box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.18);
-    padding-bottom: 20px;
 }
 .image{
     width: 100%;
-    height: 200px;
+    height: 120px;
     position: relative;
 }
 .title{
-    padding: 10px;
-    font-size: 1.3em;
+    padding: 0 10px;
+    font-size: 0.9em;
     font-weight: bold;
+    height: 40px;
+    overflow: hidden;
+    line-height: 40px;
 }
 .content{
     padding: 10px;

@@ -1,0 +1,15 @@
+.container{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.item:first-child{
+    margin-left: 0;
+}
+.item{
+    margin-left: 10px;
+    width: 160px;
+    position: relative;
+}
