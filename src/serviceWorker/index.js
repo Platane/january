@@ -1,6 +1,6 @@
 /* global caches self */
 
-const assets = ['index.html', 'app.js', 'style.css']
+const assets = ['root.html', 'index.html', 'app.js', 'style.css']
 
 const assetCacheKey = assets.join('-')
 
