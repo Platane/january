@@ -7,6 +7,6 @@ mumbai stop
 
 ![train](./train.jpg)
 
-this is a *train*.
+this is a *train* or a __train__  or even a ___train___.
 
 ![hike](./hiking.jpg)

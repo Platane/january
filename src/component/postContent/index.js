@@ -6,6 +6,7 @@ import type { Tree } from '../../../scripts/contentParser/markdown/parser'
 const Text = ({ tree }) => {
     switch (tree.type) {
         case 'em':
+        case 'strong':
             return (
                 <span className={style[tree.type]}>
                     {tree.children.map((x, i) => <Text key={i} tree={x} />)}
