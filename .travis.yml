@@ -12,6 +12,7 @@ cache:
 install:
     - yarn --pure-lockfile --ignore-scripts
     - sudo apt-get install graphicsmagick
+    - sudo apt-get install imagemagick
 
 script:
     - yarn run build

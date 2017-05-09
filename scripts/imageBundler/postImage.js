@@ -1,6 +1,7 @@
 const fs = require('fs')
 const md5 = require('md5')
 const path = require('path')
+const smartcrop = require('smartcrop-gm')
 import { build as buildPath } from '../appPath'
 
 import { getSize, convert } from './gm'
@@ -62,6 +63,17 @@ export const bundle = async (
     const resized = await Promise.all(
         (options.dimensions || []).map(async dimension => {
             const name = `${hash}_${dimension[0]}x${dimension[1]}.jpg`
+
+            console.log(name)
+
+            const { topCrop } = await smartcrop
+                .crop(imagePath, {
+                    width: dimension[0],
+                    height: dimension[1],
+                })
+                .catch(err => console.log(err))
+
+            console.log(topCrop)
 
             fs.writeFileSync(
                 path.join(options.targetDir, name),
