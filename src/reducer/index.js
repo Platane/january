@@ -87,7 +87,10 @@ const reduceSelectedPostId = (state: State, action: Action): State => {
 // fourth layer of reducer, populate the selectedPost
 const reduceSelectedPost = (state: State, action: Action): State => {
     // if the posts list have been populated, check if the selected one is in it now
-    if (state.selectedPostId && !state.selectedPost) {
+    if (
+        state.selectedPostId &&
+        (!state.selectedPost || state.selectedPost.id !== state.selectedPostId)
+    ) {
         const selectedPost = state.posts.find(
             ({ id }) => id === state.selectedPostId
         )
