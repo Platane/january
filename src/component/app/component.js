@@ -3,6 +3,7 @@ import { AboutPage } from '../aboutPage'
 import { PostPage } from '../postPage'
 import { HomePage } from '../homePage'
 import { Header } from '../header'
+import { Title } from '../title'
 import { Provider } from '../abstract/resolution'
 import style from './style.css'
 
@@ -25,6 +26,8 @@ export const App = ({ path }: Props) => (
                 </div>
 
             </div>
+
+            <Title />
         </div>
     </Provider>
 )

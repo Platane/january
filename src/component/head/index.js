@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { selectBestImage } from '../image/util'
 import type { State } from '../../reducer'
 
-const mapStateToProps = (state: State, { postId }) => {
+const mapStateToProps = (state: State) => {
     let props = {}
     switch (state.path[0]) {
         case 'post':
@@ -28,9 +28,10 @@ const mapStateToProps = (state: State, { postId }) => {
             break
 
         case 'about':
-        case 'home':
+        case void 0:
+        case null:
             props = {
-                title: '',
+                title: 'edouard',
                 description: 'The best ideas are not popular yet.',
             }
     }
