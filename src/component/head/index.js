@@ -24,7 +24,7 @@ const mapStateToProps = (state: State, links) => {
 
                 props = {
                     title: post.title,
-                    description: post.title,
+                    description: post.content_preview,
 
                     image_url: image && relativeToAbsolute(image.url),
                     image_width: image && image.dimension[0],

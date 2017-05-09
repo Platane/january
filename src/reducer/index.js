@@ -1,3 +1,4 @@
+import { extractText } from '../../scripts/contentParser/markdown/treeUtil'
 import type { Action } from '../action'
 import type { Post } from '../../type'
 
@@ -36,14 +37,33 @@ const computeTags = posts => {
     return unique(tags).sort((a, b) => (count[a] < count[b] ? 1 : -1))
 }
 
+const parsePost = post => {
+    const text = extractText(post.content)
+    const words = text.split(' ')
+
+    const READING_VELOCITY = 300
+    const MAX_PREVIEW_LENGTH = 100
+
+    post.reading_duration = words.length / READING_VELOCITY
+    post.content_preview =
+        words.reduce(
+            (text, w) =>
+                (text + w).length < MAX_PREVIEW_LENGTH ? text + ' ' + w : text,
+            ''
+        ) + '…'
+
+    return post
+}
+
 // second layer of reducer, manipulate the posts and tags fields
 const reducePosts = (state: State, action: Action): State => {
     switch (action.type) {
         case 'postsFetched':
         case 'hydratePost':
-            const posts = uniqueId([...state.posts, ...action.posts]).sort(
-                (a, b) => (a.date < b.date ? 1 : -1)
-            )
+            const posts = uniqueId([
+                ...state.posts,
+                ...action.posts.map(parsePost),
+            ]).sort((a, b) => (a.date < b.date ? 1 : -1))
             return {
                 ...state,
                 posts,

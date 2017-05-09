@@ -61,7 +61,19 @@ export const prune = (tree: Tree, subTreeToRemove: Tree) => ({
 /**
 * read the tree and concat the text node
 */
-export const extractText = (tree: Tree): string =>
-    'string' === typeof tree.text
-        ? tree.text
-        : tree.children.reduce((s, c) => s + extractText(c), '')
+export const extractText = (tree: Tree): string => {
+    let next = tree.children.reduce((s, c) => s + extractText(c), '')
+
+    if ('\n' === next[next.length - 1]) next = next.slice(0, -1)
+
+    switch (tree.type) {
+        case 'text':
+            return tree.text || ''
+
+        case 'paragraph':
+            return next + '\n'
+
+        default:
+            return next
+    }
+}
