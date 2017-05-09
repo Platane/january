@@ -1,20 +1,28 @@
 import React from 'react'
+import { injectPositionTracker } from '../../abstract/positionTracker'
+
 import style from './style.css'
 
 import { Post } from '../post'
 
-const createClickHandler = (goToPost, postId) => () => goToPost(postId)
+const createClickHandler = (goToPost, writePosition, postId) => event => {
+    const { top, width, left, height } = event.target.getBoundingClientRect()
+    writePosition(postId, { top, width, left, height })
+    goToPost(postId)
+}
 
-export const HorizontalPostList = ({ posts, goToPost }) => (
+const HorizontalPostList_ = ({ posts, goToPost, writePosition }) => (
     <div className={style.container}>
         {posts.map(post => (
             <div
                 key={post.id}
                 className={style.item}
-                onClick={createClickHandler(goToPost, post.id)}
+                onClick={createClickHandler(goToPost, writePosition, post.id)}
             >
                 <Post {...post} />
             </div>
         ))}
     </div>
 )
+
+export const HorizontalPostList = injectPositionTracker(HorizontalPostList_)

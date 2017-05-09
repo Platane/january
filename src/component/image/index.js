@@ -38,7 +38,9 @@ const createStore = () => {
 
 const imageLoadedStore = createStore()
 
-export class Image extends React.Component<any, Props, State> {
+export class Image extends React.Component<*, Props, State> {
+    props: Props
+
     state = { loaded: false, url: null, blurUrl: null }
 
     onLoad = () => {
@@ -47,9 +49,6 @@ export class Image extends React.Component<any, Props, State> {
     }
 
     constructor(props: Props) {
-        // props.width = props.width || 800
-        // props.height = props.height || 600
-
         super(props)
 
         const blurUrl =

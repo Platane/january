@@ -5,6 +5,12 @@
 }
 .body{
     margin: 16px;
+    animation: fadeIn 400ms ease;
+}
+@keyframes fadeIn {
+    0%{ opacity: 0 }
+    40%{ opacity: 0; transform: translate3d(0,30px,0) scale(0.9) }
+    100%{ opacity: 1; transform: translate3d(0,0,0) scale(1) }
 }
 .headerRow{
     display: flex;

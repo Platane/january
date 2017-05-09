@@ -2,16 +2,24 @@ import React from 'react'
 import EventEmitter from 'events'
 import PropTypes from 'prop-types'
 
+/**
+ * the provider component listen to device resolution change,
+ *
+ * when it does change, every subscriber get an update
+ *
+ * The inbjector is a hoc which subscribe to device resolution change and inject the `device` props to the component
+ */
+
 const computeResolution = (width: number) => (width < 800 ? 'palm' : 'desktop')
 
 type Device = 'palm' | 'desktop'
 
 export class Provider extends React.Component {
-    _device = 'palm'
+    _device: Device = 'palm'
 
     ee = new EventEmitter()
 
-    getDevice = () => this._device
+    getDevice: () => Device = () => this._device
 
     subsribe = (fn: () => any) => {
         this.ee.addListener('update', fn)
@@ -32,10 +40,6 @@ export class Provider extends React.Component {
             this._device = device
             this.ee.emit('update')
         }
-    }
-
-    constructor() {
-        super()
     }
 
     getChildContext() {
@@ -61,7 +65,7 @@ export class Provider extends React.Component {
     }
 }
 
-export const injectDevice = (C: Component) => {
+export const injectDevice = C => {
     class DeviceInjector extends React.Component {
         static contextTypes = {
             subsribe: PropTypes.func,
@@ -72,7 +76,7 @@ export const injectDevice = (C: Component) => {
 
         state = { device: 'palm' }
 
-        constructor(props, context) {
+        constructor(props: Object, context: Object) {
             super(props, context)
 
             this.state = { device: context.getDevice() }
