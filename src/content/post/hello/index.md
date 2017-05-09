@@ -3,7 +3,7 @@ hello good sir
 
 > 2017-05-02
 
-> tags: first post, essentials, green
+> tags: first post, essential, green
 
 
 hello
