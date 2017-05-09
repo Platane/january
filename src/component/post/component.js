@@ -25,7 +25,16 @@ export const Post = ({ post }: Props) => (
                 <div className={style.title}>{post.title}</div>
                 <div className={style.date}>{formatDate(post.date)}</div>
             </div>
-            <PostContent {...post} />
+            <div className={style.content}>
+                <PostContent {...post} />
+            </div>
+            <div className={style.footer}>
+                <div className={style.tagRow}>
+                    {post.tags.map(tag => (
+                        <div key={tag} className={style.tag}>{tag}</div>
+                    ))}
+                </div>
+            </div>
         </div>
     </div>
 )

@@ -1,4 +1,4 @@
-/* global caches self */
+/* global caches self URL fetch */
 
 const BASE_PATH = 'BASE_PATH'.split('/').filter(Boolean)
 const assets = ['root2.html', 'root.html', 'index.html', 'app.js', 'style.css']
