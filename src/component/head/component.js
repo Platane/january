@@ -40,6 +40,14 @@ export const Head = ({
         />
 
         {links.manifest && <link rel="manifest" href={links.manifest} />}
+        {links.rss &&
+            <link
+                rel="alternate"
+                type="application/rss+xml"
+                tittle="Edouard's post"
+                href={links.rss}
+            />}
+
         <meta name="theme-color" content="#d55323" />
 
         {links.icons.some(x => 180 === x.size) &&

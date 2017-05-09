@@ -41,6 +41,7 @@ export const writePages = (
     const links = {
         icons,
         manifest: buildPath('manifest.json'),
+        rss: buildPath('rss.xml'),
         appScript: buildPath(
             webpackStat.chunks[0].files.find(x => x.match(/\.js$/))
         ),
