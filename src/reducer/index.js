@@ -45,12 +45,21 @@ const parsePost = post => {
     const MAX_PREVIEW_LENGTH = 100
 
     post.reading_duration = words.length / READING_VELOCITY
+
     post.content_preview =
-        words.reduce(
-            (text, w) =>
-                (text + w).length < MAX_PREVIEW_LENGTH ? text + ' ' + w : text,
-            ''
-        ) + '…'
+        text
+            // take the first paragraph only
+            .split('\n')[0]
+            // split into words
+            .split(' ')
+            // add word as long as the text is small enougth
+            .reduce(
+                (text, w) =>
+                    (text + w).length < MAX_PREVIEW_LENGTH
+                        ? text + ' ' + w
+                        : text,
+                ''
+            ) + '…'
 
     return post
 }

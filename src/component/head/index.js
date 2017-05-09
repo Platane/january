@@ -26,6 +26,9 @@ const mapStateToProps = (state: State, links) => {
                     title: post.title,
                     description: post.content_preview,
 
+                    published_date: post.date,
+                    tags: post.tags,
+
                     image_url: image && relativeToAbsolute(image.url),
                     image_width: image && image.dimension[0],
                     image_height: image && image.dimension[1],

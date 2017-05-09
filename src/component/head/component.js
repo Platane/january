@@ -7,6 +7,8 @@ export type Props = {
     image_width: ?number,
     image_height: ?number,
     url: ?number,
+    published_date: ?number,
+    tags: ?Array<string>,
 
     initState: string,
 
@@ -20,6 +22,8 @@ export type Props = {
 export const Head = ({
     url,
     title,
+    published_date,
+    tags,
     description,
     image_url,
     image_width,
@@ -77,10 +81,16 @@ export const Head = ({
             <meta property="og:image:height" content={image_height} />}
 
         {url && <meta property="og:url" content={url} />}
-        <meta property="og:article" content="object" />
+        <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta description={description} />
+        {published_date &&
+            <meta
+                property="article:published_time"
+                content={new Date(published_date).toISOString()}
+            />}
+        {tags && tags.map(tag => <meta property="article:tag" content={tag} />)}
 
         <link rel="stylesheet" type="text/css" href={links.appStyle} />
 
