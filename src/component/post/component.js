@@ -15,11 +15,11 @@ export type Props = {
 
 const zeroPad = x => (x < 10 ? '0' + x : '' + x)
 
-const formatDate = timestamp => {
+export const formatDate = timestamp => {
     const d = new Date(timestamp)
     return `${zeroPad(d.getDate())}/${zeroPad(d.getMonth() + 1)}/${d.getFullYear()}`
 }
-const formatReadingDuration = (duration: number): string => {
+export const formatReadingDuration = (duration: number): string => {
     if (duration < 2) return '1 min'
     else if (duration < 10) return Math.floor(duration) + ' min'
     else return Math.floor(duration / 5) * 5 + ' min'

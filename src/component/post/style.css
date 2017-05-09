@@ -4,7 +4,12 @@
     height: 460px;
 }
 .body{
-    margin: 16px 0;
+    padding: 16px
+}
+@media (min-width: 916px) {
+    .body{
+        padding: 16px 0;
+    }
 }
 .headerRow{
     display: flex;
@@ -47,8 +52,8 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
-.tag:first-child{
-    margin-left: 0;
+.tag:last-child{
+    margin-right: 0;
 }
 .tag{
     margin-bottom: 10px;
@@ -57,7 +62,7 @@
     background: #ddd;
     padding: 6px 10px;
     border-radius: 4px;
-    margin-left: 10px;
+    margin-right: 10px;
     min-width: 80px;
     text-align: center;
 }

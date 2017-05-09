@@ -1,5 +1,10 @@
 .container{
-    margin: 16px 0;
+    padding: 16px
+}
+@media (min-width: 916px) {
+    .container{
+        padding: 16px 0;
+    }
 }
 .row{
     display: flex;

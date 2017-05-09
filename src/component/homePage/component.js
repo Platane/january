@@ -2,6 +2,7 @@ import React from 'react'
 import style from './style.css'
 
 import { HorizontalPostList } from '../horizontalPostList'
+import { VerticalPostList } from '../verticalPostList'
 
 import type { Post as Post_type } from '../../../type'
 
@@ -24,7 +25,14 @@ export const HomePage = ({ posts, goToPost, device }: Props) => (
             <div className={style.sectionLabel}>Essentials</div>
             <HorizontalPostList
                 goToPost={goToPost}
-                posts={posts.filter(({ tags }) => tags.includes('essentials'))}
+                posts={posts.filter(({ tags }) => tags.includes('essential'))}
+            />
+        </div>
+        <div className={style.section}>
+            <div className={style.sectionLabel}>Updates</div>
+            <VerticalPostList
+                goToPost={goToPost}
+                posts={posts.filter(({ tags }) => tags.includes('update'))}
             />
         </div>
     </div>

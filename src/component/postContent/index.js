@@ -40,15 +40,19 @@ const Paragraph = ({ tree }: Tree) => (
 const ImageGroup = ({ tree, medias }) => (
     <div className={style.imageGroup}>
         {tree.children.map((c, i) => (
-            <div key={i} className={style.image}>
-                <Image
-                    width={300}
-                    height={200}
-                    image={
-                        (medias.find(m => c.src === m.localPath) || {}).image
-                    }
-                    label={c.alt}
-                />
+            <div key={i} className={style.figure}>
+                <div className={style.image}>
+                    <Image
+                        width={300}
+                        height={200}
+                        image={
+                            (medias.find(m => c.src === m.localPath) || {})
+                                .image
+                        }
+                        label={c.alt}
+                    />
+                </div>
+                <div key={i} className={style.label}>{c.alt}</div>
             </div>
         ))}
     </div>
