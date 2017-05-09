@@ -3,7 +3,7 @@ const md5 = require('md5')
 const path = require('path')
 import { build as buildPath } from '../appPath'
 
-import { getSize, convert } from './gm'
+import { getSize, convert } from '../imageBundler/gm'
 
 const selectBestSource = (images, size) =>
     images.reduce(
