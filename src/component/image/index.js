@@ -22,14 +22,14 @@ const createStore = () => {
 
     return {
         isImageLoaded: url => !!(url && imageLoaded[url]),
-        flagAsLoaded: url => void (imageLoaded[url] = true),
-        getBestBlur: (image, width, height) =>
+        flagAsLoaded: url => void (url && (imageLoaded[url] = true)),
+        getBestBlur: (image, width, height): string =>
             (selectBestBlured(
                 image.resized.filter(({ url }) => imageLoaded[url]),
                 width,
                 height
             ) || { url: image.base64 }).url,
-        getBestResolution: (image, width, height) =>
+        getBestResolution: (image, width, height): string =>
             (selectBestImage(image.resized, width, height) || {
                 url: image.base64,
             }).url,
@@ -52,21 +52,25 @@ export class Image extends React.Component<any, Props, State> {
 
         super(props)
 
-        this.state.blurUrl =
+        const blurUrl =
             props.image &&
             imageLoadedStore.getBestBlur(
                 props.image,
                 props.width || 800,
                 props.height || 600
             )
-        this.state.url =
+        const url =
             props.image &&
             imageLoadedStore.getBestResolution(
                 props.image,
                 props.width || 800,
                 props.height || 600
             )
-        this.state.loaded = imageLoadedStore.isImageLoaded(this.state.url)
+        const loaded = imageLoadedStore.isImageLoaded(url)
+
+        this.state.blurUrl = blurUrl || null
+        this.state.url = url || null
+        this.state.loaded = loaded
     }
 
     shouldComponentUpdate(nextProps: Props, nextState: State) {
