@@ -61,11 +61,15 @@ class AnimateFromBox extends React.Component {
     }
 }
 
-export const Post = ({ post, getPosition }: Props) => (
+export const Post = ({ post, getPosition, device }: Props) => (
     <div>
         <div className={style.image}>
             <AnimateFromBox elementKey={post.id} origin={getPosition(post.id)}>
-                <Image image={post.medias[0] && post.medias[0].image} />
+                <Image
+                    image={post.medias[0] && post.medias[0].image}
+                    width={'desktop' === device ? 1200 : 800}
+                    height={600}
+                />
             </AnimateFromBox>
         </div>
         <div className={style.body} key={post.id}>

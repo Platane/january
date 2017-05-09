@@ -1,7 +1,7 @@
 import { Post as Component } from './component'
 import { injectPositionTracker } from '../abstract/positionTracker'
+import { injectDevice } from '../abstract/resolution'
 import { connect } from 'react-redux'
-import * as action from '../../action'
 
 const mapStateToProps = (state, { post, postId }) =>
     post ||
@@ -14,4 +14,6 @@ const mapStateToProps = (state, { post, postId }) =>
         content: { children: [] },
     }
 
-export const Post = connect(mapStateToProps)(injectPositionTracker(Component))
+export const Post = connect(mapStateToProps)(
+    injectDevice(injectPositionTracker(Component))
+)
