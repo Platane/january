@@ -6,6 +6,7 @@ export type Props = {
     image_url: ?string,
     image_width: ?number,
     image_height: ?number,
+    url: ?number,
 
     initState: string,
 
@@ -17,6 +18,7 @@ export type Props = {
 }
 
 export const Head = ({
+    url,
     title,
     description,
     image_url,

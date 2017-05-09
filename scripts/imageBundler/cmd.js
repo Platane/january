@@ -18,7 +18,7 @@ const options = {
     targetDir,
     format: 'jpg',
     quality: 85,
-    dimensions: [[300, 200], [800, 600]],
+    dimensions: [[300, 200], [800, 600], [1200, 600]],
     sizes: [16, 32, 48, 72, 96, 144, 168, 180, 192, 256, 512],
 }
 

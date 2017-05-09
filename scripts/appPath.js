@@ -22,7 +22,7 @@ const { hostname, path } = parse(
 const build = file =>
     '/' + [...path, ...(file || '').split('/').filter(Boolean)].join('/')
 
-const buildAbsolute = file => '//' + hostname + build(file)
+const buildAbsolute = file => 'https://' + hostname + build(file)
 
 module.exports = {
     buildAbsolute,

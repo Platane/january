@@ -20,7 +20,7 @@ const mapStateToProps = (state: State, links) => {
                 const image =
                     post.medias[0] &&
                     post.medias[0].image &&
-                    selectBestImage(post.medias[0].image.resized, 800, 600)
+                    selectBestImage(post.medias[0].image.resized, 1200, 600)
 
                 props = {
                     title: post.title,
