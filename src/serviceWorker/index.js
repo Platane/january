@@ -1,7 +1,6 @@
 /* global caches self URL fetch */
 
-const BASE_PATH = 'BASE_PATH'.split('/').filter(Boolean)
-const assets = ['root2.html', 'root.html', 'index.html', 'app.js', 'style.css']
+const assets = ['root.html', 'index.html', 'app.js', 'style.css']
 
 const assetCacheKey = assets.join('-')
 const imageCacheKey = 'image'
@@ -43,8 +42,6 @@ const cacheFirstStrategy = async request => {
 
 self.addEventListener('fetch', event => {
     const requestURL = new URL(event.request.url)
-
-    const a = BASE_PATH
 
     if (assets.includes(requestURL.pathname))
         // cached as asset

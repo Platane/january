@@ -20,9 +20,9 @@ __/!\ this step require to have graphicMagic in path__
 
 As the router later the route, requiring relative path will fail.
 
-In order to re-write path absolutely, a base_path can be defined and will be append at the start of the paths.
+In order to re-write path absolutely, the `ROOT_URL` can be defined and will be append at the start of the paths.
 
-For example as this project is hosted at `platane.github.io/january`, the url must be `/january/asset/style.css`. The base path to set is 'january'.
+For example as this project is hosted at `platane.github.io/january`, the style url must be `//platane.github.io/january/asset/style.css`. The base path to set is `//platane.github.io/january`.
 
 ## CI
 

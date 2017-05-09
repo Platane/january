@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const createEnvVarArray = () => {
     const o = {}
-    ;['NODE_ENV', 'BASE_PATH']
+    ;['NODE_ENV', 'BASE_PATH', 'ROOT_URL']
         .filter(name => name in process.env)
         .forEach(name => (o[`process.env.${name}`] = `"${process.env[name]}"`))
 

@@ -2,6 +2,10 @@ const fs = require('fs')
 const path = require('path')
 import { render } from './renderer'
 import * as action from '../../src/action'
+import {
+    build as buildPath,
+    buildAbsolute as buildAbsolutePath,
+} from '../appPath'
 
 import type { Post } from '../../type'
 
@@ -24,9 +28,6 @@ export const writePages = (
     safeMkdir(options.targetDir)
     safeMkdir(path.join(options.targetDir, 'post'))
 
-    // get the base path as env var
-    const BASE_PATH = (process.env.BASE_PATH || '/').split('/').filter(Boolean)
-
     // read the link in the webpackStat file
     const webpackStat = JSON.parse(
         fs.readFileSync(options.webpackStatPath).toString()
@@ -36,8 +37,6 @@ export const writePages = (
     const icons = JSON.parse(
         fs.readFileSync(path.join(options.targetDir, 'icons.json')).toString()
     )
-
-    const buildPath = file => '/' + [...BASE_PATH, file].join('/')
 
     const links = {
         icons,

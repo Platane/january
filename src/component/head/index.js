@@ -1,9 +1,16 @@
 import { Head as Component } from './component'
 import { connect } from 'react-redux'
 import { selectBestImage } from '../image/util'
+import * as appPath from '../../../scripts/appPath'
 import type { State } from '../../reducer'
 
-const mapStateToProps = (state: State) => {
+const relativeToAbsolute = path => {
+    const prefix = appPath.build('/')
+
+    return appPath.buildAbsolute(path.slice(prefix.length))
+}
+
+const mapStateToProps = (state: State, links) => {
     let props = {}
     switch (state.path[0]) {
         case 'post':
@@ -19,7 +26,7 @@ const mapStateToProps = (state: State) => {
                     title: post.title,
                     description: post.title,
 
-                    image_url: image && image.url,
+                    image_url: image && relativeToAbsolute(image.url),
                     image_width: image && image.dimension[0],
                     image_height: image && image.dimension[1],
                 }
@@ -38,6 +45,7 @@ const mapStateToProps = (state: State) => {
 
     return {
         ...props,
+        url: appPath.buildAbsolute(state.path.join('/')),
         initState: JSON.stringify(state),
     }
 }

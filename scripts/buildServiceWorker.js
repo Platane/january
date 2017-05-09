@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const babel = require('babel-core')
+const appPath = require('./appPath')
 
 const targetDir = process.argv[2]
 const webpackStatPath = process.argv[3]
@@ -8,20 +9,13 @@ const webpackStatPath = process.argv[3]
 // read the link in the webpackStat file
 const webpackStat = JSON.parse(fs.readFileSync(webpackStatPath).toString())
 
-// get the base path as env var
-const BASE_PATH = (process.env.BASE_PATH || '/').split('/').filter(Boolean)
-
-const buildPath = file => '/' + [...BASE_PATH, file].join('/')
-
 const links = {
-    BASE_PATH: process.env.BASE_PATH || '/',
-    'root.html': '/' + BASE_PATH.join('/'),
-    'root2.html': '/' + BASE_PATH.map(x => x + '/').join('/'),
-    'index.html': buildPath('index.html'),
-    'app.js': buildPath(
+    'root.html': appPath.build(''),
+    'index.html': appPath.build('index.html'),
+    'app.js': appPath.build(
         webpackStat.chunks[0].files.find(x => x.match(/\.js$/))
     ),
-    'style.css': buildPath(
+    'style.css': appPath.build(
         webpackStat.chunks[0].files.find(x => x.match(/\.css$/))
     ),
 }

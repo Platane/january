@@ -1,11 +1,9 @@
 const fs = require('fs')
 const md5 = require('md5')
 const path = require('path')
+import { build as buildPath } from '../appPath'
 
 import { getSize, convert } from './gm'
-
-const buildPath = (name: string): string =>
-    path.join('/', process.env.BASE_PATH || '', name).replace(/\\/g, '/')
 
 const selectBestSource = (images, size) =>
     images.reduce(

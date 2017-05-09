@@ -31,7 +31,7 @@ export const render = (
     )
 
     return [
-        '<html>',
+        '<html lang="en">',
         head,
         `<body><div id="app">${app}</div></body>`,
         '</html>',

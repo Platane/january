@@ -74,8 +74,9 @@ export const Head = ({
             image_height &&
             <meta property="og:image:height" content={image_height} />}
 
-        <meta content="object" property="og:article" />
-        <meta content={title} property="og:title" />
+        {url && <meta property="og:url" content={url} />}
+        <meta property="og:article" content="object" />
+        <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta description={description} />
 

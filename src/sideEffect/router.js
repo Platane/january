@@ -2,9 +2,10 @@
 
 import type { Store } from '../index'
 
+import * as appPath from '../../scripts/appPath'
+
 import * as action from '../action'
 
-const BASE_PATH = (process.env.BASE_PATH || '/').split('/').filter(Boolean)
 const APPEND_EXT = false
 
 const stripPrefix = (prefix, path) => path.slice(prefix.length)
@@ -13,15 +14,16 @@ const stripHtmlExt = path =>
     path.slice(-5) === '.html' ? path.slice(0, -5) : path
 
 const buildPath = path =>
-    '/' +
-    (path.length === 0
-        ? BASE_PATH.join('/')
-        : [...BASE_PATH, ...path].join('/') + (APPEND_EXT ? '.html' : ''))
+    APPEND_EXT
+        ? appPath.build(
+              path.length == 0 ? 'index.html' : path.join('/') + '.html'
+          )
+        : appPath.build(path.join('/'))
 
 const read = (): Array<string> => {
     if (!window || !window.location) return []
     return stripPrefix(
-        BASE_PATH,
+        appPath.path,
         stripHtmlExt(window.location.pathname).split('/').filter(Boolean)
     )
 }

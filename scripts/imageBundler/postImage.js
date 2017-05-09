@@ -1,6 +1,7 @@
 const fs = require('fs')
 const md5 = require('md5')
 const path = require('path')
+import { build as buildPath } from '../appPath'
 
 import { getSize, convert } from './gm'
 
@@ -22,9 +23,6 @@ export type ImageBundle = {
     }>,
     base64: string,
 }
-
-const buildPath = (name: string): string =>
-    path.join('/', process.env.BASE_PATH || '', name).replace(/\\/g, '/')
 
 export const bundle = async (
     imagePath: string,
