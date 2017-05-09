@@ -42,7 +42,7 @@ const mapStateToProps = (state: State, links) => {
         case null:
             props = {
                 title: 'edouard',
-                description: 'The best ideas are not popular yet.',
+                description: "The best ideas are not popular yet. - Edouard's travel blog",
             }
     }
 
