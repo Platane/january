@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 import { parse as parseMarkDown } from './markdown/parser'
 
-import type { Tree } from './markdown/parser'
 import type { Post } from '../../type'
 
 import { find, findAll, extractText, prune } from './markdown/treeUtil'
@@ -62,6 +61,13 @@ const readMedias = tree =>
             image: null,
         }))
 
+const pruneFirstImage = tree =>
+    tree.children[0] &&
+        tree.children[0].children[0] &&
+        'imageGroup' === tree.children[0].type
+        ? prune(tree, tree.children[0].children[0])
+        : tree
+
 export const parsePost = (text: string): Post => {
     let mdTree = parseMarkDown(text)
 
@@ -81,6 +87,8 @@ export const parsePost = (text: string): Post => {
     } catch (err) {}
 
     const medias = readMedias(mdTree)
+
+    mdTree = pruneFirstImage(mdTree)
 
     return {
         id: Math.random().toString(16).slice(2),
