@@ -9,13 +9,21 @@ const createEnvVarArray = () => {
     const o = {}
     ;['NODE_ENV', 'BASE_PATH']
         .filter(name => name in process.env)
-        .forEach(name => (o[`process.env.${name}`] = `"${process.env[name]}"`))
+        .forEach(
+            name => (o[`process.env.${name}`] = `"${process.env[name] || ''}"`)
+        )
 
     return o
 }
 
 module.exports = {
-    entry: ['./src/index.js', './src/index.html', 'babel-polyfill'],
+    entry: [
+        'core-js/es6/array',
+        'core-js/es6/promise',
+        'core-js/es7/array',
+        'whatwg-fetch',
+        './src/index.js',
+    ],
 
     output: {
         path: path.join(__dirname, 'dist'),
@@ -30,7 +38,23 @@ module.exports = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['react', 'es2015', 'es2017', 'flow'],
+                            presets: [
+                                'react',
+                                'flow',
+                                [
+                                    'env',
+                                    {
+                                        targets: {
+                                            browsers: [
+                                                'last 2 versions',
+                                                'safari >= 7',
+                                            ],
+                                        },
+                                        loose: true,
+                                        module: false,
+                                    },
+                                ],
+                            ],
                             plugins: ['transform-class-properties'],
                         },
                     },
@@ -101,6 +125,11 @@ module.exports = {
         new OptimizeCssAssetsPlugin(),
 
         new webpack.DefinePlugin(createEnvVarArray()),
+
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: false,
+        }),
 
         new UglifyJSPlugin({ comments: false }),
 
