@@ -16,3 +16,5 @@ export const selectBestImage = (
         null
     )
 }
+
+export const selectBestBlured = selectBestImage

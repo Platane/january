@@ -11,7 +11,12 @@ export const Post = ({ id, title, medias, body }: Props) => (
     <div className={style.container}>
 
         <div className={style.image}>
-            <Image image={medias[0] && medias[0].image} />
+            <Image
+                image={medias[0] && medias[0].image}
+                width={200}
+                height={120}
+                label={medias[0] && medias[0].name}
+            />
         </div>
 
         <div className={style.title}>{title}</div>

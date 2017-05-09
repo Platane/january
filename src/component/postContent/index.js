@@ -47,6 +47,7 @@ const ImageGroup = ({ tree, medias }) => (
                     image={
                         (medias.find(m => c.src === m.localPath) || {}).image
                     }
+                    label={c.alt}
                 />
             </div>
         ))}

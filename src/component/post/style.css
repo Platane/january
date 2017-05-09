@@ -26,7 +26,9 @@
     font-size: 0.8em;
     font-style: italic;
 }
-.footer{}
+.footer{
+    margin-top: 50px;
+}
 .tagRow{
     display: flex;
     flex-direction: row;
@@ -39,7 +41,7 @@
     margin-bottom: 10px;
     font-size: 0.8em;
     color: #000;
-    background: #aaa;
+    background: #ddd;
     padding: 6px 10px;
     border-radius: 4px;
     margin-left: 10px;
