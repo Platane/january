@@ -1,5 +1,5 @@
 import React from 'react'
-import { Transition } from 'react-propsTransition'
+import { Transition } from 'react-propstransition'
 import { selectBestImage, selectBestBlured } from './util'
 import type { ImageBundle } from '../../../scripts/imageBundler/postImage'
 import style from './style.css'
