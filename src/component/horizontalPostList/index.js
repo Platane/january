@@ -1,9 +1,9 @@
 import React from 'react'
-import { injectPositionTracker } from '../../abstract/positionTracker'
+import { injectPositionTracker } from '../abstract/positionTracker'
 
 import style from './style.css'
 
-import { Post } from '../post'
+import { PostPreview } from './postPreview'
 
 const createClickHandler = (goToPost, writePosition, postId) => event => {
     const { top, width, left, height } = event.target.getBoundingClientRect()
@@ -19,7 +19,7 @@ const HorizontalPostList_ = ({ posts, goToPost, writePosition }) => (
                 className={style.item}
                 onClick={createClickHandler(goToPost, writePosition, post.id)}
             >
-                <Post {...post} />
+                <PostPreview {...post} />
             </div>
         ))}
     </div>

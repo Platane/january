@@ -1,8 +1,7 @@
 import React from 'react'
 import style from './style.css'
 
-import { Post } from './post'
-import { HorizontalPostList } from './horizontalPostList'
+import { HorizontalPostList } from '../horizontalPostList'
 
 import type { Post as Post_type } from '../../../type'
 
@@ -30,13 +29,3 @@ export const HomePage = ({ posts, goToPost, device }: Props) => (
         </div>
     </div>
 )
-
-// {posts.map(post => (
-//     <div
-//         key={post.id}
-//         className={style.item}
-//         onClick={() => goToPost(post.id)}
-//         >
-//         <Post {...post} />
-//     </div>
-// ))}

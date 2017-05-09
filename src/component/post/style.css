@@ -5,21 +5,27 @@
 }
 .body{
     margin: 16px;
-    animation: fadeIn 400ms ease;
-}
-@keyframes fadeIn {
-    0%{ opacity: 0 }
-    40%{ opacity: 0; transform: translate3d(0,30px,0) scale(0.9) }
-    100%{ opacity: 1; transform: translate3d(0,0,0) scale(1) }
 }
 .headerRow{
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     margin-bottom: 20px;
+    animation: headerFadeIn 450ms ease;
+}
+@keyframes headerFadeIn {
+    0%{ opacity: 0 }
+    40%{ opacity: 0; transform: translate3d(-100px,0,0) }
+    100%{ opacity: 1; transform: translate3d(0,0,0) }
 }
 .content{
     margin: 30px 0;
+    animation: contentFadeIn 400ms ease;
+}
+@keyframes contentFadeIn {
+    0%{ opacity: 0 }
+    40%{ opacity: 0; transform: translate3d(0,30px,0) scale(0.95) }
+    100%{ opacity: 1; transform: translate3d(0,0,0) scale(1) }
 }
 .title{
     font-weight: bold;
@@ -41,7 +47,7 @@
     flex-wrap: wrap;
 }
 .tag:first-child{
-    margin-left: 10px;
+    margin-left: 0;
 }
 .tag{
     margin-bottom: 10px;

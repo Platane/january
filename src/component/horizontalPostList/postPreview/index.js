@@ -7,7 +7,7 @@ import type { Post as Post_type } from '../../../../type'
 
 export type Props = Post_type
 
-export const Post = ({ id, title, medias, body }: Props) => (
+export const PostPreview = ({ id, title, medias, body }: Props) => (
     <div className={style.container}>
 
         <div className={style.image}>
