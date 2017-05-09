@@ -41,7 +41,7 @@ const parsePost = post => {
     const text = extractText(post.content)
     const words = text.split(' ')
 
-    const READING_VELOCITY = 300
+    const READING_VELOCITY = 200
     const MAX_PREVIEW_LENGTH = 100
 
     post.reading_duration = words.length / READING_VELOCITY

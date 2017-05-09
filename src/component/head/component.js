@@ -98,7 +98,10 @@ export const Head = ({
                 property="article:published_time"
                 content={new Date(published_date).toISOString()}
             />}
-        {tags && tags.map(tag => <meta property="article:tag" content={tag} />)}
+        {tags &&
+            tags.map(tag => (
+                <meta key={tag} property="article:tag" content={tag} />
+            ))}
 
         <link rel="stylesheet" type="text/css" href={links.appStyle} />
 

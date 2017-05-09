@@ -47,3 +47,46 @@ export const injectPositionTracker = C => {
     }
     return PositionTrackerInjector
 }
+
+export class AnimateFromBox extends React.Component {
+    shouldComponentUpdate(nextProps) {
+        return this.props.elementKey != nextProps.elementKey
+    }
+
+    afterRender = () => {
+        if (!this.refs.item || !this.refs.item.animate || !this.props.origin)
+            return
+
+        const origin = this.props.origin
+        const target = this.refs.item.getBoundingClientRect()
+
+        const animationKey = [
+            {
+                width: `${origin.width}px`,
+                height: `${origin.height}px`,
+                transform: `translate3d(${origin.left - target.left}px,${origin.top - target.top}px,0)`,
+            },
+            {
+                width: `${target.width}px`,
+                height: `${target.height}px`,
+                transform: 'translate3d(0,0,0)',
+            },
+        ]
+
+        this.refs.item.animate(animationKey, { duration: 430, easing: 'ease' })
+    }
+
+    render() {
+        if ('undefined' !== typeof requestAnimationFrame)
+            requestAnimationFrame(this.afterRender)
+
+        return (
+            <div
+                ref="item"
+                style={{ width: '100%', height: '100%', position: 'relative' }}
+            >
+                {React.Children.only(this.props.children)}
+            </div>
+        )
+    }
+}

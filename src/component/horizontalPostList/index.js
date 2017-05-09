@@ -3,7 +3,7 @@ import { injectPositionTracker } from '../abstract/positionTracker'
 
 import style from './style.css'
 
-import { PostPreview } from './postPreview'
+import { Image } from '../image'
 
 const createClickHandler = (goToPost, writePosition, postId) => event => {
     const { top, width, left, height } = event.target.getBoundingClientRect()
@@ -19,7 +19,12 @@ const HorizontalPostList_ = ({ posts, goToPost, writePosition }) => (
                 className={style.item}
                 onClick={createClickHandler(goToPost, writePosition, post.id)}
             >
-                <PostPreview {...post} />
+                <Image
+                    image={post.medias[0] && post.medias[0].image}
+                    width={200}
+                    height={200}
+                    label={post.medias[0] && post.medias[0].name}
+                />
             </div>
         ))}
     </div>

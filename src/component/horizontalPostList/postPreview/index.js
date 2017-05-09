@@ -14,7 +14,7 @@ export const PostPreview = ({ id, title, medias, body }: Props) => (
             <Image
                 image={medias[0] && medias[0].image}
                 width={200}
-                height={120}
+                height={200}
                 label={medias[0] && medias[0].name}
             />
         </div>
