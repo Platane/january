@@ -43,8 +43,8 @@ const ImageGroup = ({ tree, medias }) => (
             <div key={i} className={style.figure}>
                 <div className={style.image}>
                     <Image
-                        width={300}
-                        height={200}
+                        width={380}
+                        height={240}
                         image={
                             (medias.find(m => c.src === m.localPath) || {})
                                 .image

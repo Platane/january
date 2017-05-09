@@ -26,15 +26,20 @@ export const formatReadingDuration = (duration: number): string => {
 }
 
 export const Post = ({ post, getPosition, device }: Props) => (
-    <div>
-        <div className={style.image}>
-            <AnimateFromBox elementKey={post.id} origin={getPosition(post.id)}>
-                <Image
-                    image={post.medias[0] && post.medias[0].image}
-                    width={'desktop' === device ? 900 : 800}
-                    height={600}
-                />
-            </AnimateFromBox>
+    <div className={style.container}>
+        <div className={style.imageWrapper}>
+            <div className={style.image}>
+                <AnimateFromBox
+                    elementKey={post.id}
+                    origin={getPosition(post.id)}
+                >
+                    <Image
+                        image={post.medias[0] && post.medias[0].image}
+                        width={'desktop' === device ? 900 : 800}
+                        height={600}
+                    />
+                </AnimateFromBox>
+            </div>
         </div>
         <div className={style.body} key={post.id}>
             <div className={style.headerRow}>

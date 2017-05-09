@@ -16,13 +16,15 @@ export const PostPreview = ({
 }: Props) => (
     <div className={style.container}>
 
-        <div className={style.image}>
-            <Image
-                image={medias[0] && medias[0].image}
-                width={200}
-                height={200}
-                label={medias[0] && medias[0].name}
-            />
+        <div className={style.imageWrapper}>
+            <div className={style.image}>
+                <Image
+                    image={medias[0] && medias[0].image}
+                    width={600}
+                    height={400}
+                    label={medias[0] && medias[0].name}
+                />
+            </div>
         </div>
 
         <div className={style.content}>

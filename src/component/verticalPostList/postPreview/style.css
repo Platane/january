@@ -4,9 +4,16 @@
     box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.18);
 }
 .image{
-    width: 100%;
-    height: 220px;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+.imageWrapper{
     position: relative;
+    width: 100%;
+    padding-bottom: 66%;
 }
 .title{
     font-size: 0.9em;
@@ -33,5 +40,5 @@
 .content{
 }
 .preview{
-    padding: 16px
+    padding: 6px 16px 16px 16px;
 }
