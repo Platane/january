@@ -5,11 +5,19 @@ type Options = {
     quality?: number,
     noProfile?: boolean,
     format?: 'jpg' | 'png' | 'gif' | 'bmp',
+    cropRect?: { width: number, height: number, x: number, y: number },
     commandName?: string,
 }
 
 const prepareArgs = (options: Options): Array<string> => [
     'convert',
+
+    ...(options.cropRect
+        ? [
+              '-crop',
+              `${options.cropRect.width}x${options.cropRect.height}+${options.cropRect.x}+${options.cropRect.y}`,
+          ]
+        : []),
 
     ...(options.dimension
         ? ['-resize', `${options.dimension[0]}x${options.dimension[1]}`]

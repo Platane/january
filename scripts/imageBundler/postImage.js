@@ -64,21 +64,29 @@ export const bundle = async (
         (options.dimensions || []).map(async dimension => {
             const name = `${hash}_${dimension[0]}x${dimension[1]}.jpg`
 
-            console.log(name)
+            let cropRect = {
+                x: 0,
+                y: 0,
+                width: dimension[0],
+                height: dimension[1],
+            }
 
-            const { topCrop } = await smartcrop
-                .crop(imagePath, {
+            try {
+                const { topCrop } = await smartcrop.crop(imagePath, {
                     width: dimension[0],
                     height: dimension[1],
                 })
-                .catch(err => console.log(err))
 
-            console.log(topCrop)
+                cropRect = topCrop
+            } catch (err) {
+                console.warn('could not use smartcrop', err)
+            }
 
             fs.writeFileSync(
                 path.join(options.targetDir, name),
                 await convert(imageBuffer, {
                     ...common_options,
+                    cropRect,
                     dimension,
                 })
             )
