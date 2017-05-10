@@ -15,12 +15,12 @@ export const reduceSelectedTag = (state: State, action: Action): State => {
 
     switch (action.type) {
         case 'navigatorRead':
-            return primaryTags.includes(action.path[0])
-                ? {
-                      ...state,
-                      selectedTag: action.path[0],
-                  }
-                : state
+            return {
+                ...state,
+                selectedTag: primaryTags.includes(action.path[0])
+                    ? action.path[0]
+                    : null,
+            }
 
         case 'goTo:home':
         case 'goTo:about':
