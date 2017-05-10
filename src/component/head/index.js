@@ -39,6 +39,14 @@ const mapStateToProps = (state: State, links) => {
             }
         }
     } else if (state.selectedTag) {
+        props = {
+            ...props,
+            description: "Edouard's travel blog - The best ideas are not popular yet." +
+                ` Last post about ${state.selectedTag}`,
+
+            tags: [state.selectedTag],
+        }
+
         const lastPost = state.posts.find(
             post =>
                 post.tags.includes(state.selectedTag) &&
@@ -46,23 +54,18 @@ const mapStateToProps = (state: State, links) => {
                 post.medias[0].image
         )
 
-        const image = selectBestImage(
-            lastPost.medias[0].image.resized,
-            1200,
-            600
-        )
+        if (lastPost) {
+            const image = selectBestImage(
+                lastPost.medias[0].image.resized,
+                1200,
+                600
+            )
 
-        props = {
-            ...props,
-            title: lastPost.title,
-            description: "Edouard's travel blog - The best ideas are not popular yet." +
-                ` Last post about ${state.selectedTag}`,
-
-            tags: [state.selectedTag],
-
-            image_url: image && relativeToAbsolute(image.url),
-            image_width: image && image.dimension[0],
-            image_height: image && image.dimension[1],
+            props = {
+                image_url: image && relativeToAbsolute(image.url),
+                image_width: image && image.dimension[0],
+                image_height: image && image.dimension[1],
+            }
         }
     }
 
