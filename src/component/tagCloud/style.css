@@ -8,12 +8,18 @@
 }
 .tag{
     margin-bottom: 10px;
-    font-size: 0.8em;
-    color: #000;
-    background: #ddd;
     padding: 6px 10px;
-    border-radius: 4px;
     margin-right: 10px;
     min-width: 80px;
+
+    border-radius: 4px;
+    font-size: 0.8em;
+    color: #000;
+    background-color: #ddd;
     text-align: center;
+    cursor: pointer;
+    transition: background-color 300ms ease;
+}
+.tag:hover{
+    background-color: #cdcdcd;
 }

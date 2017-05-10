@@ -1,7 +1,9 @@
 .container{
-    background-color: #fff;
     position: relative;
+
+    background-color: #fff;
     box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
 }
 .image{
     position: absolute;
@@ -16,29 +18,28 @@
     padding-bottom: 66%;
 }
 .title{
+    height: 16px;
+    overflow: hidden;
+    line-height: 16px;
+
+    text-transform: capitalize;
     font-size: 0.9em;
     font-weight: bold;
-    height: 30px;
-    overflow: hidden;
-    line-height: 30px;
-    text-transform: capitalize;
     letter-spacing: 1px;
 }
 .readingDuration,
 .date{
     margin-left: 20px;
+
     font-size: 0.8em;
     font-style: italic;
 }
 .headerRow{
     display: flex;
     flex-direction: row;
-    align-items: center;
-
-    padding: 0 16px
-}
-.content{
+    align-items: flex-end;
+    padding: 16px 16px 14px 16px;
 }
 .preview{
-    padding: 6px 16px 16px 16px;
+    padding: 0 16px 16px 16px;
 }

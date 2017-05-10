@@ -14,7 +14,7 @@
 .body{
     padding: 16px
 }
-@media (min-width: 916px) {
+@media (min-width: 948px) {
     .body{
         padding: 16px 0;
     }
