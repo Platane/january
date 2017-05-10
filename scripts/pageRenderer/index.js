@@ -2,6 +2,8 @@ const fs = require('fs')
 const path = require('path')
 import { render } from './renderer'
 import * as action from '../../src/action'
+import { primaryTags } from '../../src/reducer/selectedTag'
+
 import {
     build as buildPath,
     buildAbsolute as buildAbsolutePath,
@@ -26,7 +28,6 @@ export const writePages = (
 ) => {
     // prepare the directory
     safeMkdir(options.targetDir)
-    safeMkdir(path.join(options.targetDir, 'post'))
 
     // read the link in the webpackStat file
     const webpackStat = JSON.parse(
@@ -61,13 +62,28 @@ export const writePages = (
     ])
     fs.writeFileSync(path.join('dist', 'index.html'), home_page)
 
+    // write the category pages
+    primaryTags.forEach(tag => {
+        // make dir /<tag>/
+        safeMkdir(path.join(options.targetDir, tag))
+
+        const category_page = render(links, [
+            action.hydratePost(posts),
+            action.selectTag(tag),
+        ])
+        fs.writeFileSync(
+            path.join(options.targetDir, tag, 'index.html'),
+            category_page
+        )
+    })
+
     // for each post, write the page and json data
     posts.forEach(post => {
-        // json data
-        fs.writeFileSync(
-            path.join('dist', 'post', post.id + '.json'),
-            JSON.stringify(post)
-        )
+        const tag =
+            post.tags.find(tag => primaryTags.includes(tag)) || primaryTags[0]
+
+        // maje dir /<tag>/<post.id>/
+        safeMkdir(path.join(options.targetDir, tag, post.id))
 
         // html render
         const post_page = render(links, [
@@ -75,13 +91,7 @@ export const writePages = (
             action.goToPost(post.id),
         ])
         fs.writeFileSync(
-            path.join('dist', 'post', post.id + '.html'),
-            post_page
-        )
-
-        safeMkdir(path.join(options.targetDir, 'post', post.id))
-        fs.writeFileSync(
-            path.join('dist', 'post', post.id, 'index.html'),
+            path.join(options.targetDir, tag, post.id, 'index.html'),
             post_page
         )
     })

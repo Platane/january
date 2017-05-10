@@ -11,39 +11,59 @@ const relativeToAbsolute = path => {
 }
 
 const mapStateToProps = (state: State, links) => {
-    let props = {}
-    switch (state.path[0]) {
-        case 'post':
-            const post = state.selectedPost
+    let props = {
+        title: 'edouard',
+        description: "Edouard's travel blog - The best ideas are not popular yet.",
+    }
 
-            if (post) {
-                const image =
-                    post.medias[0] &&
-                    post.medias[0].image &&
-                    selectBestImage(post.medias[0].image.resized, 1200, 600)
+    if (state.selectedPost) {
+        const post = state.selectedPost
 
-                props = {
-                    title: post.title,
-                    description: post.content_preview,
+        if (post) {
+            const image =
+                post.medias[0] &&
+                post.medias[0].image &&
+                selectBestImage(post.medias[0].image.resized, 1200, 600)
 
-                    published_date: post.date,
-                    tags: post.tags,
-
-                    image_url: image && relativeToAbsolute(image.url),
-                    image_width: image && image.dimension[0],
-                    image_height: image && image.dimension[1],
-                }
-            }
-
-            break
-
-        case 'about':
-        case void 0:
-        case null:
             props = {
-                title: 'edouard',
-                description: "The best ideas are not popular yet. - Edouard's travel blog",
+                ...props,
+                title: post.title,
+                description: post.content_preview,
+
+                published_date: post.date,
+                tags: post.tags,
+
+                image_url: image && relativeToAbsolute(image.url),
+                image_width: image && image.dimension[0],
+                image_height: image && image.dimension[1],
             }
+        }
+    } else if (state.selectedTag) {
+        const lastPost = state.posts.find(
+            post =>
+                post.tags.includes(state.selectedTag) &&
+                post.medias[0] &&
+                post.medias[0].image
+        )
+
+        const image = selectBestImage(
+            lastPost.medias[0].image.resized,
+            1200,
+            600
+        )
+
+        props = {
+            ...props,
+            title: lastPost.title,
+            description: "Edouard's travel blog - The best ideas are not popular yet." +
+                ` Last post about ${state.selectedTag}`,
+
+            tags: [state.selectedTag],
+
+            image_url: image && relativeToAbsolute(image.url),
+            image_width: image && image.dimension[0],
+            image_height: image && image.dimension[1],
+        }
     }
 
     return {

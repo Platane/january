@@ -5,7 +5,7 @@ import type { State } from './index'
 const reduceSelectedPostId = (state: State, action: Action): State => {
     switch (action.type) {
         case 'navigatorRead':
-            return 'post' === action.path[0]
+            return action.path[1]
                 ? {
                       ...state,
                       selectedPostId: action.path[1],

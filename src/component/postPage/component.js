@@ -9,7 +9,7 @@ import type { Post as Post_type } from '../../../type'
 
 export type Props = {
     posts: Array<Post_type>,
-    postId: string,
+    post: ?Post,
     goToPost: () => void,
     device: 'palm' | 'desktop',
 }
@@ -20,20 +20,20 @@ const createGoToPost = goToPost => postId => {
     goToPost(postId)
 }
 
-export const PostPage = ({ device, postId, posts, goToPost }: Props) =>
-    posts.some(({ id }) => id === postId)
+export const PostPage = ({ device, post, posts, goToPost }: Props) =>
+    post
         ? ('palm' === device &&
               <SwipeablePostlist
-                  postId={postId}
+                  postId={post.id}
                   posts={posts}
                   goToPost={goToPost}
               />) ||
               ('desktop' === device &&
                   <div>
-                      <Post post={posts.find(({ id }) => id === postId)} />
+                      <Post post={post} />
                       <div className={style.footer}>
                           <HorizontalPostList
-                              posts={posts.filter(({ id }) => id != postId)}
+                              posts={posts.filter(({ id }) => id != post.id)}
                               goToPost={createGoToPost(goToPost)}
                           />
                       </div>

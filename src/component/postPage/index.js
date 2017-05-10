@@ -5,8 +5,8 @@ import { injectDevice } from '../abstract/resolution'
 import * as action from '../../action'
 
 const mapStateToProps = state => ({
+    post: state.selectedPost,
     posts: state.posts,
-    postId: state.selectedPostId,
 })
 
 const mapDispatchToProps = {

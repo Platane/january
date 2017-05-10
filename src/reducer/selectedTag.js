@@ -1,10 +1,10 @@
 import type { Action } from '../action'
 import type { State } from './index'
 
-export const primaryTags = ['world', 'update', 'essential']
+export const primaryTags = ['update', 'world', 'essential']
 
 const extractPrimaryTag = post =>
-    post.tags.find(tag => primaryTags.includes(tag))
+    post.tags.find(tag => primaryTags.includes(tag)) || primaryTags[0]
 
 export const reduceSelectedTag = (state: State, action: Action): State => {
     if (state.selectedPost)
@@ -15,10 +15,10 @@ export const reduceSelectedTag = (state: State, action: Action): State => {
 
     switch (action.type) {
         case 'navigatorRead':
-            return 'category' === action.path[0]
+            return primaryTags.includes(action.path[0])
                 ? {
                       ...state,
-                      selectedTag: action.path[1],
+                      selectedTag: action.path[0],
                   }
                 : state
 

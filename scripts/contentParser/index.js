@@ -2,6 +2,8 @@ const fs = require('fs')
 const path = require('path')
 import { parse as parseMarkDown } from './markdown/parser'
 
+import { primaryTags } from '../../src/reducer/selectedTag'
+
 import type { Post } from '../../type'
 
 import { find, findAll, extractText, prune } from './markdown/treeUtil'
@@ -45,6 +47,11 @@ const readTags = tree => {
     )
 
     if (!tagsQuote) throw new Error('no tags found')
+
+    const tags = parseTags(extractText(tagsQuote))
+
+    if (!tags.some(tag => primaryTags.includes(tag)))
+        tags.unshift(primaryTags[0])
 
     return {
         prunedTree: prune(tree, tagsQuote),

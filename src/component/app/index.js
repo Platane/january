@@ -3,11 +3,9 @@ import { connect } from 'react-redux'
 import * as action from '../../action'
 
 const mapStateToProps = state => ({
-    path: state.path || [],
+    page: ('about' === state.path[0] && 'about') ||
+        (state.path[1] && 'post') ||
+        'home',
 })
 
-const mapDispatchToProps = {
-    goToPost: action.goToPost,
-}
-
-export const App = connect(mapStateToProps, mapDispatchToProps)(Component)
+export const App = connect(mapStateToProps, null)(Component)

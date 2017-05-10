@@ -11,10 +11,10 @@ import {
 import style from './style.css'
 
 export type Props = {
-    path: string,
+    page: 'post' | 'about' | 'home',
 }
 
-export const App = ({ path }: Props) => (
+export const App = ({ page }: Props) => (
     <PositionTrackerProvider>
         <DeviceResolutionProvider>
             <div className={style.wrapper}>
@@ -24,9 +24,9 @@ export const App = ({ path }: Props) => (
                     </div>
 
                     <div className={style.content}>
-                        {!path[0] && <HomePage />}
-                        {'about' == path[0] && <AboutPage />}
-                        {'post' == path[0] && <PostPage postId={path[1]} />}
+                        {'home' === page && <HomePage />}
+                        {'about' === page && <AboutPage />}
+                        {'post' === page && <PostPage />}
                     </div>
 
                 </div>
