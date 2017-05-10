@@ -40,7 +40,7 @@ export const bundle = async (
     }
 
     // get the image dimension
-    const dimension = await getSize(imageBuffer, {})
+    const source_dimension = await getSize(imageBuffer, {})
 
     // get the image hash, to generate a unique name
     const hash = md5(imageBuffer).slice(0, 8)
@@ -67,8 +67,8 @@ export const bundle = async (
             let cropRect = {
                 x: 0,
                 y: 0,
-                width: dimension[0],
-                height: dimension[1],
+                width: source_dimension[0],
+                height: source_dimension[1],
             }
 
             try {
@@ -80,6 +80,18 @@ export const bundle = async (
                 cropRect = topCrop
             } catch (err) {
                 console.warn('could not use smartcrop', err)
+
+                // fallbak : crop the middle
+                const source_ratio = source_dimension[0] / source_dimension[1]
+                const target_ratio = dimension[0] / dimension[1]
+
+                if (source_ratio > target_ratio) {
+                    cropRect.width = source_dimension[1] * target_ratio
+                    cropRect.x = (source_dimension[0] - cropRect.width) * 0.5
+                } else {
+                    cropRect.height = source_dimension[0] / target_ratio
+                    cropRect.y = (source_dimension[1] - cropRect.height) * 0.5
+                }
             }
 
             fs.writeFileSync(
@@ -101,7 +113,7 @@ export const bundle = async (
     return {
         source: {
             url: buildPath(source_name),
-            dimension,
+            source_dimension,
         },
         resized,
         base64: `data:image/bmp;base64,${small.toString('base64')}`,
