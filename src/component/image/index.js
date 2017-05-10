@@ -38,6 +38,11 @@ const createStore = () => {
 
 const imageLoadedStore = createStore()
 
+const sameContent = (a, b) =>
+    a.slice(-3) !== 'jpg' ||
+    b.slice(-3) !== 'jpg' ||
+    a.slice(0, 8) === b.slice(0, 8)
+
 export class Image extends React.Component<*, Props, State> {
     props: Props
 
@@ -128,7 +133,7 @@ export class Image extends React.Component<*, Props, State> {
                         alt={label}
                         src={url}
                     />}
-                <Transition toTransition={loaded ? url : blurUrl} delay={300}>
+                <Transition toTransition={loaded ? url : blurUrl} delay={400}>
                     {({ next, previous, transition }) => (
                         <div
                             className={style.background}
@@ -137,7 +142,9 @@ export class Image extends React.Component<*, Props, State> {
                             }}
                         >
 
-                            {transition &&
+                            {previous &&
+                                transition &&
+                                sameContent(next, previous) &&
                                 <div
                                     key={previous || 1}
                                     className={style.backgroundTransition}

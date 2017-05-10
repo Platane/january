@@ -32,6 +32,7 @@ export const Post = ({ post, getPosition, device }: Props) => (
                 <AnimateFromBox
                     elementKey={post.id}
                     origin={getPosition(post.id)}
+                    scale
                 >
                     <Image
                         image={post.medias[0] && post.medias[0].image}
@@ -46,7 +47,7 @@ export const Post = ({ post, getPosition, device }: Props) => (
                 <div className={style.title}>{post.title}</div>
                 <div className={style.date}>{formatDate(post.date)}</div>
                 <div className={style.readingDuration}>
-                    {formatReadingDuration(0 | post.reading_duration)}
+                    {formatReadingDuration(post.reading_duration || 0)}
                 </div>
             </div>
             <div className={style.content}>

@@ -48,8 +48,16 @@ export const injectPositionTracker = C => {
     return PositionTrackerInjector
 }
 
+type Props = {
+    elementKey: ?string,
+    scale: ?boolean,
+    origin: Box,
+    children: any,
+}
 export class AnimateFromBox extends React.Component {
-    shouldComponentUpdate(nextProps) {
+    props: Props
+
+    shouldComponentUpdate(nextProps: Props) {
         return this.props.elementKey != nextProps.elementKey
     }
 
@@ -60,18 +68,32 @@ export class AnimateFromBox extends React.Component {
         const origin = this.props.origin
         const target = this.refs.item.getBoundingClientRect()
 
-        const animationKey = [
-            {
-                width: `${origin.width}px`,
-                height: `${origin.height}px`,
-                transform: `translate3d(${origin.left - target.left}px,${origin.top - target.top}px,0)`,
-            },
-            {
-                width: `${target.width}px`,
-                height: `${target.height}px`,
-                transform: 'translate3d(0,0,0)',
-            },
-        ]
+        const animationKey = this.props.scale
+            ? // animate the scale
+              [
+                  {
+                      transform: [
+                          `translate3d(${origin.left - target.left}px,${origin.top - target.top}px,0)`,
+                          `scale(${origin.width / target.width}, ${origin.height / target.height})`,
+                      ].join(' '),
+                  },
+                  {
+                      transform: 'translate3d(0,0,0) scale(1)',
+                  },
+              ]
+            : // animate the width / height
+              [
+                  {
+                      width: `${origin.width}px`,
+                      height: `${origin.height}px`,
+                      transform: `translate3d(${origin.left - target.left}px,${origin.top - target.top}px,0)`,
+                  },
+                  {
+                      width: `${target.width}px`,
+                      height: `${target.height}px`,
+                      transform: 'translate3d(0,0,0)',
+                  },
+              ]
 
         this.refs.item.animate(animationKey, { duration: 430, easing: 'ease' })
     }
@@ -83,7 +105,12 @@ export class AnimateFromBox extends React.Component {
         return (
             <div
                 ref="item"
-                style={{ width: '100%', height: '100%', position: 'relative' }}
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    position: 'relative',
+                    transformOrigin: '0% 0%',
+                }}
             >
                 {React.Children.only(this.props.children)}
             </div>

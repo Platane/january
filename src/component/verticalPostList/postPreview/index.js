@@ -20,8 +20,8 @@ export const PostPreview = ({
             <div className={style.image}>
                 <Image
                     image={medias[0] && medias[0].image}
-                    width={600}
-                    height={400}
+                    width={900}
+                    height={600}
                     label={medias[0] && medias[0].name}
                 />
             </div>
