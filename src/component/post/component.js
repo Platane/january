@@ -3,6 +3,7 @@ import style from './style.css'
 
 import { AnimateFromBox } from '../abstract/positionTracker'
 import { PostContent } from '../postContent'
+import { TagCloud } from '../tagCloud'
 import { Image } from '../image'
 
 import type { Post as Post_type } from '../../../type'
@@ -25,7 +26,9 @@ export const formatReadingDuration = (duration: number): string => {
     else return Math.floor(duration / 5) * 5 + ' min'
 }
 
-export const Post = ({ post, getPosition, device }: Props) => (
+const createSelectTagHandler = (selectTag, tag) => () => selectTag(tag)
+
+export const Post = ({ post, getPosition, selectTag, device }: Props) => (
     <div className={style.container}>
         <div className={style.imageWrapper}>
             <div className={style.image}>
@@ -54,11 +57,7 @@ export const Post = ({ post, getPosition, device }: Props) => (
                 <PostContent {...post} />
             </div>
             <div className={style.footer}>
-                <div className={style.tagRow}>
-                    {post.tags.map(tag => (
-                        <div key={tag} className={style.tag}>{tag}</div>
-                    ))}
-                </div>
+                <TagCloud tags={post.tags} />
             </div>
         </div>
     </div>

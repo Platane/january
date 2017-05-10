@@ -53,6 +53,14 @@ export const postsFetched = (posts: Array<Post>) => ({
     posts,
 })
 
+//
+type ActionSelectTag = { type: 'selectTag', tag: string }
+
+export const selectTag = (tag: string) => ({
+    type: 'selectTag',
+    tag,
+})
+
 export type Action =
     | ActionNavigatorRead
     | ActionGoToPost
@@ -61,3 +69,4 @@ export type Action =
     | ActionGoToHome
     | ActionFetchError
     | ActionPostsFetched
+    | ActionSelectTag

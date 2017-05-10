@@ -55,22 +55,3 @@
 .footer{
     margin-top: 50px;
 }
-.tagRow{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.tag:last-child{
-    margin-right: 0;
-}
-.tag{
-    margin-bottom: 10px;
-    font-size: 0.8em;
-    color: #000;
-    background: #ddd;
-    padding: 6px 10px;
-    border-radius: 4px;
-    margin-right: 10px;
-    min-width: 80px;
-    text-align: center;
-}
