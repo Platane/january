@@ -113,7 +113,7 @@ export const bundle = async (
     return {
         source: {
             url: buildPath(source_name),
-            source_dimension,
+            dimension: source_dimension,
         },
         resized,
         base64: `data:image/bmp;base64,${small.toString('base64')}`,
