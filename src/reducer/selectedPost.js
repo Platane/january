@@ -46,6 +46,13 @@ const _reduceSelectedPost = (state: State, action: Action): State => {
             selectedPost,
         }
     }
+
+    if (!state.selectedPostId && state.selectedPost)
+        return {
+            ...state,
+            selectedPost: null,
+        }
+
     return state
 }
 

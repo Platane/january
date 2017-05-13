@@ -18,10 +18,11 @@ export type Props = {
     device: 'palm' | 'desktop',
 }
 
-const createSelectTagHandler = memoize((selectTag, tag) => () => selectTag(tag))
+const createSelectTagHandler = memoize((selectTag, tag) => () =>
+    selectTag && selectTag(tag))
 
 const createLoadMorePostsHandler = memoize((loadMorePosts, tag) => () =>
-    loadMorePosts(tag))
+    loadMorePosts && loadMorePosts(tag))
 
 export const HomePage = ({
     posts,
@@ -43,6 +44,10 @@ export const HomePage = ({
                 </div>
                 <HorizontalPostList
                     goToPost={goToPost}
+                    loadMorePosts={createLoadMorePostsHandler(
+                        loadMorePosts,
+                        'world'
+                    )}
                     posts={posts.filter(({ tags }) => tags.includes('world'))}
                 />
             </div>}
@@ -56,6 +61,10 @@ export const HomePage = ({
                 </div>
                 <HorizontalPostList
                     goToPost={goToPost}
+                    loadMorePosts={createLoadMorePostsHandler(
+                        loadMorePosts,
+                        'essential'
+                    )}
                     posts={posts.filter(({ tags }) =>
                         tags.includes('essential')
                     )}

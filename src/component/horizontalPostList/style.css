@@ -5,13 +5,9 @@
 }
 
 
-.item:last-child{
-    margin-right: 0;
-}
 .item{
     width : 200px;
     height: 200px;
-    margin-right: 10px;
     position: relative;
     cursor: pointer;
 }

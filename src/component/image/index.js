@@ -1,6 +1,6 @@
 import React from 'react'
 import { Transition } from 'react-propstransition'
-import { selectBestImage, selectBestBlured } from './util'
+import { selectBestImage } from './util'
 import type { ImageBundle } from '../../../scripts/imageBundler/postImage'
 import style from './style.css'
 
@@ -23,12 +23,7 @@ const createStore = () => {
     return {
         isImageLoaded: url => !!(url && imageLoaded[url]),
         flagAsLoaded: url => void (url && (imageLoaded[url] = true)),
-        getBestBlur: (image, width, height): string =>
-            (selectBestBlured(
-                image.resized.filter(({ url }) => imageLoaded[url]),
-                width,
-                height
-            ) || { url: image.base64 }).url,
+        getBestBlur: (image, width, height): string => image.base64,
         getBestResolution: (image, width, height): string =>
             (selectBestImage(image.resized, width, height) || {
                 url: image.base64,

@@ -8,7 +8,7 @@ import style from './style.css'
 import { PostPreview } from './postPreview'
 
 const createClickHandler = memoize(
-    (goToPosts, writePosition, postId) => event => {
+    (goToPost, writePosition, postId) => event => {
         const {
             top,
             width,
@@ -18,13 +18,13 @@ const createClickHandler = memoize(
         writePosition && writePosition(postId, { top, left, width, height })
         if ('undefined' !== typeof document && document.body)
             document.body.scrollTop = 0
-        goToPosts(postId)
+        goToPost(postId)
     }
 )
 
 const VerticalPostList_ = ({
     posts,
-    goToPosts,
+    goToPost,
     writePosition,
     loadMorePosts,
 }) => (
@@ -35,12 +35,8 @@ const VerticalPostList_ = ({
                     key={post.id}
                     className={style.item}
                     onClick={
-                        goToPosts &&
-                            createClickHandler(
-                                goToPosts,
-                                writePosition,
-                                post.id
-                            )
+                        goToPost &&
+                            createClickHandler(goToPost, writePosition, post.id)
                     }
                 >
                     <PostPreview {...post} />

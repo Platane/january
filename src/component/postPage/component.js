@@ -9,6 +9,7 @@ import { memoize } from '../../util/memoize'
 import type { Post as Post_type } from '../../../type'
 
 export type Props = {
+    nextPosts: Array<Post_type>,
     posts: Array<Post_type>,
     post: ?Post,
     goToPost: () => void,
@@ -21,11 +22,11 @@ const createGoToPost = memoize(goToPost => postId => {
     goToPost(postId)
 })
 
-export const PostPage = ({ device, post, posts, goToPost }: Props) =>
+export const PostPage = ({ device, post, posts, nextPosts, goToPost }: Props) =>
     post
         ? ('palm' === device &&
               <SwipeablePostlist
-                  postId={post.id}
+                  post={post}
                   posts={posts}
                   goToPost={goToPost}
               />) ||
@@ -34,7 +35,7 @@ export const PostPage = ({ device, post, posts, goToPost }: Props) =>
                       <Post post={post} />
                       <div className={style.footer}>
                           <HorizontalPostList
-                              posts={posts.filter(({ id }) => id != post.id)}
+                              posts={nextPosts}
                               goToPost={createGoToPost(goToPost)}
                           />
                       </div>

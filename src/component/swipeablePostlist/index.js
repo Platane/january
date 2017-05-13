@@ -8,10 +8,11 @@ import style from './style.css'
 const createChangeIndexHandler = memoize((goToPost, posts) => i =>
     goToPost(posts[i].id))
 
-export const SwipeablePostlist = ({ postId, posts, goToPost }) => (
+export const SwipeablePostlist = ({ post, posts, goToPost }) => (
     <SwipeableViews
-        enableMouseEvents={true}
-        index={posts.findIndex(({ id }) => postId === id)}
+        enableMouseEvents
+        animateHeight
+        index={posts.findIndex(({ id }) => post.id === id)}
         onChangeIndex={createChangeIndexHandler(goToPost, posts)}
     >
         {posts.map((post, i) => (
