@@ -47,6 +47,8 @@ const networkFirstStrategy = cacheName => request =>
             const cache = await caches.open(cacheName)
 
             cache.put(request, resFromFetch.clone())
+
+            return resFromFetch
         })
         .catch(async err => {
             const resFromCache = await caches.match(request)
@@ -68,5 +70,8 @@ self.addEventListener('fetch', event => {
         event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
     else if (requestURL.pathname.match(/\/data\/(\w+)\/(\w+)\.json$/))
         // long term caching data
+        event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
+    else if (requestURL.pathname.match(/\.html$/))
+        // short term caching data ( change at every new post )
         event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
 })
