@@ -22,7 +22,7 @@ const buildDataChunk = (chunck_size: number, posts: Array<Post>) => {
     const chunkify = (chunck_size, posts) => {
         const chunks = []
 
-        posts = posts.slice()
+        posts = posts.slice().reverse()
 
         while (posts.length) {
             const chunk = posts.splice(0, chunck_size)
@@ -32,10 +32,14 @@ const buildDataChunk = (chunck_size: number, posts: Array<Post>) => {
             chunks.push({ posts: chunk, hash })
         }
 
+        chunks.reverse()
+
+        const [top, ...rest] = chunks
+
         return {
-            top: (chunks[0] || { posts: [] }).posts,
-            id0: (chunks[0] && chunks[0].hash) || null,
-            chunks,
+            top: top ? top.posts : [],
+            id0: (rest[0] && rest[0].hash) || null,
+            chunks: rest,
         }
     }
 
