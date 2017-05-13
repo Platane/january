@@ -46,11 +46,16 @@ export const fetchError = (error: Error) => ({
 })
 
 //
-type ActionPostsFetched = { type: 'postsFetched', posts: Array<Post> }
+type ActionPostsFetched = {
+    type: 'postsFetched',
+    posts: Array<Post>,
+    uri: string,
+}
 
-export const postsFetched = (posts: Array<Post>) => ({
+export const postsFetched = (posts: Array<Post>, uri: string) => ({
     type: 'postsFetched',
     posts,
+    uri,
 })
 
 //
@@ -58,6 +63,14 @@ type ActionSelectTag = { type: 'selectTag', tag: string }
 
 export const selectTag = (tag: string) => ({
     type: 'selectTag',
+    tag,
+})
+
+//
+type ActionLoadMorePost = { type: 'loadMorePosts', tag: ?string }
+
+export const loadMorePosts = (tag: ?string) => ({
+    type: 'loadMorePosts',
     tag,
 })
 
@@ -70,3 +83,4 @@ export type Action =
     | ActionFetchError
     | ActionPostsFetched
     | ActionSelectTag
+    | ActionLoadMorePost

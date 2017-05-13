@@ -11,6 +11,7 @@ const mapStateToProps = (state, { postId }) => ({
 const mapDispatchToProps = {
     goToPost: action.goToPost,
     selectTag: action.selectTag,
+    loadMorePosts: action.loadMorePosts,
 }
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(

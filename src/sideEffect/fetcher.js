@@ -4,7 +4,8 @@ import * as action from '../action'
 import { build as buildPath } from '../../scripts/appPath'
 
 const actionForUri = uri => {
-    if (uri.match(/post/)) return action.postsFetched
+    if (uri.match(/summary\.json/)) return action.fetchError
+    if (uri.match(/\.json/)) return res => action.postsFetched(res, uri)
     else return action.fetchError
 }
 

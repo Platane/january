@@ -14,10 +14,6 @@ type Options = {
 }
 
 export type ImageBundle = {
-    source: {
-        url: string,
-        dimension: [number, number],
-    },
     resized: Array<{
         url: string,
         dimension: [number, number],
@@ -44,13 +40,6 @@ export const bundle = async (
 
     // get the image hash, to generate a unique name
     const hash = md5(imageBuffer).slice(0, 8)
-
-    // write image, without resizing
-    const source_name = `${hash}_source.jpg`
-    fs.writeFileSync(
-        path.join(options.targetDir, source_name),
-        await convert(imageBuffer, common_options)
-    )
 
     // generate a small image, to be used as blured image
     const small = await convert(imageBuffer, {
@@ -79,6 +68,7 @@ export const bundle = async (
 
                 cropRect = topCrop
             } catch (err) {
+                // eslint-disable-next-line no-console
                 console.warn('could not use smartcrop', err)
 
                 // fallbak : crop the middle
@@ -111,10 +101,6 @@ export const bundle = async (
     )
 
     return {
-        source: {
-            url: buildPath(source_name),
-            dimension: source_dimension,
-        },
         resized,
         base64: `data:image/bmp;base64,${small.toString('base64')}`,
     }

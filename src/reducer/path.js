@@ -4,9 +4,6 @@ import type { State } from './index'
 
 // manipulate the path
 export const reducePath = (state: State, action: Action): State => {
-    // init path if needed
-    if (!state.path) state = { ...state, path: [] }
-
     switch (action.type) {
         case 'navigatorRead':
             if (!action.path[0])

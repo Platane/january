@@ -1,6 +1,7 @@
 import { reducePosts } from './posts'
 import { reduceSelectedPost } from './selectedPost'
 import { reduceSelectedTag } from './selectedTag'
+import { reduceFetcher } from './fetcher'
 import { reducePath } from './path'
 
 import type { Action } from '../action'
@@ -17,6 +18,7 @@ export type State = {
 
     path: Array<string>,
     toFetch: Array<string>,
+    readDataChunk: Array<{ id: number, tag: string }>,
 }
 
 // first layer of reduce, init the state if its null
@@ -27,7 +29,9 @@ const reduceInit = (state: ?State): State =>
         selectedPost: null,
         selectedPostId: null,
         path: [],
-        toFetch: ['posts.json'],
+        toFetch: [],
+        requiredDataChunk: [],
+        readDataChunk: [],
     }
 
 const reduceLayers = [
@@ -36,6 +40,7 @@ const reduceLayers = [
     reduceSelectedPost,
     reduceSelectedTag,
     reducePath,
+    reduceFetcher,
 ]
 
 export const reduce = (state: State, action: Action): State =>
