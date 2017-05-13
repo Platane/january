@@ -4,6 +4,7 @@ import style from './style.css'
 import { Post } from '../post'
 import { SwipeablePostlist } from '../swipeablePostlist'
 import { HorizontalPostList } from '../horizontalPostList'
+import { memoize } from '../../util/memoize'
 
 import type { Post as Post_type } from '../../../type'
 
@@ -14,11 +15,11 @@ export type Props = {
     device: 'palm' | 'desktop',
 }
 
-const createGoToPost = goToPost => postId => {
+const createGoToPost = memoize(goToPost => postId => {
     if ('undefined' !== typeof document && document.body)
         document.body.scrollTop = 0
     goToPost(postId)
-}
+})
 
 export const PostPage = ({ device, post, posts, goToPost }: Props) =>
     post

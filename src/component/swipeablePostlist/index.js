@@ -1,10 +1,12 @@
 import React from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import { Post } from '../post'
+import { memoize } from '../../util/memoize'
 
 import style from './style.css'
 
-const createChangeIndexHandler = (goToPost, posts) => i => goToPost(posts[i].id)
+const createChangeIndexHandler = memoize((goToPost, posts) => i =>
+    goToPost(posts[i].id))
 
 export const SwipeablePostlist = ({ postId, posts, goToPost }) => (
     <SwipeableViews

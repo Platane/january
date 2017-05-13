@@ -1,15 +1,23 @@
 import React from 'react'
 import { injectPositionTracker } from '../abstract/positionTracker'
+import { memoize } from '../../util/memoize'
 
 import style from './style.css'
 
 import { Image } from '../image'
 
-const createClickHandler = (goToPost, writePosition, postId) => event => {
-    const { top, width, left, height } = event.target.getBoundingClientRect()
-    writePosition(postId, { top, width, left, height })
-    goToPost(postId)
-}
+const createClickHandler = memoize(
+    (goToPost, writePosition, postId) => event => {
+        const {
+            top,
+            width,
+            left,
+            height,
+        } = event.target.getBoundingClientRect()
+        writePosition(postId, { top, width, left, height })
+        goToPost(postId)
+    }
+)
 
 const HorizontalPostList_ = ({ posts, goToPost, writePosition }) => (
     <div className={style.container}>

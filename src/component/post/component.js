@@ -16,7 +16,7 @@ export type Props = {
 
 const zeroPad = x => (x < 10 ? '0' + x : '' + x)
 
-export const formatDate = timestamp => {
+export const formatDate = (timestamp: number): string => {
     const d = new Date(timestamp)
     return `${zeroPad(d.getDate())}/${zeroPad(d.getMonth() + 1)}/${d.getFullYear()}`
 }
@@ -25,8 +25,6 @@ export const formatReadingDuration = (duration: number): string => {
     else if (duration < 10) return Math.floor(duration) + ' min'
     else return Math.floor(duration / 5) * 5 + ' min'
 }
-
-const createSelectTagHandler = (selectTag, tag) => () => selectTag(tag)
 
 export const Post = ({ post, getPosition, selectTag, device }: Props) => (
     <div className={style.container}>

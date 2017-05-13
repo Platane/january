@@ -7,6 +7,7 @@ import { VerticalPostList } from '../verticalPostList'
 import type { Post as Post_type } from '../../../type'
 
 import { primaryTags } from '../../reducer/selectedTag'
+import { memoize } from '../../util/memoize'
 
 export type Props = {
     selectedTag: string,
@@ -17,10 +18,10 @@ export type Props = {
     device: 'palm' | 'desktop',
 }
 
-const createSelectTagHandler = (selectTag, tag) => () => selectTag(tag)
+const createSelectTagHandler = memoize((selectTag, tag) => () => selectTag(tag))
 
-const createLoadMorePostsHandler = (loadMorePosts, tag) => () =>
-    loadMorePosts(tag)
+const createLoadMorePostsHandler = memoize((loadMorePosts, tag) => () =>
+    loadMorePosts(tag))
 
 export const HomePage = ({
     posts,
