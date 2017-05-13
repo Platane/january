@@ -34,6 +34,7 @@
     "flow-typed": " 2.1.2",
     "html-loader": " 0.4.5",
     "html-minify-loader": " 1.1.0",
+    "jest": " 20.0.1",
     "markdown-it": " 8.3.1",
     "md5": " 2.2.1",
     "optimize-css-assets-webpack-plugin": " 1.3.1",
@@ -62,6 +63,7 @@
     "prettier:test": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 -l \"src/**/*.js\"",
     "prettier:write": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 --write \"src/**/*.js\"",
     "flow-typed": "flow-typed install",
-    "test": "yarn run prettier:test"
+    "test:unit": "jest --verbose",
+    "test": "yarn run test:unit && yarn run prettier:test"
   }
 }
