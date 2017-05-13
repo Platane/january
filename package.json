@@ -28,6 +28,7 @@
     "babel-preset-stage-1": " 6.24.1",
     "babel-register": " 6.24.1",
     "css-loader": " 0.28.1",
+    "enzyme": " 2.8.2",
     "extract-text-webpack-plugin": " 2.1.0",
     "file-loader": " 0.11.1",
     "flow-bin": "0.45.0",
@@ -43,6 +44,7 @@
     "postcss-simple-vars": " 4.0.0",
     "prettier": " 1.3.1",
     "raw-loader": " 0.5.1",
+    "react-test-renderer": " 15.5.4",
     "smartcrop-gm": " 1.0.2",
     "uglifyjs-webpack-plugin": " 0.4.3",
     "webpack": " 2.5.1",
@@ -63,7 +65,7 @@
     "prettier:test": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 -l \"src/**/*.js\"",
     "prettier:write": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 --write \"src/**/*.js\"",
     "flow-typed": "flow-typed install",
-    "test:unit": "jest --verbose",
+    "test:unit": "env NODE_ENV=test jest --verbose",
     "test": "yarn run test:unit && yarn run prettier:test"
   }
 }

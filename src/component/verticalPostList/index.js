@@ -15,7 +15,7 @@ const createClickHandler = memoize(
             left,
             height,
         } = event.target.getBoundingClientRect()
-        writePosition(postId, { top, left, width, height })
+        writePosition && writePosition(postId, { top, left, width, height })
         if ('undefined' !== typeof document && document.body)
             document.body.scrollTop = 0
         goToPosts(postId)
@@ -34,11 +34,14 @@ const VerticalPostList_ = ({
                 <div
                     key={post.id}
                     className={style.item}
-                    onClick={createClickHandler(
-                        goToPosts,
-                        writePosition,
-                        post.id
-                    )}
+                    onClick={
+                        goToPosts &&
+                            createClickHandler(
+                                goToPosts,
+                                writePosition,
+                                post.id
+                            )
+                    }
                 >
                     <PostPreview {...post} />
                 </div>
