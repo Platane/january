@@ -4,6 +4,7 @@ const assets = ['root.html', 'index.html', 'app.js', 'style.css']
 
 const assetCacheKey = assets.join('-')
 const imageCacheKey = 'image'
+const dataCacheKey = 'data'
 
 self.addEventListener('install', event => {
     event.waitUntil(
@@ -26,19 +27,32 @@ self.addEventListener('activate', event => {
     )
 })
 
-const cacheFirstStrategy = async request => {
+const cacheFirstStrategy = cacheName => async request => {
     const resFromCache = await caches.match(request)
 
     if (resFromCache) return resFromCache
 
     const resFromFetch = await fetch(request.clone())
 
-    const cache = await caches.open(imageCacheKey)
+    const cache = await caches.open(cacheName)
 
     cache.put(request, resFromFetch.clone())
 
     return resFromFetch
 }
+
+const networkFirstStrategy = cacheName => request =>
+    fetch(request.clone())
+        .then(async resFromFetch => {
+            const cache = await caches.open(cacheName)
+
+            cache.put(request, resFromFetch.clone())
+        })
+        .catch(async err => {
+            const resFromCache = await caches.match(request)
+
+            return resFromCache || Promise.reject(err)
+        })
 
 self.addEventListener('fetch', event => {
     const requestURL = new URL(event.request.url)
@@ -48,5 +62,11 @@ self.addEventListener('fetch', event => {
         event.respondWith(caches.match(event.request))
     else if (requestURL.pathname.match(/\.(png|jpg|gif)$/))
         // image, serve from cache if exists
-        event.respondWith(cacheFirstStrategy(event.request))
+        event.respondWith(cacheFirstStrategy(imageCacheKey)(event.request))
+    else if (requestURL.pathname.match(/\/data\/(\w+)\/top\.json$/))
+        // short term caching data ( change at every new post )
+        event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
+    else if (requestURL.pathname.match(/\/data\/(\w+)\/(\w+)\.json$/))
+        // long term caching data
+        event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
 })
