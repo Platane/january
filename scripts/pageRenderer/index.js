@@ -1,5 +1,7 @@
 const fs = require('fs')
+const md5 = require('md5')
 const path = require('path')
+
 import { render } from './renderer'
 import * as action from '../../src/action'
 import { primaryTags } from '../../src/reducer/selectedTag'
@@ -22,13 +24,17 @@ const buildDataChunk = (chunck_size: number, posts: Array<Post>) => {
 
         posts = posts.slice()
 
-        while (posts.length)
-            chunks.push(posts.splice(0, chunck_size))
+        while (posts.length) {
+            const chunk = posts.splice(0, chunck_size)
+
+            const hash = md5(JSON.stringify(chunk)).slice(0, 8)
+
+            chunks.push({ posts: chunk, hash })
+        }
 
         return {
-            toInclude: chunks[0] || [],
-            id0: 0,
-            id1: 1,
+            top: (chunks[0] || { posts: [] }).posts,
+            id0: (chunks[0] && chunks[0].hash) || null,
             chunks,
         }
     }
@@ -47,6 +53,8 @@ const buildDataChunk = (chunck_size: number, posts: Array<Post>) => {
 
     return res
 }
+
+const CHUNK_SIZE = 6
 
 export const writePages = (
     posts: Array<Post>,
@@ -81,27 +89,39 @@ export const writePages = (
     }
 
     // prepare the data
-    const data = buildDataChunk(6, posts)
+    const data = buildDataChunk(CHUNK_SIZE, posts)
 
     // write the data
-    ;[...primaryTags, 'all'].forEach(tag =>
-        data[tag].chunks.forEach((chunk, i) =>
+    safeMkdir(path.join(options.targetDir, 'data'))
+    ;[...primaryTags, 'all'].forEach(tag => {
+        safeMkdir(path.join(options.targetDir, 'data', tag))
+
+        // write top.json
+        {
+            const content = {
+                posts: data[tag].top,
+                next: data[tag].id0,
+            }
             fs.writeFileSync(
-                path.join(options.targetDir, `posts_${tag}_${i}.json`),
-                JSON.stringify(chunk)
+                path.join(options.targetDir, 'data', tag, 'top.json'),
+                JSON.stringify(content)
             )
-        )
-    )
-    const summary = posts.map(post => ({
-        title: post.title,
-        date: post.date,
-        tags: post.tags,
-        medias: post.medias[0] ? [post.medias[0]] : [],
-    }))
-    fs.writeFileSync(
-        path.join(options.targetDir, 'summary.json'),
-        JSON.stringify(summary)
-    )
+        }
+
+        data[tag].chunks.forEach(({ posts, hash }, i) => {
+            const next = data[tag].chunks[i + 1]
+
+            const content = {
+                posts,
+                next: next && next.hash,
+            }
+
+            fs.writeFileSync(
+                path.join(options.targetDir, 'data', tag, hash + '.json'),
+                JSON.stringify(content)
+            )
+        })
+    })
 
     // write the about page
     const about_page = render(links, [action.goToAbout()])
@@ -109,8 +129,8 @@ export const writePages = (
 
     // write the home page
     const home_page = render(links, [
-        action.hydratePost(
-            [].concat(...primaryTags.map(tag => data[tag].toInclude))
+        ...primaryTags.map(tag =>
+            action.postsFetched(data[tag].top, tag, data[tag].id0)
         ),
         action.goToHome(),
     ])
@@ -122,7 +142,7 @@ export const writePages = (
         safeMkdir(path.join(options.targetDir, tag))
 
         const category_page = render(links, [
-            action.hydratePost(data[tag].toInclude),
+            action.postsFetched(data[tag].top, tag, data[tag].id0),
             action.selectTag(tag),
         ])
         fs.writeFileSync(
@@ -141,7 +161,7 @@ export const writePages = (
 
         // html render
         const post_page = render(links, [
-            action.hydratePost([post]),
+            action.postsFetched([post]),
             action.goToPost(post.id),
         ])
         fs.writeFileSync(

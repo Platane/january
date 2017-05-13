@@ -47,7 +47,6 @@ const parsePost = post => {
 export const reducePosts = (state: State, action: Action): State => {
     switch (action.type) {
         case 'postsFetched':
-        case 'hydratePost':
             const posts = uniqueId([
                 ...state.posts,
                 ...action.posts.map(parsePost),

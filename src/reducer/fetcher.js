@@ -1,4 +1,3 @@
-import { primaryTags } from './selectedTag'
 import type { Action } from '../action'
 import type { State } from './index'
 
@@ -6,41 +5,46 @@ const unique = arr => arr.filter((a, i, arr) => i === arr.indexOf(a))
 
 // manipulate the toFetch array
 export const reduceFetcher = (state: State, action: Action): State => {
+    const oldFetcher = state.fetcher
+    let newFetcher = state.fetcher
+
     switch (action.type) {
         case 'loadMorePosts': {
             // ask to load more of a category
             const tag = action.tag || 'all'
 
-            // will load this next chunk
-            const nextId =
-                state.readDataChunk.reduce(
-                    (max, x) =>
-                        x.tag === tag && (!max || x.id > max.id) ? x : max,
-                    { id: -1 }
-                ).id + 1
+            if (!state.fetcher.ended[tag]) {
+                // will load this next chunk
+                const nextId = state.fetcher.next[tag] || 'top'
 
-            const uri = `posts_${tag}_${nextId}.json`
+                const uri = `data/${tag}/${nextId}.json`
 
-            state = {
-                ...state,
-                toFetch: unique([uri, ...state.toFetch]),
+                newFetcher = {
+                    toFetch: unique([uri, ...newFetcher.toFetch]),
+                }
+                break
             }
-            break
         }
 
         case 'postsFetched': {
-            const [, tag, id] = action.uri.match(
-                /posts_(\w+)_(\d+)\.json/
-            ) || []
+            const { next, tag } = action
 
             if (tag)
-                state = {
-                    ...state,
-                    readDataChunk: [{ tag, id: +id }, ...state.readDataChunk],
+                newFetcher = {
+                    next: { ...newFetcher.next, [tag]: next },
+                    ended: { ...newFetcher.ended, [tag]: !next },
                 }
             break
         }
     }
 
-    return state
+    return oldFetcher === newFetcher
+        ? state
+        : {
+              ...state,
+              fetcher: {
+                  ...oldFetcher,
+                  ...newFetcher,
+              },
+          }
 }

@@ -22,14 +22,6 @@ export const goToHome = (): ActionGoToHome => ({
 })
 
 //
-type ActionHydratePost = { type: 'hydratePost', posts: Array<Post> }
-
-export const hydratePost = (posts: Array<Post>): ActionHydratePost => ({
-    type: 'hydratePost',
-    posts,
-})
-
-//
 type ActionNavigatorRead = { type: 'navigatorRead', path: Array<string> }
 
 export const navigatorRead = (path: Array<string>) => ({
@@ -49,13 +41,19 @@ export const fetchError = (error: Error) => ({
 type ActionPostsFetched = {
     type: 'postsFetched',
     posts: Array<Post>,
-    uri: string,
+    next: ?string,
+    tag: ?string,
 }
 
-export const postsFetched = (posts: Array<Post>, uri: string) => ({
+export const postsFetched = (
+    posts: Array<Post>,
+    tag: ?string,
+    next: ?string
+) => ({
     type: 'postsFetched',
     posts,
-    uri,
+    tag,
+    next,
 })
 
 //
@@ -77,7 +75,6 @@ export const loadMorePosts = (tag: ?string) => ({
 export type Action =
     | ActionNavigatorRead
     | ActionGoToPost
-    | ActionHydratePost
     | ActionGoToAbout
     | ActionGoToHome
     | ActionFetchError

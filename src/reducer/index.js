@@ -17,8 +17,12 @@ export type State = {
     selectedTag: ?string,
 
     path: Array<string>,
-    toFetch: Array<string>,
-    readDataChunk: Array<{ id: number, tag: string }>,
+
+    fetcher: {
+        toFetch: Array<string>,
+        next: Object,
+        ended: Object,
+    },
 }
 
 // first layer of reduce, init the state if its null
@@ -26,12 +30,16 @@ const reduceInit = (state: ?State): State =>
     state || {
         posts: [],
         tags: [],
+        selectedTag: null,
         selectedPost: null,
         selectedPostId: null,
         path: [],
-        toFetch: [],
-        requiredDataChunk: [],
-        readDataChunk: [],
+
+        fetcher: {
+            toFetch: [],
+            next: {},
+            ended: {},
+        },
     }
 
 const reduceLayers = [
