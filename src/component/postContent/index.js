@@ -37,6 +37,21 @@ const Paragraph = ({ tree }: Tree) => (
     </p>
 )
 
+const Heading = ({ tree }: Tree) => (
+    <p className={style.heading}>
+        {tree.children.map((x, i) => <Text key={i} tree={x} />)}
+    </p>
+)
+
+const Blockquote = ({ tree }: Tree) => (
+    <div className={style.blockquote}>
+        {tree.children.map(
+            (x, i) =>
+                x.type === 'paragraph' ? <Paragraph key={i} tree={x} /> : null
+        )}
+    </div>
+)
+
 const ImageGroup = ({ tree, medias }) => (
     <div className={style.imageGroup}>
         {tree.children.map((c, i) => (
@@ -68,6 +83,10 @@ export const PostContent = ({ content, medias }: Props) => (
                     return <ImageGroup key={i} tree={subTree} medias={medias} />
                 case 'paragraph':
                     return <Paragraph key={i} tree={subTree} />
+                case 'heading':
+                    return <Heading key={i} tree={subTree} />
+                case 'blockquote':
+                    return <Blockquote key={i} tree={subTree} />
             }
         })}
     </div>

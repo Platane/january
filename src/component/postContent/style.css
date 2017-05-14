@@ -15,6 +15,9 @@
 .figure{
     margin-left: 10px;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .image{
     position: relative;
@@ -22,12 +25,29 @@
     height: 200px;
 }
 .label{
-    font-weight: 0.9em;
+    font-size: 0.9em;
     font-style: italic;
     text-align: center;
 }
-.paragraph{}
-.textLeaf{}
+.paragraph{
+    text-indent: 1em;
+    text-align: justify;
+}
+.blockquote{
+    color: #555;
+    padding: 0 22px;
+    font-size: 1.1em;
+    font-style: italic;
+}
+.heading{
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 1.1em;
+}
+.textLeaf{
+    line-height: 1.8em;
+    letter-spacing: 1px;
+}
 .strong{
     font-weight: bold;
 }
