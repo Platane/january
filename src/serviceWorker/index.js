@@ -2,6 +2,8 @@
 
 const assets = ['root.html', 'index.html', 'app.js', 'style.css']
 
+const hostname = 'hostname'
+
 const assetCacheKey = assets.join('-')
 const imageCacheKey = 'image'
 const dataCacheKey = 'data'
@@ -59,19 +61,21 @@ const networkFirstStrategy = cacheName => request =>
 self.addEventListener('fetch', event => {
     const requestURL = new URL(event.request.url)
 
-    if (assets.includes(requestURL.pathname))
-        // cached as asset
-        event.respondWith(caches.match(event.request))
-    else if (requestURL.pathname.match(/\.(png|jpg|gif)$/))
-        // image, serve from cache if exists
-        event.respondWith(cacheFirstStrategy(imageCacheKey)(event.request))
-    else if (requestURL.pathname.match(/\/data\/(\w+)\/top\.json$/))
-        // short term caching data ( change at every new post )
-        event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
-    else if (requestURL.pathname.match(/\/data\/(\w+)\/(\w+)\.json$/))
-        // long term caching data
-        event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
-    else if (requestURL.pathname.match(/\.html$/))
-        // short term caching data ( change at every new post )
-        event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
+    if (hostname === requestURL.hostname) {
+        if (assets.includes(requestURL.pathname))
+            // cached as asset
+            event.respondWith(caches.match(event.request))
+        else if (requestURL.pathname.match(/\.(png|jpg|gif)$/))
+            // image, serve from cache if exists
+            event.respondWith(cacheFirstStrategy(imageCacheKey)(event.request))
+        else if (requestURL.pathname.match(/\/data\/(\w+)\/top\.json$/))
+            // short term caching data ( change at every new post )
+            event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
+        else if (requestURL.pathname.match(/\/data\/(\w+)\/(\w+)\.json$/))
+            // long term caching data
+            event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
+        else
+            // short term caching data ( change at every new post )
+            event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
+    }
 })

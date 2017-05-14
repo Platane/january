@@ -10,6 +10,7 @@ const webpackStatPath = process.argv[3]
 const webpackStat = JSON.parse(fs.readFileSync(webpackStatPath).toString())
 
 const links = {
+    hostname: appPath.hostname,
     'root.html': appPath.build(''),
     'index.html': appPath.build('index.html'),
     'app.js': appPath.build(
