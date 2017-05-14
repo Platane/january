@@ -34,10 +34,15 @@ const buildDataChunk = (chunck_size: number, posts: Array<Post>) => {
 
         chunks.reverse()
 
-        const [top, ...rest] = chunks
+        const [first, ...rest] = chunks
+
+        const topPosts = [
+            ...((first && first.posts) || []),
+            ...((rest[0] && rest[0].posts) || []),
+        ].slice(0, chunck_size)
 
         return {
-            top: top ? top.posts : [],
+            top: topPosts,
             id0: (rest[0] && rest[0].hash) || null,
             chunks: rest,
         }
