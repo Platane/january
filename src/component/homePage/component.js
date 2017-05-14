@@ -85,13 +85,12 @@ export const HomePage = ({
             </div>
             <VerticalPostList
                 goToPost={goToPost}
-                loadMorePosts={
-                    primaryTags.includes(selectedTag || 'update') &&
-                        createLoadMorePostsHandler(
-                            loadMorePosts,
-                            selectedTag || 'update'
-                        )
-                }
+                loadMorePosts={createLoadMorePostsHandler(
+                    loadMorePosts,
+                    primaryTags.includes(selectedTag || 'update')
+                        ? selectedTag || 'update'
+                        : 'all'
+                )}
                 posts={posts.filter(({ tags }) =>
                     tags.includes(selectedTag || 'update')
                 )}
