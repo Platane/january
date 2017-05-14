@@ -34,6 +34,9 @@ export const reduceFetcher = (state: State, action: Action): State => {
         if (state.selectedTag && !primaryTags.includes(state.selectedTag))
             tagToFetch.push('all')
 
+        // if 'all' is ended, no need to futher requests
+        if (newFetcher.ended.all) tagToFetch.length = 0
+
         unique(tagToFetch)
             .filter(tag => !newFetcher.ended[tag])
             .forEach(tag => {
