@@ -20,11 +20,13 @@ const mapStateToProps = state => {
         posts,
         nextPosts: posts.slice(index + 1),
         post: state.selectedPost,
+        tag: primaryTag || 'all',
     }
 }
 
 const mapDispatchToProps = {
     goToPost: action.goToPost,
+    loadMorePosts: action.loadMorePosts,
 }
 
 export const PostPage = connect(mapStateToProps, mapDispatchToProps)(

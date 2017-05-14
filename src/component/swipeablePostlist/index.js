@@ -5,15 +5,19 @@ import { memoize } from '../../util/memoize'
 
 import style from './style.css'
 
-const createChangeIndexHandler = memoize((goToPost, posts) => i =>
-    goToPost(posts[i].id))
+const createChangeIndexHandler = memoize(
+    (goToPost, loadMorePosts, posts) => i => {
+        goToPost(posts[i].id)
+        if (i === posts.length - 1) loadMorePosts && loadMorePosts()
+    }
+)
 
-export const SwipeablePostlist = ({ post, posts, goToPost }) => (
+export const SwipeablePostlist = ({ post, posts, goToPost, loadMorePosts }) => (
     <SwipeableViews
         enableMouseEvents
         animateHeight
         index={posts.findIndex(({ id }) => post.id === id)}
-        onChangeIndex={createChangeIndexHandler(goToPost, posts)}
+        onChangeIndex={createChangeIndexHandler(goToPost, loadMorePosts, posts)}
     >
         {posts.map((post, i) => (
             <div className={style.slide} key={post.id}>

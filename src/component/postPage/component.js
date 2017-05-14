@@ -13,7 +13,9 @@ export type Props = {
     posts: Array<Post_type>,
     post: ?Post,
     goToPost: () => void,
+    loadMorePosts: () => void,
     device: 'palm' | 'desktop',
+    tag: string,
 }
 
 const createGoToPost = memoize(goToPost => postId => {
@@ -21,14 +23,25 @@ const createGoToPost = memoize(goToPost => postId => {
         document.body.scrollTop = 0
     goToPost(postId)
 })
+const createLoadMorePosts = memoize((loadMorePosts, tag) => () =>
+    loadMorePosts(tag))
 
-export const PostPage = ({ device, post, posts, nextPosts, goToPost }: Props) =>
+export const PostPage = ({
+    device,
+    post,
+    posts,
+    nextPosts,
+    goToPost,
+    tag,
+    loadMorePosts,
+}: Props) =>
     post
         ? ('palm' === device &&
               <SwipeablePostlist
                   post={post}
                   posts={posts}
                   goToPost={goToPost}
+                  loadMorePosts={createLoadMorePosts(loadMorePosts, tag)}
               />) ||
               ('desktop' === device &&
                   <div>
