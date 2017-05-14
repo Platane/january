@@ -8,6 +8,8 @@ import type { Post } from '../../type'
 
 import { find, findAll, extractText, prune } from './markdown/treeUtil'
 
+const unique = arr => arr.filter((a, i, arr) => i === arr.indexOf(a))
+
 const readTitle = tree => {
     const heading = find(x => 'heading' === x.type, tree)
 
@@ -48,7 +50,7 @@ const readTags = tree => {
 
     if (!tagsQuote) throw new Error('no tags found')
 
-    const tags = parseTags(extractText(tagsQuote))
+    const tags = unique(parseTags(extractText(tagsQuote)))
 
     if (!tags.some(tag => primaryTags.includes(tag)))
         tags.unshift(primaryTags[0])
