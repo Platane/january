@@ -57,7 +57,7 @@ const readTags = tree => {
 
     return {
         prunedTree: prune(tree, tagsQuote),
-        tags: parseTags(extractText(tagsQuote)),
+        tags,
     }
 }
 const readMedias = tree =>
