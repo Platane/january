@@ -144,6 +144,10 @@ export const writePages = (
         action.goToHome(),
     ])
     fs.writeFileSync(path.join('dist', 'index.html'), home_page)
+    fs.writeFileSync(
+        path.join('dist', '404.html'),
+        '---\npermalink: /404.html\n---\n' + home_page
+    )
 
     // write the category pages
     primaryTags.forEach(tag => {
