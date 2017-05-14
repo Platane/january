@@ -51,6 +51,7 @@ export class Provider extends React.Component {
 
     componentDidMount() {
         if ('undefined' === typeof window) return
+        window.removeEventListener('resize', this.onResize)
         window.addEventListener('resize', this.onResize)
         this.onResize()
     }

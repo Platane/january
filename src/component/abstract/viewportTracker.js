@@ -49,6 +49,11 @@ export class ViewportTracker extends React.Component<*, Props, *> {
         this.onViewportUpdate()
     }
 
+    componentWillUnmountMount() {
+        window.removeEventListener('resize', this.onViewportUpdate)
+        window.removeEventListener('scroll', this.onViewportUpdate)
+    }
+
     render() {
         return (
             <div ref="container">
