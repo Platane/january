@@ -7,6 +7,7 @@ const hostname = 'hostname'
 const assetCacheKey = assets.join('-')
 const imageCacheKey = 'image'
 const dataCacheKey = 'data'
+const pageCacheKey = 'page'
 
 self.addEventListener('install', event => {
     event.waitUntil(
@@ -65,7 +66,7 @@ self.addEventListener('fetch', event => {
         if (assets.includes(requestURL.pathname))
             // cached as asset
             event.respondWith(caches.match(event.request))
-        else if (requestURL.pathname.match(/\.(png|jpg|gif)$/))
+        else if (requestURL.pathname.match(/\.(png|jpg|gif|webp|svg)$/))
             // image, serve from cache if exists
             event.respondWith(cacheFirstStrategy(imageCacheKey)(event.request))
         else if (requestURL.pathname.match(/\/data\/(\w+)\/top\.json$/))
@@ -76,6 +77,6 @@ self.addEventListener('fetch', event => {
             event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
         else
             // short term caching data ( change at every new post )
-            event.respondWith(networkFirstStrategy(dataCacheKey)(event.request))
+            event.respondWith(networkFirstStrategy(pageCacheKey)(event.request))
     }
 })
