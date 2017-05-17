@@ -1,11 +1,11 @@
-import React from 'react'
-import SwipeableViews from 'react-swipeable-views'
-import { injectPositionTracker } from '../abstract/positionTracker'
-import { memoize } from '../../util/memoize'
+import React from 'react';
+import SwipeableViews from 'react-swipeable-views';
+import { injectPositionTracker } from '../abstract/positionTracker';
+import { memoize } from '../../util/memoize';
 
-import style from './style.css'
+import style from './style.css';
 
-import { Image } from '../image'
+import { PostPreview } from './postPreview';
 
 const createClickHandler = memoize(
     (goToPost, writePosition, postId) => event => {
@@ -14,40 +14,61 @@ const createClickHandler = memoize(
             width,
             left,
             height,
-        } = event.target.getBoundingClientRect()
-        writePosition && writePosition(postId, { top, width, left, height })
-        goToPost(postId)
+        } = event.target.getBoundingClientRect();
+        writePosition && writePosition(postId, { top, width, left, height });
+        goToPost(postId);
     }
-)
+);
 
-const ITEM_WIDTH = 220
-const MARGE = 500
+const ITEM_WIDTH = 190;
+const MARGE = 500;
 
 export class HorizontalPostList_ extends React.Component {
-    onChangeIndex = (i: number) => {
-        if (!this.refs.container) return
+    onScroll = () => {
+        if (!this.refs.container) return;
 
-        const { width } = this.refs.container.getBoundingClientRect()
+        const { width } = this.refs.container.getBoundingClientRect();
 
-        const max = (width + MARGE) / ITEM_WIDTH
+        const maxDisplayed = width + this.refs.row.scrollLeft;
 
-        if (this.props.posts.length < i + max)
-            this.props.loadMorePosts && this.props.loadMorePosts()
-    }
+        if (this.props.posts.length * ITEM_WIDTH < maxDisplayed + MARGE)
+            this.props.loadMorePosts && this.props.loadMorePosts();
+    };
+
+    onResize = () => this.onScroll();
+
+    onStepRight = () => {
+        this.refs.row.scrollLeft =
+            (Math.floor(this.refs.row.scrollLeft / ITEM_WIDTH) - 1) *
+            ITEM_WIDTH;
+
+        this.onScroll();
+    };
+    onStepLeft = () => {
+        this.refs.row.scrollLeft =
+            (Math.floor(this.refs.row.scrollLeft / ITEM_WIDTH) + 1) *
+            ITEM_WIDTH;
+
+        this.onScroll();
+    };
 
     componentDidMount() {
-        this.onChangeIndex(0)
+        this.onScroll();
     }
 
     render() {
-        const { posts, goToPost, writePosition } = this.props
+        const { posts, goToPost, writePosition } = this.props;
         return (
             <div className={style.container} ref="container">
-                <SwipeableViews
-                    enableMouseEvents
-                    slideStyle={{ width: ITEM_WIDTH + 'px' }}
-                    onChangeIndex={this.onChangeIndex}
-                >
+                {
+                    <div
+                        className={style.arrowRight}
+                        onClick={this.onStepRight}
+                    >
+                        {'◀'}
+                    </div>
+                }
+                <div className={style.row} ref="row">
                     {posts.map(post => (
                         <div
                             key={post.id}
@@ -61,18 +82,18 @@ export class HorizontalPostList_ extends React.Component {
                                     )
                             }
                         >
-                            <Image
-                                image={post.medias[0] && post.medias[0].image}
-                                width={200}
-                                height={200}
-                                label={post.medias[0] && post.medias[0].name}
-                            />
+                            <PostPreview {...post} />
                         </div>
                     ))}
-                </SwipeableViews>
+                </div>
+                {
+                    <div className={style.arrowLeft} onClick={this.onStepLeft}>
+                        {'▶'}
+                    </div>
+                }
             </div>
-        )
+        );
     }
 }
 
-export const HorizontalPostList = injectPositionTracker(HorizontalPostList_)
+export const HorizontalPostList = injectPositionTracker(HorizontalPostList_);

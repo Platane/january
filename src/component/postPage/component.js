@@ -1,12 +1,12 @@
-import React from 'react'
-import style from './style.css'
+import React from 'react';
+import style from './style.css';
 
-import { Post } from '../post'
-import { SwipeablePostlist } from '../swipeablePostlist'
-import { HorizontalPostList } from '../horizontalPostList'
-import { memoize } from '../../util/memoize'
+import { Post } from '../post';
+import { SwipeablePostlist } from '../swipeablePostlist';
+import { HorizontalPostList } from '../horizontalPostList';
+import { memoize } from '../../util/memoize';
 
-import type { Post as Post_type } from '../../../type'
+import type { Post as Post_type } from '../../../type';
 
 export type Props = {
     nextPosts: Array<Post_type>,
@@ -16,15 +16,15 @@ export type Props = {
     loadMorePosts: () => void,
     device: 'palm' | 'desktop',
     tag: string,
-}
+};
 
 const createGoToPost = memoize(goToPost => postId => {
     if ('undefined' !== typeof document && document.body)
-        document.body.scrollTop = 0
-    goToPost(postId)
-})
+        document.body.scrollTop = 0;
+    goToPost(postId);
+});
 const createLoadMorePosts = memoize((loadMorePosts, tag) => () =>
-    loadMorePosts(tag))
+    loadMorePosts(tag));
 
 export const PostPage = ({
     device,
@@ -50,7 +50,11 @@ export const PostPage = ({
                           <HorizontalPostList
                               posts={nextPosts}
                               goToPost={createGoToPost(goToPost)}
+                              loadMorePosts={createLoadMorePosts(
+                                  loadMorePosts,
+                                  tag
+                              )}
                           />
                       </div>
                   </div>)
-        : null
+        : null;
