@@ -1,19 +1,19 @@
-import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { Post } from '../post';
-import { memoize } from '../../util/memoize';
+import React from 'react'
+import SwipeableViews from 'react-swipeable-views'
+import { Post } from '../post'
+import { memoize } from '../../util/memoize'
 
-import style from './style.css';
+import style from './style.css'
 
 const createChangeIndexHandler = memoize(
     (goToPost, loadMorePosts, posts) => i => {
-        goToPost(posts[i].id);
-        if (i === posts.length - 1) loadMorePosts && loadMorePosts();
+        goToPost(posts[i].id)
+        if (i === posts.length - 1) loadMorePosts && loadMorePosts()
     }
-);
+)
 
 export const SwipeablePostlist = ({ post, posts, goToPost, loadMorePosts }) => {
-    const index = posts.findIndex(({ id }) => post.id === id);
+    const index = posts.findIndex(({ id }) => post.id === id)
     return (
         <SwipeableViews
             enableMouseEvents
@@ -31,5 +31,5 @@ export const SwipeablePostlist = ({ post, posts, goToPost, loadMorePosts }) => {
                 </div>
             ))}
         </SwipeableViews>
-    );
-};
+    )
+}

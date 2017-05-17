@@ -1,11 +1,11 @@
-import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { injectPositionTracker } from '../abstract/positionTracker';
-import { memoize } from '../../util/memoize';
+import React from 'react'
+import SwipeableViews from 'react-swipeable-views'
+import { injectPositionTracker } from '../abstract/positionTracker'
+import { memoize } from '../../util/memoize'
 
-import style from './style.css';
+import style from './style.css'
 
-import { PostPreview } from './postPreview';
+import { PostPreview } from './postPreview'
 
 const createClickHandler = memoize(
     (goToPost, writePosition, postId) => event => {
@@ -14,50 +14,48 @@ const createClickHandler = memoize(
             width,
             left,
             height,
-        } = event.target.getBoundingClientRect();
-        writePosition && writePosition(postId, { top, width, left, height });
-        goToPost(postId);
+        } = event.target.getBoundingClientRect()
+        writePosition && writePosition(postId, { top, width, left, height })
+        goToPost(postId)
     }
-);
+)
 
-const ITEM_WIDTH = 190;
-const MARGE = 500;
+const ITEM_WIDTH = 190
+const MARGE = 500
 
 export class HorizontalPostList_ extends React.Component {
     onScroll = () => {
-        if (!this.refs.container) return;
+        if (!this.refs.container) return
 
-        const { width } = this.refs.container.getBoundingClientRect();
+        const { width } = this.refs.container.getBoundingClientRect()
 
-        const maxDisplayed = width + this.refs.row.scrollLeft;
+        const maxDisplayed = width + this.refs.row.scrollLeft
 
         if (this.props.posts.length * ITEM_WIDTH < maxDisplayed + MARGE)
-            this.props.loadMorePosts && this.props.loadMorePosts();
-    };
+            this.props.loadMorePosts && this.props.loadMorePosts()
+    }
 
-    onResize = () => this.onScroll();
+    onResize = () => this.onScroll()
 
     onStepRight = () => {
         this.refs.row.scrollLeft =
-            (Math.floor(this.refs.row.scrollLeft / ITEM_WIDTH) - 1) *
-            ITEM_WIDTH;
+            (Math.floor(this.refs.row.scrollLeft / ITEM_WIDTH) - 1) * ITEM_WIDTH
 
-        this.onScroll();
-    };
+        this.onScroll()
+    }
     onStepLeft = () => {
         this.refs.row.scrollLeft =
-            (Math.floor(this.refs.row.scrollLeft / ITEM_WIDTH) + 1) *
-            ITEM_WIDTH;
+            (Math.floor(this.refs.row.scrollLeft / ITEM_WIDTH) + 1) * ITEM_WIDTH
 
-        this.onScroll();
-    };
+        this.onScroll()
+    }
 
     componentDidMount() {
-        this.onScroll();
+        this.onScroll()
     }
 
     render() {
-        const { posts, goToPost, writePosition } = this.props;
+        const { posts, goToPost, writePosition } = this.props
         return (
             <div className={style.container} ref="container">
                 {
@@ -92,8 +90,8 @@ export class HorizontalPostList_ extends React.Component {
                     </div>
                 }
             </div>
-        );
+        )
     }
 }
 
-export const HorizontalPostList = injectPositionTracker(HorizontalPostList_);
+export const HorizontalPostList = injectPositionTracker(HorizontalPostList_)
