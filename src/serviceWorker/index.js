@@ -1,6 +1,6 @@
 /* global caches self URL fetch */
 
-const assets = ['root.html', 'index.html', 'app.js', 'style.css']
+const assets = ['root.html', 'root2.html', 'index.html', 'app.js', 'style.css']
 
 const hostname = 'hostname'
 
