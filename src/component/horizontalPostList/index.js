@@ -66,7 +66,7 @@ export class HorizontalPostList_ extends React.Component {
                         {'◀'}
                     </div>
                 }
-                <div className={style.row} ref="row">
+                <div className={style.row} ref="row" onScroll={this.onScroll}>
                     {posts.map(post => (
                         <div
                             key={post.id}
