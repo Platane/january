@@ -18,10 +18,10 @@ export const App = ({ page }: Props) => (
     <PositionTrackerProvider>
         <DeviceResolutionProvider>
             <div className={style.wrapper}>
+                <div className={style.header}>
+                    <Header />
+                </div>
                 <div className={style.container}>
-                    <div className={style.header}>
-                        <Header />
-                    </div>
 
                     <div className={style.content}>
                         {'home' === page && <HomePage />}

@@ -1,4 +1,5 @@
 import { Header as Component } from './component'
+import { wrap } from './scrollSpy'
 import { connect } from 'react-redux'
 import * as action from '../../action'
 import type { State } from '../../reducer'
@@ -12,4 +13,6 @@ const mapDispatchToProps = {
     goToAbout: action.goToAbout,
 }
 
-export const Header = connect(mapStateToProps, mapDispatchToProps)(Component)
+export const Header = connect(mapStateToProps, mapDispatchToProps)(
+    wrap(Component)
+)

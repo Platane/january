@@ -1,20 +1,55 @@
 .container{
-    padding: 16px
+    padding: 16px;
+    width: calc( 100% - 32px );
+    position: relative;
 }
+
+.containerFolded{
+    z-index: 4;
+    background-color: #eee;
+    width: 100%;
+    display: flex;
+}
+.containerGoingUp.containerFolded{
+    position: fixed;
+    animation: appear 200ms linear;
+}
+@keyframes appear {
+    0%{ transform: translate3d(0,-60px,0); opacity:0;}
+    100%{ transform: translate3d(0,0,0); opacity: 1;}
+}
+
 @media (min-width: 948px) {
+    .containerFolded.containerFolded{
+        position: fixed;
+        animation: none;
+    }
     .container{
+        width: 100%;
         padding: 16px 0;
     }
 }
+.separator{
+    position: absolute;
+    height: 1px;
+    left: 30%;
+    right: 30%;
+    background-color: #e2e2e2;
+    bottom: 0;
+}
+.centered{
+    max-width: 900px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .row{
     display: flex;
     flex-direction: row;
-
-    margin: 20px 0;
 }
 .subtitle{
-    margin-bottom: 30px;
-
+    margin-top: 10px;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 0.67em;
