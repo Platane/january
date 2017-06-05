@@ -47,14 +47,15 @@ export const PostPage = ({
                   <div>
                       <Post post={post} />
                       <div className={style.footer}>
-                          <HorizontalPostList
-                              posts={nextPosts}
-                              goToPost={createGoToPost(goToPost)}
-                              loadMorePosts={createLoadMorePosts(
-                                  loadMorePosts,
-                                  tag
-                              )}
-                          />
+                          {nextPosts.length > 0 &&
+                              <HorizontalPostList
+                                  posts={nextPosts}
+                                  goToPost={createGoToPost(goToPost)}
+                                  loadMorePosts={createLoadMorePosts(
+                                      loadMorePosts,
+                                      tag
+                                  )}
+                              />}
                       </div>
                   </div>)
         : null
