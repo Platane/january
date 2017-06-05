@@ -8,10 +8,20 @@ const mapStateToProps = (state: State, { postId }) => ({
     posts: state.posts,
 })
 
-const mapDispatchToProps = {
-    goToHome: action.goToHome,
-    goToAbout: action.goToAbout,
-}
+const mapDispatchToProps = dispatch => ({
+    goToHome: () => {
+        if ('undefined' !== typeof document && document.body)
+            document.body.scrollTop = 0
+
+        dispatch(action.goToHome())
+    },
+    goToAbout: () => {
+        if ('undefined' !== typeof document && document.body)
+            document.body.scrollTop = 0
+
+        dispatch(action.goToAbout())
+    },
+})
 
 export const Header = connect(mapStateToProps, mapDispatchToProps)(
     wrap(Component)

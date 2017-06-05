@@ -15,6 +15,10 @@ const createClickHandler = memoize(
             left,
             height,
         } = event.target.getBoundingClientRect()
+
+        if ('undefined' !== typeof document && document.body)
+            document.body.scrollTop = 0
+
         writePosition && writePosition(postId, { top, width, left, height })
         goToPost(postId)
     }
