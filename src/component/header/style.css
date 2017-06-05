@@ -7,7 +7,6 @@
 .containerFolded{
     z-index: 4;
     background-color: #eee;
-    width: 100%;
     display: flex;
 }
 .containerGoingUp.containerFolded{
