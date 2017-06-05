@@ -46,9 +46,11 @@ export const Post = ({ post, getPosition, selectTag, device }: Props) => (
         <div className={style.body} key={post.id}>
             <div className={style.headerRow}>
                 <div className={style.title}>{post.title}</div>
-                <div className={style.date}>{formatDate(post.date)}</div>
-                <div className={style.readingDuration}>
-                    {formatReadingDuration(post.reading_duration || 0)}
+                <div className={style.subHeaderRow}>
+                    <div className={style.date}>{formatDate(post.date)}</div>
+                    <div className={style.readingDuration}>
+                        {formatReadingDuration(post.reading_duration || 0)}
+                    </div>
                 </div>
             </div>
             <div className={style.content}>

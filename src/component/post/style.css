@@ -18,13 +18,35 @@
     .body{
         padding: 16px 0;
     }
+    .headerRow{
+        animation: headerFadeIn 650ms ease;
+        display: flex;
+        flex-direction: row;
+    }
+    .subHeaderRow{
+        margin-left: auto;
+    }
+}
+@media (max-width: 948px) {
+    .title{
+        animation: headerFadeIn 650ms ease;
+    }
 }
 .headerRow{
+    margin-bottom: 20px;
+}
+.subHeaderRow{
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
-    margin-bottom: 20px;
-    animation: headerFadeIn 650ms ease;
+    justify-content: flex-end;
+    animation: opacityFadeIn 600ms ease;
+}
+@keyframes opacityFadeIn {
+    0%{ opacity: 0 }
+    40%{ opacity: 0 }
+    100%{ opacity: 1 }
 }
 @keyframes headerFadeIn {
     0%{ opacity: 0 }
