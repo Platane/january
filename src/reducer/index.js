@@ -37,7 +37,7 @@ const reduceInit = (state: ?State): State =>
         selectedPostId: null,
         path: [],
 
-        version: process.env.VERSION,
+        version: process.env.VERSION || '',
 
         fetcher: {
             toFetch: [],

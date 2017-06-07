@@ -15,9 +15,9 @@ manifest.icons = icons.map(({ url, size }) => ({
     type: 'image/png',
 }))
 
-manifest.scope = appPath.dir
+manifest.scope = appPath.build('')
 
-manifest.start_url = appPath.dir
+manifest.start_url = appPath.build('')
 
 fs.writeFileSync(
     path.join(targetDir, 'manifest.json'),
