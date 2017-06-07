@@ -11,12 +11,23 @@ export const wrap = C => {
     class ViewportTracker extends React.Component<*, Props, *> {
         props: Props
 
-        state = { previousScroll: 0, folded: false, goingUp: false }
+        state = {
+            previousScroll: 0,
+            folded: false,
+            goingUp: false,
+            scrollDistance: 0,
+        }
 
         onScroll = () => {
+            const scrollDistance = window.scrollY > this.state.previousScroll
+                ? 0
+                : this.state.scrollDistance +
+                      (this.state.previousScroll - window.scrollY)
+
             this.setState({
+                scrollDistance,
                 folded: window.scrollY > 0,
-                goingUp: window.scrollY < this.state.previousScroll,
+                goingUp: scrollDistance > 150,
                 previousScroll: window.scrollY,
             })
         }
