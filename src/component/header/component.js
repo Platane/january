@@ -10,7 +10,7 @@ export type Props = {
 
 const s = (...classNames) => classNames.filter(Boolean).join(' ')
 
-export const Header = ({ folded, goingUp, goToAbout, goToHome }: Props) => (
+export const Header = ({ folded, goingUp, goToAbout, goToHome }: Props) =>
     <div
         className={s(
             style.container,
@@ -34,4 +34,3 @@ export const Header = ({ folded, goingUp, goToAbout, goToHome }: Props) => (
             </div>
         </div>
     </div>
-)

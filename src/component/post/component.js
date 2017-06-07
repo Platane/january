@@ -19,7 +19,9 @@ const zeroPad = x => (x < 10 ? '0' + x : '' + x)
 
 export const formatDate = (timestamp: number): string => {
     const d = new Date(timestamp)
-    return `${zeroPad(d.getDate())}/${zeroPad(d.getMonth() + 1)}/${d.getFullYear()}`
+    return `${zeroPad(d.getDate())}/${zeroPad(
+        d.getMonth() + 1
+    )}/${d.getFullYear()}`
 }
 export const formatReadingDuration = (duration: number): string => {
     if (duration < 2) return '1 min'
@@ -27,7 +29,7 @@ export const formatReadingDuration = (duration: number): string => {
     else return Math.floor(duration / 5) * 5 + ' min'
 }
 
-export const Post = ({ post, getPosition, selectTag, device }: Props) => (
+export const Post = ({ post, getPosition, selectTag, device }: Props) =>
     <div className={style.container}>
         <div className={style.imageWrapper}>
             <div className={style.image}>
@@ -67,4 +69,3 @@ export const Post = ({ post, getPosition, selectTag, device }: Props) => (
             </div>
         </div>
     </div>
-)

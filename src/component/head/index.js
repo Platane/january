@@ -13,7 +13,8 @@ const relativeToAbsolute = path => {
 const mapStateToProps = (state: State, links) => {
     let props = {
         title: 'edouard',
-        description: "Edouard's travel blog - The best ideas are not popular yet.",
+        description:
+            "Edouard's travel blog - The best ideas are not popular yet.",
     }
 
     if (state.selectedPost) {
@@ -41,8 +42,9 @@ const mapStateToProps = (state: State, links) => {
     } else if (state.selectedTag) {
         props = {
             ...props,
-            description: "Edouard's travel blog - The best ideas are not popular yet." +
-                ` Last post about ${state.selectedTag}`,
+            description:
+                "Edouard's travel blog - The best ideas are not popular yet." +
+                    ` Last post about ${state.selectedTag}`,
 
             tags: [state.selectedTag],
         }

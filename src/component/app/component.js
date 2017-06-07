@@ -5,16 +5,14 @@ import { HomePage } from '../homePage'
 import { Header } from '../header'
 import { Title } from '../title'
 import { Provider as DeviceResolutionProvider } from '../abstract/resolution'
-import {
-    Provider as PositionTrackerProvider,
-} from '../abstract/positionTracker'
+import { Provider as PositionTrackerProvider } from '../abstract/positionTracker'
 import style from './style.css'
 
 export type Props = {
     page: 'post' | 'about' | 'home',
 }
 
-export const App = ({ page }: Props) => (
+export const App = ({ page }: Props) =>
     <PositionTrackerProvider>
         <DeviceResolutionProvider>
             <div className={style.wrapper}>
@@ -35,4 +33,3 @@ export const App = ({ page }: Props) => (
             </div>
         </DeviceResolutionProvider>
     </PositionTrackerProvider>
-)

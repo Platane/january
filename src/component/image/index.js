@@ -129,7 +129,7 @@ export class Image extends React.Component<*, Props, State> {
                         src={url}
                     />}
                 <Transition toTransition={loaded ? url : blurUrl} delay={400}>
-                    {({ next, previous, transition }) => (
+                    {({ next, previous, transition }) =>
                         <div
                             className={style.background}
                             style={{
@@ -144,13 +144,12 @@ export class Image extends React.Component<*, Props, State> {
                                     key={previous || 1}
                                     className={style.backgroundTransition}
                                     style={{
-                                        backgroundImage: previous &&
-                                            `url(${previous})`,
+                                        backgroundImage:
+                                            previous && `url(${previous})`,
                                     }}
                                 />}
 
-                        </div>
-                    )}
+                        </div>}
                 </Transition>
             </div>
         )

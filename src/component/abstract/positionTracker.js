@@ -73,8 +73,10 @@ export class AnimateFromBox extends React.Component {
               [
                   {
                       transform: [
-                          `translate3d(${origin.left - target.left}px,${origin.top - target.top}px,0)`,
-                          `scale(${origin.width / target.width}, ${origin.height / target.height})`,
+                          `translate3d(${origin.left -
+                              target.left}px,${origin.top - target.top}px,0)`,
+                          `scale(${origin.width /
+                              target.width}, ${origin.height / target.height})`,
                       ].join(' '),
                   },
                   {
@@ -86,7 +88,8 @@ export class AnimateFromBox extends React.Component {
                   {
                       width: `${origin.width}px`,
                       height: `${origin.height}px`,
-                      transform: `translate3d(${origin.left - target.left}px,${origin.top - target.top}px,0)`,
+                      transform: `translate3d(${origin.left -
+                          target.left}px,${origin.top - target.top}px,0)`,
                   },
                   {
                       width: `${target.width}px`,

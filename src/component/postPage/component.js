@@ -24,7 +24,8 @@ const createGoToPost = memoize(goToPost => postId => {
     goToPost(postId)
 })
 const createLoadMorePosts = memoize((loadMorePosts, tag) => () =>
-    loadMorePosts(tag))
+    loadMorePosts(tag)
+)
 
 export const PostPage = ({
     device,

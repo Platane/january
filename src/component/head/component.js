@@ -30,7 +30,7 @@ export const Head = ({
     image_height,
     initState,
     links,
-}: Props) => (
+}: Props) =>
     <head>
         <title>{title}</title>
 
@@ -99,9 +99,9 @@ export const Head = ({
                 content={new Date(published_date).toISOString()}
             />}
         {tags &&
-            tags.map(tag => (
+            tags.map(tag =>
                 <meta key={tag} property="article:tag" content={tag} />
-            ))}
+            )}
 
         <link rel="stylesheet" type="text/css" href={links.appStyle} />
 
@@ -113,4 +113,3 @@ export const Head = ({
         />
         <script async src={links.appScript} />
     </head>
-)

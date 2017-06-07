@@ -18,6 +18,8 @@ export type State = {
 
     path: Array<string>,
 
+    version: string,
+
     fetcher: {
         toFetch: Array<string>,
         next: Object,
@@ -34,6 +36,8 @@ const reduceInit = (state: ?State): State =>
         selectedPost: null,
         selectedPostId: null,
         path: [],
+
+        version: process.env.VERSION,
 
         fetcher: {
             toFetch: [],

@@ -22,28 +22,22 @@ const createClickHandler = memoize(
     }
 )
 
-const VerticalPostList_ = ({
-    posts,
-    goToPost,
-    writePosition,
-    loadMorePosts,
-}) => (
+const VerticalPostList_ = ({ posts, goToPost, writePosition, loadMorePosts }) =>
     <ViewportTracker onReachBottom={loadMorePosts} margin={400}>
         <div className={style.container}>
-            {posts.map(post => (
+            {posts.map(post =>
                 <div
                     key={post.id}
                     className={style.item}
                     onClick={
                         goToPost &&
-                            createClickHandler(goToPost, writePosition, post.id)
+                        createClickHandler(goToPost, writePosition, post.id)
                     }
                 >
                     <PostPreview {...post} />
                 </div>
-            ))}
+            )}
         </div>
     </ViewportTracker>
-)
 
 export const VerticalPostList = injectPositionTracker(VerticalPostList_)

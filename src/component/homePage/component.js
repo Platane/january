@@ -19,10 +19,12 @@ export type Props = {
 }
 
 const createSelectTagHandler = memoize((selectTag, tag) => () =>
-    selectTag && selectTag(tag))
+    selectTag && selectTag(tag)
+)
 
 const createLoadMorePostsHandler = memoize((loadMorePosts, tag) => () =>
-    loadMorePosts && loadMorePosts(tag))
+    loadMorePosts && loadMorePosts(tag)
+)
 
 export const HomePage = ({
     posts,
@@ -31,7 +33,7 @@ export const HomePage = ({
     goToPost,
     selectTag,
     device,
-}: Props) => (
+}: Props) =>
     <div className={style.container}>
 
         {!selectedTag &&
@@ -97,4 +99,3 @@ export const HomePage = ({
             />
         </div>
     </div>
-)

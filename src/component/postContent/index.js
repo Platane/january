@@ -31,30 +31,27 @@ const Text = ({ tree }) => {
     }
 }
 
-const Paragraph = ({ tree }: Tree) => (
+const Paragraph = ({ tree }: Tree) =>
     <p className={style.paragraph}>
         {tree.children.map((x, i) => <Text key={i} tree={x} />)}
     </p>
-)
 
-const Heading = ({ tree }: Tree) => (
+const Heading = ({ tree }: Tree) =>
     <p className={style.heading}>
         {tree.children.map((x, i) => <Text key={i} tree={x} />)}
     </p>
-)
 
-const Blockquote = ({ tree }: Tree) => (
+const Blockquote = ({ tree }: Tree) =>
     <div className={style.blockquote}>
         {tree.children.map(
             (x, i) =>
                 x.type === 'paragraph' ? <Paragraph key={i} tree={x} /> : null
         )}
     </div>
-)
 
-const ImageGroup = ({ tree, medias }) => (
+const ImageGroup = ({ tree, medias }) =>
     <div className={style.imageGroup}>
-        {tree.children.map((c, i) => (
+        {tree.children.map((c, i) =>
             <div key={i} className={style.figure}>
                 <div className={style.image}>
                     <Image
@@ -69,13 +66,12 @@ const ImageGroup = ({ tree, medias }) => (
                 </div>
                 <div key={i} className={style.label}>{c.alt}</div>
             </div>
-        ))}
+        )}
     </div>
-)
 
 type Props = { content: Tree, medias: Array<any> }
 
-export const PostContent = ({ content, medias }: Props) => (
+export const PostContent = ({ content, medias }: Props) =>
     <div className={style.container}>
         {content.children.map((subTree, i) => {
             switch (subTree.type) {
@@ -90,4 +86,3 @@ export const PostContent = ({ content, medias }: Props) => (
             }
         })}
     </div>
-)
