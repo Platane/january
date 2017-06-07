@@ -12,7 +12,7 @@ const webpackStat = JSON.parse(fs.readFileSync(webpackStatPath).toString())
 const links = {
     hostname: appPath.hostname,
     'root.html': appPath.build(''),
-    'root2.html': appPath.build('/'),
+    'root2.html': appPath.dir,
     'index.html': appPath.build('index.html'),
     'app.js': appPath.build(
         webpackStat.chunks[0].files.find(x => x.match(/\.js$/))
