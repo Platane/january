@@ -5,6 +5,7 @@ import { AnimateFromBox } from '../abstract/positionTracker'
 import { PostContent } from '../postContent'
 import { TagCloud } from '../tagCloud'
 import { Image } from '../image'
+import { Share } from '../share'
 
 import type { Post as Post_type } from '../../../type'
 
@@ -57,7 +58,12 @@ export const Post = ({ post, getPosition, selectTag, device }: Props) => (
                 <PostContent {...post} />
             </div>
             <div className={style.footer}>
-                <TagCloud tags={post.tags} />
+                <div className={style.tags}>
+                    <TagCloud tags={post.tags} />
+                </div>
+                <div className={style.tags}>
+                    <Share {...post} />
+                </div>
             </div>
         </div>
     </div>
