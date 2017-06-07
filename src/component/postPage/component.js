@@ -37,12 +37,25 @@ export const PostPage = ({
 }: Props) =>
     post
         ? ('palm' === device &&
-              <SwipeablePostlist
-                  post={post}
-                  posts={posts}
-                  goToPost={goToPost}
-                  loadMorePosts={createLoadMorePosts(loadMorePosts, tag)}
-              />) ||
+              <div>
+                  <SwipeablePostlist
+                      post={post}
+                      posts={posts}
+                      goToPost={goToPost}
+                      loadMorePosts={createLoadMorePosts(loadMorePosts, tag)}
+                  />
+                  <div className={style.footer}>
+                      {nextPosts.length > 0 &&
+                          <HorizontalPostList
+                              posts={nextPosts}
+                              goToPost={createGoToPost(goToPost)}
+                              loadMorePosts={createLoadMorePosts(
+                                  loadMorePosts,
+                                  tag
+                              )}
+                          />}
+                  </div>
+              </div>) ||
               ('desktop' === device &&
                   <div>
                       <Post post={post} />
