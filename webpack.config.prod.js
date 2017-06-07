@@ -6,8 +6,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const createEnvVarArray = () => {
-    const o = {}
-    ;['NODE_ENV', 'BASE_PATH', 'ROOT_URL']
+    const o = {
+        [`process.env.VERSION`]: `"${process.env.TRAVIS_BUILD_NUMBER || 'x'}-${new Date().toISOString()}"`,
+    }
+    ;['NODE_ENV', 'BASE_PATH', 'ROOT_URL', 'TRAVIS_BUILD_NUMBER']
         .filter(name => name in process.env)
         .forEach(
             name => (o[`process.env.${name}`] = `"${process.env[name] || ''}"`)
