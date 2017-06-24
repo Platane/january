@@ -15,7 +15,8 @@ const prepareArgs = (options: Options): Array<string> => [
     ...(options.cropRect
         ? [
               '-crop',
-              `${options.cropRect.width}x${options.cropRect.height}+${options.cropRect.x}+${options.cropRect.y}`,
+              `${options.cropRect.width}x${options.cropRect.height}+${options
+                  .cropRect.x}+${options.cropRect.y}`,
           ]
         : []),
 

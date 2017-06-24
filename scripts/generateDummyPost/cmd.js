@@ -10,5 +10,4 @@ const options = {
     imageDir,
 }
 
-for (let k = 40; k--; )
-    u.generatePost(options)
+for (let k = 40; k--; ) u.generatePost(options)

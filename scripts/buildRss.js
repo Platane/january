@@ -25,7 +25,8 @@ const content = [
     '<rss version="2.0">',
     toXML({
         channel: {
-            description: "The best ideas are not popular yet. - Edouard's travel blog",
+            description:
+                "The best ideas are not popular yet. - Edouard's travel blog",
             title: 'Edouard',
             link: appPath.buildAbsolute(''),
             item: posts.map(post => {
