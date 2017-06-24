@@ -56,16 +56,18 @@
     "build:asset": "env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build:contentData": "node scripts/mkdir.js dist && node scripts/contentParser/cmd.js src/content/post > dist/posts.json",
     "build:pages": "env NODE_ENV=server node scripts/pageRenderer/cmd.js dist webpack-stats.json",
+    "build:data": "node scripts/dataRenderer/cmd.js dist",
     "build:images": "node scripts/imageBundler/cmd.js src/content/post dist",
     "build:icons": "node scripts/iconBundler/cmd.js src/asset/icon dist",
     "build:serviceWorker": "node scripts/buildServiceWorker.js dist webpack-stats.json",
     "build:manifest": "node scripts/buildManifest.js dist",
     "build:rss": "node scripts/buildRss.js dist",
-    "build": "yarn run build:contentData && yarn run build:images && yarn run build:icons && yarn run build:asset && yarn run build:pages && yarn run build:serviceWorker && yarn run build:manifest && yarn run build:rss",
-    "prettier:test": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 -l \"src/**/*.js\"",
-    "prettier:write": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 --write \"src/**/*.js\"",
+    "build": "npm run build:contentData && npm run build:images && npm run build:icons && npm run build:asset && npm run build:data && npm run build:pages && npm run build:serviceWorker && npm run build:manifest && npm run build:rss",
+    "build:forDev": "(rm -r dist || echo 1) && npm run build:contentData && npm run build:images && npm run build:data",
+    "prettier:test": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 -l \"**/*.js\"",
+    "prettier:write": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 --write \"**/*.js\"",
     "flow-typed": "flow-typed install",
     "test:unit": "env NODE_ENV=test jest --verbose",
-    "test": "yarn run test:unit && yarn run prettier:test"
+    "test": "npm run test:unit && npm run prettier:test"
   }
 }
