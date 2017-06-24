@@ -21,7 +21,7 @@ export type ImageBundle = {
     base64: string,
 }
 
-export const bundle = async (
+const bundle_ = async (
     imagePath: string,
     options: Options
 ): Promise<ImageBundle> => {
@@ -105,3 +105,34 @@ export const bundle = async (
         base64: `data:image/bmp;base64,${small.toString('base64')}`,
     }
 }
+
+const bundleFallBack = (imagePath: string, options: Options): ImageBundle => {
+    const imageBuffer = fs.readFileSync(imagePath)
+
+    const hash = md5(imageBuffer).slice(0, 8)
+
+    const name = hash + path.basename(imagePath)
+
+    fs.writeFileSync(path.join(options.targetDir, name), imageBuffer)
+
+    return {
+        resized: [
+            {
+                dimensions: [500, 500],
+                url: buildPath(name),
+            },
+        ],
+        base64: `data:image/bmp;base64,00`,
+    }
+}
+
+export const bundle = (
+    imagePath: string,
+    options: Options
+): Promise<ImageBundle> =>
+    bundle_(imagePath, options)
+        .catch(err => {
+            console.log(err, 'try to fallback on no resize strategy')
+            return null
+        })
+        .then(res => res || bundleFallBack(imagePath, options))
