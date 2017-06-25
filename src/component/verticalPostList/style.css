@@ -1,16 +1,15 @@
-.container{
+.container {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-
-.item:first-child{
+.item:first-child {
     margin-top: 0;
 }
-.item{
-    width : 100%;
+.item {
+    width: 100%;
     margin-top: 30px;
     position: relative;
     max-width: 600px;

@@ -1,23 +1,23 @@
-.container{
+.container {
     position: relative;
 
     background-color: #fff;
     box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.18);
     cursor: pointer;
 }
-.image{
+.image {
     position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
-.imageWrapper{
+.imageWrapper {
     position: relative;
     width: 100%;
     padding-bottom: 66%;
 }
-.title{
+.title {
     /*height: 16px;
     overflow: hidden;*/
     line-height: 16px;
@@ -28,19 +28,19 @@
     letter-spacing: 1px;
     display: inline;
 }
-.readingDuration{
+.readingDuration {
     display: inline;
     margin-left: 20px;
 
     font-size: 0.8em;
     font-style: italic;
 }
-.headerRow{
+.headerRow {
     /*display: flex;
     flex-direction: row;
     align-items: flex-end;*/
     padding: 16px 16px 14px 16px;
 }
-.preview{
+.preview {
     padding: 0 16px 16px 16px;
 }

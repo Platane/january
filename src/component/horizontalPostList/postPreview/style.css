@@ -1,10 +1,14 @@
-.container{
-    width : 180px;
+.container {
+    width: 180px;
     height: 120px;
     position: relative;
 }
-.title{
-    background-image: linear-gradient( 0deg, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 100%  );
+.title {
+    background-image: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.6) 40%,
+        rgba(0, 0, 0, 0) 100%
+    );
     position: absolute;
     bottom: 0;
     left: 0;
@@ -14,7 +18,7 @@
     /*white-space: nowrap;*/
     padding: 4px 6px;
     color: #fff;
-    text-shadow: 0 0 4px rgba(0,0,0,0.5);
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;

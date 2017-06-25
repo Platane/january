@@ -1,22 +1,21 @@
-.container{
+.container {
     position: relative;
     width: 100%;
 }
 
-.row{
+.row {
     position: relative;
     display: flex;
     flex-direction: row;
     overflow-x: scroll;
     flex-wrap: nowrap;
 }
-.arrowLeft,
-.arrowRight{
+.arrowLeft, .arrowRight {
     position: absolute;
     z-index: 2;
     top: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
     width: 30px;
     cursor: pointer;
     border-radius: 4px;
@@ -25,23 +24,27 @@
     justify-content: center;
     align-items: center;
     color: #fff;
-    text-shadow: 0 0 16px rgba(0,0,0,0.2);
+    text-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
 }
-.arrowLeft{ right: 0; }
-.arrowRight{ left: 0; }
+.arrowLeft {
+    right: 0;
+}
+.arrowRight {
+    left: 0;
+}
 @media (min-width: 1010px) {
-    .arrowLeft{
+    .arrowLeft {
         right: -40px;
     }
-    .arrowRight{
+    .arrowRight {
         left: -40px;
     }
 }
 
-.item:last-child{
+.item:last-child {
     margin-right: 0;
 }
-.item{
+.item {
     flex-shrink: 0;
     margin-right: 10px;
     position: relative;
