@@ -64,8 +64,8 @@
     "build:rss": "node scripts/buildRss.js dist",
     "build": "npm run build:contentData && npm run build:images && npm run build:icons && npm run build:asset && npm run build:data && npm run build:pages && npm run build:serviceWorker && npm run build:manifest && npm run build:rss",
     "build:forDev": "(rm -r dist || echo 1) && npm run build:contentData && npm run build:images && npm run build:data",
-    "prettier:test": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 -l \"**/*.js\"",
-    "prettier:write": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 --write \"**/*.js\"",
+    "prettier:test": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 -l \"{scripts,src,type}/**/*.{js,css}\"",
+    "prettier:write": "prettier --single-quote --trailing-comma es5 --no-semi --tab-width 4 --write \"{scripts,src,type}/**/*.{js,css}\"",
     "flow-typed": "flow-typed install",
     "test:unit": "env NODE_ENV=test jest --verbose",
     "test": "npm run test:unit && npm run prettier:test"
