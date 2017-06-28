@@ -2,7 +2,7 @@
 
 import type { Store } from '../index'
 
-import { build as buildPath } from '../../scripts/appPath'
+import appPath from '../../scripts/appPath'
 
 export const init = (store: Store) => {
     if (
@@ -12,8 +12,10 @@ export const init = (store: Store) => {
     )
         return
 
-    navigator.serviceWorker.register(buildPath('sw.js')).catch(err =>
-        // eslint-disable-next-line no-console
-        console.warn('service worker error', err)
-    )
+    navigator.serviceWorker
+        .register(appPath.build('sw.js'), { scope: appPath.dir })
+        .catch(err =>
+            // eslint-disable-next-line no-console
+            console.warn('service worker error', err)
+        )
 }
