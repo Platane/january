@@ -1,9 +1,9 @@
 language: node_js
 
-sudo: true
+sudo: false
 
 node_js:
-    - "8.0"
+    - "8.1"
 
 cache:
     yarn: true
@@ -11,8 +11,6 @@ cache:
 
 install:
     - yarn --pure-lockfile --ignore-scripts
-    - sudo apt-get install graphicsmagick
-    - sudo apt-get install imagemagick
 
 script:
     - yarn run build
