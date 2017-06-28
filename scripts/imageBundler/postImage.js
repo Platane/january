@@ -36,7 +36,7 @@ const bundle_ = async (
     }
 
     // get the image dimension
-    const source_dimension = await getSize(imageBuffer, {})
+    const source_dimension = await getSize(imageBuffer, common_options)
 
     // get the image hash, to generate a unique name
     const hash = md5(imageBuffer).slice(0, 8)

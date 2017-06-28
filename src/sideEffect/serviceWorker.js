@@ -1,8 +1,8 @@
 /* global navigator */
 
-import type { Store } from '../index';
+import type { Store } from '../index'
 
-import appPath from '../../scripts/appPath';
+import appPath from '../../scripts/appPath'
 
 export const init = (store: Store) => {
     if (
@@ -10,12 +10,12 @@ export const init = (store: Store) => {
         !navigator.serviceWorker ||
         'function' !== typeof navigator.serviceWorker.register
     )
-        return;
+        return
 
     navigator.serviceWorker
         .register(appPath.build('sw.js'), { scope: appPath.build('/') })
         .catch(err =>
             // eslint-disable-next-line no-console
             console.warn('service worker error', err)
-        );
-};
+        )
+}
