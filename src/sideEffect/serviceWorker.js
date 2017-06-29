@@ -13,7 +13,9 @@ export const init = (store: Store) => {
         return
 
     navigator.serviceWorker
-        .register(appPath.build('sw.js'), { scope: appPath.build('/') })
+        .register(appPath.build('sw.js'), {
+            scope: './',
+        })
         .catch(err =>
             // eslint-disable-next-line no-console
             console.warn('service worker error', err)
