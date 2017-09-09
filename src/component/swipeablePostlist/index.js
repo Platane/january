@@ -25,11 +25,11 @@ export const SwipeablePostlist = ({ post, posts, goToPost, loadMorePosts }) => {
                 posts
             )}
         >
-            {posts.map((post, i) =>
+            {posts.map((post, i) => (
                 <div className={style.slide} key={post.id}>
                     {Math.abs(i - index) < 2 ? <Post post={post} /> : null}
                 </div>
-            )}
+            ))}
         </SwipeableViews>
     )
 }

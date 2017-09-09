@@ -10,7 +10,7 @@ export type Props = {
 
 const s = (...classNames) => classNames.filter(Boolean).join(' ')
 
-export const Header = ({ folded, goingUp, goToAbout, goToHome }: Props) =>
+export const Header = ({ folded, goingUp, goToAbout, goToHome }: Props) => (
     <div
         className={s(
             style.container,
@@ -18,19 +18,21 @@ export const Header = ({ folded, goingUp, goToAbout, goToHome }: Props) =>
             goingUp && style.containerGoingUp
         )}
     >
-
         <div className={style.separator} />
 
         <div className={style.centered}>
             <div className={style.row}>
+                <div className={style.title} onClick={goToHome}>
+                    Edouard
+                </div>
 
-                <div className={style.title} onClick={goToHome}>Edouard</div>
-
-                <div className={style.about} onClick={goToAbout}>About</div>
-
+                <div className={style.about} onClick={goToAbout}>
+                    About
+                </div>
             </div>
             <div className={style.subtitle}>
                 The best ideas are not popular yet
             </div>
         </div>
     </div>
+)

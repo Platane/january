@@ -8,7 +8,9 @@ import type { Store } from '../index'
 export const init = (store: Store) => {
     const render = () =>
         ReactDOM.render(
-            <Provider store={store}><App /></Provider>,
+            <Provider store={store}>
+                <App />
+            </Provider>,
             document.getElementById('app')
         )
 

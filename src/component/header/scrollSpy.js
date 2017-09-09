@@ -19,9 +19,10 @@ export const wrap = C => {
         }
 
         onScroll = () => {
-            const scrollDistance = window.scrollY > this.state.previousScroll
-                ? 0
-                : this.state.scrollDistance +
+            const scrollDistance =
+                window.scrollY > this.state.previousScroll
+                    ? 0
+                    : this.state.scrollDistance +
                       (this.state.previousScroll - window.scrollY)
 
             this.setState({

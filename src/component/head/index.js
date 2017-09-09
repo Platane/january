@@ -44,7 +44,7 @@ const mapStateToProps = (state: State, links) => {
             ...props,
             description:
                 "Edouard's travel blog - The best ideas are not popular yet." +
-                    ` Last post about ${state.selectedTag}`,
+                ` Last post about ${state.selectedTag}`,
 
             tags: [state.selectedTag],
         }

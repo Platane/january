@@ -37,7 +37,7 @@ export const PostPage = ({
     loadMorePosts,
 }: Props) =>
     post
-        ? ('palm' === device &&
+        ? ('palm' === device && (
               <div>
                   <SwipeablePostlist
                       post={post}
@@ -46,7 +46,7 @@ export const PostPage = ({
                       loadMorePosts={createLoadMorePosts(loadMorePosts, tag)}
                   />
                   <div className={style.footer}>
-                      {nextPosts.length > 0 &&
+                      {nextPosts.length > 0 && (
                           <HorizontalPostList
                               posts={nextPosts}
                               goToPost={createGoToPost(goToPost)}
@@ -54,22 +54,26 @@ export const PostPage = ({
                                   loadMorePosts,
                                   tag
                               )}
-                          />}
+                          />
+                      )}
                   </div>
-              </div>) ||
-              ('desktop' === device &&
-                  <div>
-                      <Post post={post} />
-                      <div className={style.footer}>
-                          {nextPosts.length > 0 &&
-                              <HorizontalPostList
-                                  posts={nextPosts}
-                                  goToPost={createGoToPost(goToPost)}
-                                  loadMorePosts={createLoadMorePosts(
-                                      loadMorePosts,
-                                      tag
-                                  )}
-                              />}
-                      </div>
-                  </div>)
+              </div>
+          )) ||
+          ('desktop' === device && (
+              <div>
+                  <Post post={post} />
+                  <div className={style.footer}>
+                      {nextPosts.length > 0 && (
+                          <HorizontalPostList
+                              posts={nextPosts}
+                              goToPost={createGoToPost(goToPost)}
+                              loadMorePosts={createLoadMorePosts(
+                                  loadMorePosts,
+                                  tag
+                              )}
+                          />
+                      )}
+                  </div>
+              </div>
+          ))
         : null

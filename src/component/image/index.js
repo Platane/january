@@ -121,25 +121,25 @@ export class Image extends React.Component<*, Props, State> {
 
         return (
             <div className={style.container}>
-                {url &&
+                {url && (
                     <img
                         ref="image"
                         className={style.imageLoader}
                         alt={label}
                         src={url}
-                    />}
+                    />
+                )}
                 <Transition toTransition={loaded ? url : blurUrl} delay={400}>
-                    {({ next, previous, transition }) =>
+                    {({ next, previous, transition }) => (
                         <div
                             className={style.background}
                             style={{
                                 backgroundImage: next && `url(${next})`,
                             }}
                         >
-
                             {previous &&
-                                transition &&
-                                sameContent(next, previous) &&
+                            transition &&
+                            sameContent(next, previous) && (
                                 <div
                                     key={previous || 1}
                                     className={style.backgroundTransition}
@@ -147,9 +147,10 @@ export class Image extends React.Component<*, Props, State> {
                                         backgroundImage:
                                             previous && `url(${previous})`,
                                     }}
-                                />}
-
-                        </div>}
+                                />
+                            )}
+                        </div>
+                    )}
                 </Transition>
             </div>
         )

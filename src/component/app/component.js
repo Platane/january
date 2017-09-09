@@ -12,7 +12,7 @@ export type Props = {
     page: 'post' | 'about' | 'home',
 }
 
-export const App = ({ page }: Props) =>
+export const App = ({ page }: Props) => (
     <PositionTrackerProvider>
         <DeviceResolutionProvider>
             <div className={style.wrapper}>
@@ -20,16 +20,15 @@ export const App = ({ page }: Props) =>
                     <Header />
                 </div>
                 <div className={style.container}>
-
                     <div className={style.content}>
                         {'home' === page && <HomePage />}
                         {'about' === page && <AboutPage />}
                         {'post' === page && <PostPage />}
                     </div>
-
                 </div>
 
                 <Title />
             </div>
         </DeviceResolutionProvider>
     </PositionTrackerProvider>
+)

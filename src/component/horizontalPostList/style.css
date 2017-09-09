@@ -10,7 +10,8 @@
     overflow-x: scroll;
     flex-wrap: nowrap;
 }
-.arrowLeft, .arrowRight {
+.arrowLeft,
+.arrowRight {
     position: absolute;
     z-index: 2;
     top: 0;

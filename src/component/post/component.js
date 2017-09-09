@@ -29,7 +29,7 @@ export const formatReadingDuration = (duration: number): string => {
     else return Math.floor(duration / 5) * 5 + ' min'
 }
 
-export const Post = ({ post, getPosition, selectTag, device }: Props) =>
+export const Post = ({ post, getPosition, selectTag, device }: Props) => (
     <div className={style.container}>
         <div className={style.imageWrapper}>
             <div className={style.image}>
@@ -69,3 +69,4 @@ export const Post = ({ post, getPosition, selectTag, device }: Props) =>
             </div>
         </div>
     </div>
+)

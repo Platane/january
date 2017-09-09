@@ -54,12 +54,13 @@ export const bundle = async (options: Options): Promise<any> => {
 
             if (!source) return
 
-            const buffer = source.size === size
-                ? source.buffer
-                : await convert(source.buffer, {
-                      ...common_options,
-                      dimension: [size, size],
-                  })
+            const buffer =
+                source.size === size
+                    ? source.buffer
+                    : await convert(source.buffer, {
+                          ...common_options,
+                          dimension: [size, size],
+                      })
 
             fs.writeFileSync(path.join(options.targetDir, name), buffer)
 

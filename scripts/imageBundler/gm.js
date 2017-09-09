@@ -71,7 +71,10 @@ export const getSize = async (
         imageBuffer
     )
 
-    const [width, height] = res.toString().replace(/[^x\d]/g, '').split('x')
+    const [width, height] = res
+        .toString()
+        .replace(/[^x\d]/g, '')
+        .split('x')
     return [+width, +height]
 }
 

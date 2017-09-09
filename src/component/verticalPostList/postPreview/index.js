@@ -13,9 +13,8 @@ export const PostPreview = ({
     medias,
     content_preview,
     reading_duration,
-}: Props) =>
+}: Props) => (
     <div className={style.container}>
-
         <div className={style.imageWrapper}>
             <div className={style.image}>
                 <Image
@@ -36,5 +35,5 @@ export const PostPreview = ({
             </div>
             <div className={style.preview}>{content_preview}</div>
         </div>
-
     </div>
+)

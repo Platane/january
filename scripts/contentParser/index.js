@@ -72,8 +72,8 @@ const readMedias = tree =>
 
 const pruneFirstImage = tree =>
     tree.children[0] &&
-        tree.children[0].children[0] &&
-        'imageGroup' === tree.children[0].type
+    tree.children[0].children[0] &&
+    'imageGroup' === tree.children[0].type
         ? prune(tree, tree.children[0].children[0])
         : tree
 
@@ -100,7 +100,9 @@ export const parsePost = (text: string): Post => {
     mdTree = pruneFirstImage(mdTree)
 
     return {
-        id: Math.random().toString(16).slice(2),
+        id: Math.random()
+            .toString(16)
+            .slice(2),
         tags,
         title,
         date,

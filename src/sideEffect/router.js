@@ -24,7 +24,9 @@ const read = (): Array<string> => {
     if (!window || !window.location) return []
     return stripPrefix(
         appPath.path,
-        stripHtmlExt(window.location.pathname).split('/').filter(Boolean)
+        stripHtmlExt(window.location.pathname)
+            .split('/')
+            .filter(Boolean)
     )
 }
 

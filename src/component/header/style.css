@@ -60,7 +60,8 @@
     font-size: 0.67em;
     letter-spacing: 2px;
 }
-.about, .title {
+.about,
+.title {
     font-size: 1.1em;
     font-weight: bold;
     letter-spacing: 4px;

@@ -18,9 +18,9 @@ const createSelectTagHandler = memoize(
     }
 )
 
-export const TagCloud = ({ tags, selectTag, writePosition }) =>
+export const TagCloud = ({ tags, selectTag, writePosition }) => (
     <div className={style.container}>
-        {tags.map(tag =>
+        {tags.map(tag => (
             <div
                 key={tag}
                 className={style.tag}
@@ -28,5 +28,6 @@ export const TagCloud = ({ tags, selectTag, writePosition }) =>
             >
                 {tag}
             </div>
-        )}
+        ))}
     </div>
+)

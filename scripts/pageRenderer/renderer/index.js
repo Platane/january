@@ -21,7 +21,9 @@ export const render = (
     actions.forEach(action => store.dispatch(action))
 
     const app = ReactDOMServer.renderToString(
-        <Provider store={store}><App /></Provider>
+        <Provider store={store}>
+            <App />
+        </Provider>
     )
 
     const head = ReactDOMServer.renderToStaticMarkup(

@@ -29,7 +29,10 @@ export type Tree = {
     children: Array<Tree>,
 }
 
-const genUID = (): string => Math.random().toString(16).slice(2, 10)
+const genUID = (): string =>
+    Math.random()
+        .toString(16)
+        .slice(2, 10)
 
 const getContent = x => {
     switch (getType(x)) {

@@ -33,10 +33,9 @@ export const HomePage = ({
     goToPost,
     selectTag,
     device,
-}: Props) =>
+}: Props) => (
     <div className={style.container}>
-
-        {!selectedTag &&
+        {!selectedTag && (
             <div className={style.section}>
                 <div
                     className={style.sectionLabel}
@@ -52,8 +51,9 @@ export const HomePage = ({
                     )}
                     posts={posts.filter(({ tags }) => tags.includes('world'))}
                 />
-            </div>}
-        {!selectedTag &&
+            </div>
+        )}
+        {!selectedTag && (
             <div className={style.section}>
                 <div
                     className={style.sectionLabel}
@@ -71,7 +71,8 @@ export const HomePage = ({
                         tags.includes('essential')
                     )}
                 />
-            </div>}
+            </div>
+        )}
 
         <div className={style.section}>
             <div
@@ -80,10 +81,11 @@ export const HomePage = ({
                     !selectedTag && createSelectTagHandler(selectTag, 'update')
                 }
             >
-                {selectedTag
-                    ? (primaryTags.includes(selectedTag) ? '' : '#') +
-                          selectedTag
-                    : 'updates'}
+                {selectedTag ? (
+                    (primaryTags.includes(selectedTag) ? '' : '#') + selectedTag
+                ) : (
+                    'updates'
+                )}
             </div>
             <VerticalPostList
                 goToPost={goToPost}
@@ -99,3 +101,4 @@ export const HomePage = ({
             />
         </div>
     </div>
+)

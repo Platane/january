@@ -71,7 +71,7 @@ export class HorizontalPostList_ extends React.Component {
                     </div>
                 }
                 <div className={style.row} ref="row" onScroll={this.onScroll}>
-                    {posts.map(post =>
+                    {posts.map(post => (
                         <div
                             key={post.id}
                             className={style.item}
@@ -86,7 +86,7 @@ export class HorizontalPostList_ extends React.Component {
                         >
                             <PostPreview {...post} />
                         </div>
-                    )}
+                    ))}
                 </div>
                 {
                     <div className={style.arrowLeft} onClick={this.onStepLeft}>

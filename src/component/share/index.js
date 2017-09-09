@@ -11,9 +11,10 @@ const getUrl = () =>
 
 const computeSmsBody = ({ title }) => encodeURIComponent(title + ' ' + getUrl())
 
-export const Share = (props: Props) =>
+export const Share = (props: Props) => (
     <div className={style.container}>
         <a className={style.link} href={`sms:?body=${computeSmsBody(props)}`}>
             share via sms
         </a>
     </div>
+)

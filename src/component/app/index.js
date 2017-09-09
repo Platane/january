@@ -5,8 +5,8 @@ import * as action from '../../action'
 const mapStateToProps = state => ({
     page:
         ('about' === state.path[0] && 'about') ||
-            (state.path[1] && 'post') ||
-            'home',
+        (state.path[1] && 'post') ||
+        'home',
 })
 
 export const App = connect(mapStateToProps, null)(Component)
