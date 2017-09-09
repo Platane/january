@@ -9,6 +9,7 @@ export type Props = {
     image?: ImageBundle,
     width?: number,
     height?: number,
+    borderRadius?: number,
 }
 
 export type State = {
@@ -114,7 +115,7 @@ export class Image extends React.Component<*, Props, State> {
 
     render() {
         const { url, blurUrl, loaded } = this.state
-        const { label } = this.props
+        const { label, borderRadius } = this.props
 
         if ('undefined' != typeof requestAnimationFrame && url && !loaded)
             requestAnimationFrame(this.afterRender)
@@ -135,6 +136,7 @@ export class Image extends React.Component<*, Props, State> {
                             className={style.background}
                             style={{
                                 backgroundImage: next && `url(${next})`,
+                                borderRadius,
                             }}
                         >
                             {previous &&
@@ -146,6 +148,7 @@ export class Image extends React.Component<*, Props, State> {
                                     style={{
                                         backgroundImage:
                                             previous && `url(${previous})`,
+                                        borderRadius,
                                     }}
                                 />
                             )}

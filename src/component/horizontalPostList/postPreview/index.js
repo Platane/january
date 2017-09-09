@@ -13,6 +13,7 @@ export const PostPreview = ({ id, title, medias }: Props) => (
             width={180}
             height={120}
             label={medias[0] && medias[0].name}
+            borderRadius={6}
         />
 
         <div className={style.title}>{title}</div>
