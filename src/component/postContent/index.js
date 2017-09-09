@@ -56,16 +56,18 @@ const ImageGroup = ({ tree, medias }) => (
     <div className={style.imageGroup}>
         {tree.children.map((c, i) => (
             <div key={i} className={style.figure}>
-                <div className={style.image}>
-                    <Image
-                        width={380}
-                        height={240}
-                        image={
-                            (medias.find(m => c.src === m.localPath) || {})
-                                .image
-                        }
-                        label={c.alt}
-                    />
+                <div className={style.imageWrapper}>
+                    <div className={style.image}>
+                        <Image
+                            width={900}
+                            height={600}
+                            image={
+                                (medias.find(m => c.src === m.localPath) || {})
+                                    .image
+                            }
+                            label={c.alt}
+                        />
+                    </div>
                 </div>
                 <div key={i} className={style.label}>
                     {c.alt}
